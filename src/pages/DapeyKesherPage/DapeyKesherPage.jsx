@@ -1,3 +1,4 @@
+import Navbar from '../../components/Navbar/Navbar'
 import './DapeyKesherPage.css'
 
 const DapeyKesherPage = () => {
@@ -5,7 +6,8 @@ const DapeyKesherPage = () => {
 
     return (
         <div className="p-dapey-kesher">
-        dapey kesher page
+            <Navbar/>
+            dapey kesher page
         </div>
     )
 }

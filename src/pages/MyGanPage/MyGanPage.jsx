@@ -1,3 +1,4 @@
+import Navbar from '../../components/Navbar/Navbar'
 import './MyGanPage.css'
 
 const MyGanPage = () => {
@@ -5,7 +6,8 @@ const MyGanPage = () => {
 
     return (
         <div className="p-my-gan">
-        my gan page
+            <Navbar/>
+            my gan page
         </div>
     )
 }

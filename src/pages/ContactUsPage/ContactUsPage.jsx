@@ -1,3 +1,4 @@
+import Navbar from '../../components/Navbar/Navbar'
 import './ContactUsPage.css'
 
 const ContactUsPage = () => {
@@ -5,7 +6,8 @@ const ContactUsPage = () => {
 
     return (
         <div className="p-contact-us">
-        contact us page
+            <Navbar/>
+            contact us page
         </div>
     )
 }

@@ -1,3 +1,4 @@
+import Navbar from '../../components/Navbar/Navbar'
 import './GalleriesPage.css'
 
 const GalleriesPage = () => {
@@ -5,7 +6,8 @@ const GalleriesPage = () => {
 
     return (
         <div className="p-galleries">
-        galleries page
+            <Navbar/>
+            galleries page
         </div>
     )
 }
