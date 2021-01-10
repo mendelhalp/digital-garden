@@ -1,0 +1,1 @@
+import './GalleriesPage.css'
