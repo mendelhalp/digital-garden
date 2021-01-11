@@ -10,3 +10,7 @@
     background-color: #f8902f !important;
     color: white;
 }
+
+.navbar img{
+    width: 60px;
+}

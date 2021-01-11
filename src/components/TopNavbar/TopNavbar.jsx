@@ -7,7 +7,7 @@ const TopNavbar = ({ activeLink }) => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="light">
       <Navbar.Brand href="#/" className='ml-2'>
-        <img src={logo} alt="Digital Garden logo" width='60' height='60' className="d-inline-block align-top"/>
+        <img src={logo} alt="Digital Garden logo" className="d-inline-block align-top"/>
         {/* הגן הדיגיטלי */}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
