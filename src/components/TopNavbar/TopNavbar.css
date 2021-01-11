@@ -1,3 +1,7 @@
+.navbar{
+    margin-bottom: 20px;
+}
+
 .navbar .dropdown-menu{
     text-align: right;
 }
