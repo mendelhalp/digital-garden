@@ -1,4 +1,4 @@
-import Navbar from '../../components/Navbar/Navbar'
+import TopNavbar from '../../components/TopNavbar/TopNavbar'
 import './GalleriesPage.css'
 
 const GalleriesPage = () => {
@@ -6,7 +6,7 @@ const GalleriesPage = () => {
 
     return (
         <div className="p-galleries">
-            <Navbar/>
+            <TopNavbar activeLink='Galleries'/>
             galleries page
         </div>
     )

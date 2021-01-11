@@ -1,4 +1,4 @@
-import Navbar from '../../components/Navbar/Navbar'
+import TopNavbar from '../../components/TopNavbar/TopNavbar'
 import './DapeyKesherPage.css'
 
 const DapeyKesherPage = () => {
@@ -6,7 +6,7 @@ const DapeyKesherPage = () => {
 
     return (
         <div className="p-dapey-kesher">
-            <Navbar/>
+            <TopNavbar activeLink='DapeyKesher'/>
             dapey kesher page
         </div>
     )

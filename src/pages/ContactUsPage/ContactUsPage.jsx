@@ -1,4 +1,4 @@
-import Navbar from '../../components/Navbar/Navbar'
+import TopNavbar from '../../components/TopNavbar/TopNavbar'
 import './ContactUsPage.css'
 
 const ContactUsPage = () => {
@@ -6,7 +6,7 @@ const ContactUsPage = () => {
 
     return (
         <div className="p-contact-us">
-            <Navbar/>
+            <TopNavbar activeLink='ContactUs'/>
             contact us page
         </div>
     )
