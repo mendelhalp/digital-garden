@@ -16,6 +16,7 @@ const TopNavbar = ({ activeLink }) => {
           <Nav.Link href="#/MyGarden" active={activeLink === 'MyGarden' ? true : false}>הגן שלי</Nav.Link>
           <Nav.Link href="#/DapeyKesher" active={activeLink === 'DapeyKesher' ? true : false}>דפי קשר</Nav.Link>
           <Nav.Link href="#/Galleries" active={activeLink === 'Galleries' ? true : false}>התמונות שלנו</Nav.Link>
+          <Nav.Link href="#/ContactUs" active={activeLink === 'ContactUs' ? true : false}>צור קשר</Nav.Link>
         </Nav>
         <Nav>
           <NavDropdown title="החשבון שלי" id="collasible-nav-dropdown">

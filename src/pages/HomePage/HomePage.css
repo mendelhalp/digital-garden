@@ -1,39 +1,46 @@
 .p-home .main-content{
-    width: 990px;
-    margin-top: 20px;
-    margin: auto;
+    margin:60px auto 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
 }
 
-.p-home .logo-img{
+.p-home .logo-img, .p-home .main-text{
     width: 370px;
 }
 
-.p-home div.home-divider{
-    padding: 150px 2px;
-    background-color: #f8f9fa;
-    flex-grow: 0;
+.p-home .text{
+    width: 100%;
 }
 
 .p-home h2, .p-home h3{
-    color: sandybrown;
+    color: #ffc107;
 }
 
+.p-home .buttons{
+    width: 300px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.p-home .buttons>*{
+    margin-top: 20px;
+    width: 105px;
+}
+
+.p-home .btn-warning, .p-home .btn-warning:hover{
+    color: white;
+}
 
 @media screen and (max-width: 575px){
     .p-home .main-content{
         width: 320px;
     }
 
-    .p-home div.home-divider{
-        display: none;
-    }
-
     .p-home .main-text, .p-home .logo-img{
         margin:auto;
+        text-align: center;
     }
        
     .p-home .logo, .p-home .main-text{
@@ -50,37 +57,30 @@
         margin-bottom: 20px;
     }
 
-    .p-home .text{
-        text-align: center;
-    }
-
 }
 
-@media screen and (min-width: 576px) and (max-width:767px){
+@media screen and (min-width: 576px) and (max-width:991px){
     .p-home .main-content{
         width: 575px;
+        justify-content: space-around;
+        align-items: center;
     }
 
-
-    .p-home div.home-divider{
-        display: none;
-    }
-
-    .p-home .logo-img{
+    .p-home .logo-img, .p-home .main-text{
         width: 230px;
     }   
 }
 
-@media screen and (min-width: 768px) and (max-width:991px){
+@media screen and (min-width: 992px){
     .p-home .main-content{
-        width: 767px;
+        width: 840px;
+        justify-content: space-around;
+        align-items: center;
     }
 
-    .p-home div.home-divider{
-        display: none;
+    .p-home .main-text{
+        border-right: 1px solid #ffc107;
+        padding: 35px 15px;
     }
 
-    .p-home .logo-img{
-        width: 250px;
-    }   
 }
