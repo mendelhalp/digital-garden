@@ -22,8 +22,8 @@ const HomePage = () => {
                 <div className='main-text'>
                     <div className='text'>
                         <h2>הגן הדיגיטלי</h2>
-                        <h3>הקשר עם ההורים</h3>
-                        <h3>נראה אחרת!</h3>
+                        <h5>הקשר שלך עם ההורים</h5>
+                        <h5>נראה אחרת!</h5>
                     </div>
                 </div>
             </div>
