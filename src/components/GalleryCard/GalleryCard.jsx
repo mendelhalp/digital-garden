@@ -9,7 +9,7 @@ const GalleryCard = (props) => {
         <div className='c-gallery-card'>
             <Card>
                 <Card.Img variant='top' src='img'/>
-                <Card.Title className='rexr-center'>{title}</Card.Title>
+                <Card.Title className='text-center'>{title}</Card.Title>
             </Card>
         </div>
     )
