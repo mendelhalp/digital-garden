@@ -6,8 +6,12 @@ import MyGardenPage from './pages/MyGardenPage/MyGardenPage';
 import DapeyKesherPage from './pages/DapeyKesherPage/DapeyKesherPage';
 import GalleriesPage from './pages/GalleriesPage/GalleriesPage';
 import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
+import { useState } from 'react';
 
 function App() {
+  const [activeUser, setActiveUser] = useState(null);
+
+
   return (
     <>
       <HashRouter>

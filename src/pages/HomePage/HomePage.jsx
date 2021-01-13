@@ -2,9 +2,15 @@ import './HomePage.css'
 import TopNavbar from '../../components/TopNavbar/TopNavbar';
 import logo from '../../images/logo192.png'
 import { Button } from 'react-bootstrap';
+import { useState } from 'react';
+import LoginModal from '../../components/LoginModal/LoginModal';
 
 const HomePage = () => {
+    const [loginModalShow, setLoginModalShow] = useState(false);
 
+    const handleCloseLogin = () => {
+        setLoginModalShow(false);
+    }
 
     return (
         <div className="p-home">
@@ -22,9 +28,11 @@ const HomePage = () => {
                 </div>
             </div>
             <div className='buttons'>
-                <Button variant="warning" size='lg'>כניסה</Button>{' '}
+                <Button variant="warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
                 <Button variant="outline-warning" size='lg'>הרשמה</Button>
             </div>
+            <LoginModal show={loginModalShow} handleCloseLogin={handleCloseLogin}/>
+
         </div>
     )
 }
