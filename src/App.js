@@ -7,6 +7,7 @@ import DapeyKesherPage from './pages/DapeyKesherPage/DapeyKesherPage';
 import GalleriesPage from './pages/GalleriesPage/GalleriesPage';
 import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
 import { useState } from 'react';
+import ActiveUserContext from './utils/ActiveUserContext'
 
 function App() {
   const [activeUser, setActiveUser] = useState(null);
@@ -16,11 +17,13 @@ function App() {
     <>
       <HashRouter>
         <Switch>
-          <Route exact path="/"><HomePage /></Route>
-          <Route exact path="/MyGarden"><MyGardenPage /></Route>
-          <Route exact path="/DapeyKesher"><DapeyKesherPage /></Route>
-          <Route exact path="/Galleries"><GalleriesPage /></Route>
-          <Route exact path="/ContactUs"><ContactUsPage /></Route>
+          <ActiveUserContext.Provider value={activeUser}>
+            <Route exact path="/"><HomePage /></Route>
+            <Route exact path="/MyGarden"><MyGardenPage /></Route>
+            <Route exact path="/DapeyKesher"><DapeyKesherPage /></Route>
+            <Route exact path="/Galleries"><GalleriesPage /></Route>
+            <Route exact path="/ContactUs"><ContactUsPage /></Route>
+          </ActiveUserContext.Provider>
         </Switch>
       </HashRouter>
     </>
