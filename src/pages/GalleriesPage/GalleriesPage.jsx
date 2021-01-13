@@ -4,6 +4,8 @@ import TopNavbar from '../../components/TopNavbar/TopNavbar'
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import Parse from 'parse';
 import './GalleriesPage.css'
+import GalleryCard from '../../components/GalleryCard/GalleryCard';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const GalleriesPage = (props) => {
     const {onLogout} = props;
@@ -19,16 +21,26 @@ const GalleriesPage = (props) => {
             const query = new Parse.Query(Gallery);
             query.equalTo("gan", parseGan);
             const results = await query.find();
-            setGalleries(results.map(gallery => 
-                    gallery.get('title')
-                ));
+            setGalleries(results.map(gallery => {
+                return(
+                    {
+                        'id':gallery.id,
+                        'title':gallery.get('title'),
+                        'img':''
+                    }
+                )
+            }));
         }
 
         getGalleries();
     },[]);
 
-
-    const galleriesView = [];
+    console.log(galleries);
+    const galleriesView = galleries ? galleries.map( gallery =>
+        <Col className='py-2' md={6} lg={3}>
+            <GalleryCard title={gallery.title} img={gallery.img} openGalleryPage={null}/>
+        </Col>
+    ) : null;
 
 
     if (!activeUser) {
@@ -38,7 +50,11 @@ const GalleriesPage = (props) => {
     return (
         <div className="p-galleries">
             <TopNavbar activeLink='Galleries' onLogout={onLogout}/>
-            
+            <Container>
+                <Row>
+                    {galleriesView}
+                </Row>
+            </Container>
         </div>
     )
 }
