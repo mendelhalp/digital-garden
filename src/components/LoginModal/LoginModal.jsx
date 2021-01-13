@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import Parse from 'parse';
 import UserModel from '../../model/UserModel';
+import isEnterPressed from '../../utils/IsEnterPressed';
 
 function LoginModal(props) {
     const {showModal, handleCloseLogin, onLogin} = props;
@@ -36,6 +37,12 @@ function LoginModal(props) {
         cleanFormFields();
     }
 
+    function ifEnterPressed (event) {
+        if (isEnterPressed(event) && email){
+            login();
+        }
+    }
+
     return (
         <div className='c-login-modal'>
             <Modal size='sm' show={showModal} onHide={close} centered>
@@ -45,10 +52,12 @@ function LoginModal(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Control type="email" placeholder="דואר אלקטרוני" value={email} onChange={e => {setEmail(e.target.value)}} />
+                            <Form.Control type="email" placeholder="דואר אלקטרוני" value={email}
+                                onChange={e => {setEmail(e.target.value)}}  onKeyPress={ifEnterPressed}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="password" placeholder="סיסמה" value={pwd} onChange={e => {setPwd(e.target.value)}} />
+                            <Form.Control type="password" placeholder="סיסמה" value={pwd}
+                                onChange={e => {setPwd(e.target.value)}}  onKeyPress={ifEnterPressed}/>
                         </Form.Group>
                     </Form>
                     {showError ? <Alert variant="danger">מייל או סיסמה שגויים</Alert> : null}
