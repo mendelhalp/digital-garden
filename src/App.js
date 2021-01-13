@@ -17,7 +17,6 @@ function App() {
   
   const handleLogin = (loggedinUser) => {
     setActiveUser(loggedinUser);
-    console.log(activeUser);
   }
 
   const handleLogout = () => {

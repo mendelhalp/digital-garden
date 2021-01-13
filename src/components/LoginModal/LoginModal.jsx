@@ -19,7 +19,6 @@ function LoginModal(props) {
     async function login () {
         try {
             const parseUser = await Parse.User.logIn(email, pwd);
-            console.log(parseUser);
             
             // Trigger onLogin event and clean the fields
             onLogin(new UserModel(parseUser));
