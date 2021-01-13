@@ -1,8 +1,12 @@
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './TopNavbar.css';
 import logo from '../../images/logo192.png';
+import { useContext } from 'react';
+import ActiveUserContext from '../../utils/ActiveUserContext';
 
-const TopNavbar = ({ activeLink }) => {
+const TopNavbar = ({ activeLink, onLogout }) => {
+
+  const activeUser = useContext(ActiveUserContext);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="light">
@@ -18,15 +22,15 @@ const TopNavbar = ({ activeLink }) => {
           <Nav.Link href="#/Galleries" active={activeLink === 'Galleries' ? true : false}>התמונות שלנו</Nav.Link>
           <Nav.Link href="#/ContactUs" active={activeLink === 'ContactUs' ? true : false}>צור קשר</Nav.Link>
         </Nav>
-        <Nav>
-          <NavDropdown title="החשבון שלי" id="collasible-nav-dropdown">
+        { activeUser ? <Nav>
+          <NavDropdown title={"החשבון של " + activeUser.fname} id="collasible-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">משהו</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">עוד משהו</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">משהו נוסף</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">התנתק</NavDropdown.Item>
+            <NavDropdown.Item onClick={onLogout}>התנתק</NavDropdown.Item>
           </NavDropdown>
-        </Nav>
+        </Nav> : null}
       </Navbar.Collapse>
     </Navbar>
   )

@@ -5,8 +5,9 @@ import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 import LoginModal from '../../components/LoginModal/LoginModal';
 
-const HomePage = () => {
+const HomePage = (props) => {
     const [loginModalShow, setLoginModalShow] = useState(false);
+    const {onLogin, onLogout} = props;
 
     const handleCloseLogin = () => {
         setLoginModalShow(false);
@@ -14,7 +15,7 @@ const HomePage = () => {
 
     return (
         <div className="p-home">
-            <TopNavbar activeLink='Home'/>
+            <TopNavbar activeLink='Home' onLogout={onLogout}/>
             <div className='main-content'>
                 <div className='logo'>
                     <img className='logo-img' src={logo} alt="logo"/>
@@ -31,7 +32,7 @@ const HomePage = () => {
                 <Button variant="warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
                 <Button variant="outline-warning" size='lg'>הרשמה</Button>
             </div>
-            <LoginModal show={loginModalShow} handleCloseLogin={handleCloseLogin}/>
+            <LoginModal showModal={loginModalShow} handleCloseLogin={handleCloseLogin} onLogin={onLogin}/>
 
         </div>
     )
