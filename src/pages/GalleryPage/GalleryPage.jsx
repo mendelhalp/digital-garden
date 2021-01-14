@@ -1,13 +1,18 @@
 import React from 'react';
 import { Card, CardColumns } from 'react-bootstrap';
+import './GalleryPage.css'
 import TopNavbar from '../../components/TopNavbar/TopNavbar';
+import { useParams } from 'react-router-dom';
 
 const GalleryPage = (props) => {
     const {onLogout} = props;
 
+    let {id} = useParams();
+
     return (
         <div className='p-gallery'>
             <TopNavbar activeLink='Galleries' onLogout={onLogout}/>
+            <h2>ID: {id}</h2>
             <CardColumns>
                 <Card>
                     <Card.Img variant="top" src="holder.js/100px160" />
