@@ -1,6 +1,7 @@
 import './GalleryCard.css'
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const GalleryCard = (props) => {
     const {title, img} = props;
@@ -8,8 +9,8 @@ const GalleryCard = (props) => {
     return (
         <div className='c-gallery-card'>
             <Card>
-                <Card.Img variant='top' src='img'/>
-                <Card.Title className='text-center'>{title}</Card.Title>
+                <Card.Img variant='top' src={img}/>
+                <Card.Title className='text-center'><Link to=''>{title}</Link></Card.Title>
             </Card>
         </div>
     )
