@@ -36,7 +36,7 @@ function App() {
             <Route exact path="/dapey-kesher"><DapeyKesherPage onLogout={handleLogout} /></Route>
             <Route exact path="/galleries"><GalleriesPage onLogout={handleLogout} /></Route>
             <Route exact path="/galleries/:id"><GalleryPage onLogout={handleLogout} /></Route>
-            <Route exact path="/ContactUs"><ContactUsPage onLogout={handleLogout} /></Route>
+            <Route exact path="/contact-us"><ContactUsPage onLogout={handleLogout} /></Route>
           </ActiveUserContext.Provider>
         </Switch>
       </HashRouter>

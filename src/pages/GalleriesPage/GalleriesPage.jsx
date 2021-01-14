@@ -49,7 +49,7 @@ const GalleriesPage = (props) => {
 
     return (
         <div className="p-galleries">
-            <TopNavbar activeLink='Galleries' onLogout={onLogout}/>
+            <TopNavbar onLogout={onLogout}/>
             <Container>
                 <Row>
                     {galleriesView}

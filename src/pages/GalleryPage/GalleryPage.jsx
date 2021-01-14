@@ -11,7 +11,7 @@ const GalleryPage = (props) => {
 
     return (
         <div className='p-gallery'>
-            <TopNavbar activeLink='Galleries' onLogout={onLogout}/>
+            <TopNavbar onLogout={onLogout}/>
             <h2>ID: {id}</h2>
             <CardColumns>
                 <Card>

@@ -14,7 +14,7 @@ const DapeyKesherPage = (props) => {
 
     return (
         <div className="p-dapey-kesher">
-            <TopNavbar activeLink='DapeyKesher' onLogout={onLogout}/>
+            <TopNavbar onLogout={onLogout}/>
             dapey kesher page
         </div>
     )

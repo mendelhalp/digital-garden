@@ -3,10 +3,13 @@ import './TopNavbar.css';
 import logo from '../../images/logo192.png';
 import { useContext } from 'react';
 import ActiveUserContext from '../../utils/ActiveUserContext';
+import { useLocation } from 'react-router-dom';
 
-const TopNavbar = ({ activeLink, onLogout }) => {
+const TopNavbar = ({ onLogout }) => {
 
   const activeUser = useContext(ActiveUserContext);
+
+  const path = useLocation().pathname.split('/')[1];
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="light">
@@ -17,10 +20,10 @@ const TopNavbar = ({ activeLink, onLogout }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="#/my-garden" active={activeLink === 'MyGarden' ? true : false}>הגן שלי</Nav.Link>
-          <Nav.Link href="#/dapey-kesher" active={activeLink === 'DapeyKesher' ? true : false}>דפי קשר</Nav.Link>
-          <Nav.Link href="#/galleries" active={activeLink === 'Galleries' ? true : false}>גלריות</Nav.Link>
-          <Nav.Link href="#/contact-us" active={activeLink === 'ContactUs' ? true : false}>צור קשר</Nav.Link>
+          <Nav.Link href="#/my-garden" active={path === 'my-garden' ? true : false}>הגן שלי</Nav.Link>
+          <Nav.Link href="#/dapey-kesher" active={path === 'dapey-kesher' ? true : false}>דפי קשר</Nav.Link>
+          <Nav.Link href="#/galleries" active={path === 'galleries' ? true : false}>גלריות</Nav.Link>
+          <Nav.Link href="#/contact-us" active={path === 'contact-us' ? true : false}>צור קשר</Nav.Link>
         </Nav>
         { activeUser ? <Nav>
           <NavDropdown title={"החשבון של " + activeUser.fname} id="collasible-nav-dropdown">

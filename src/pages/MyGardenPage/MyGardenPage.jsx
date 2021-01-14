@@ -14,7 +14,7 @@ const MyGardenPage = (props) => {
 
     return (
         <div className="p-my-gan">
-            <TopNavbar activeLink='MyGarden' onLogout={onLogout}/>
+            <TopNavbar onLogout={onLogout}/>
             my gan page
         </div>
     )
