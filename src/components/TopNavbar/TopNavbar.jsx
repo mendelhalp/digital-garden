@@ -17,10 +17,10 @@ const TopNavbar = ({ activeLink, onLogout }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="#/MyGarden" active={activeLink === 'MyGarden' ? true : false}>הגן שלי</Nav.Link>
-          <Nav.Link href="#/DapeyKesher" active={activeLink === 'DapeyKesher' ? true : false}>דפי קשר</Nav.Link>
-          <Nav.Link href="#/Galleries" active={activeLink === 'Galleries' ? true : false}>גלריות</Nav.Link>
-          <Nav.Link href="#/ContactUs" active={activeLink === 'ContactUs' ? true : false}>צור קשר</Nav.Link>
+          <Nav.Link href="#/my-garden" active={activeLink === 'MyGarden' ? true : false}>הגן שלי</Nav.Link>
+          <Nav.Link href="#/dapey-kesher" active={activeLink === 'DapeyKesher' ? true : false}>דפי קשר</Nav.Link>
+          <Nav.Link href="#/galleries" active={activeLink === 'Galleries' ? true : false}>גלריות</Nav.Link>
+          <Nav.Link href="#/contact-us" active={activeLink === 'ContactUs' ? true : false}>צור קשר</Nav.Link>
         </Nav>
         { activeUser ? <Nav>
           <NavDropdown title={"החשבון של " + activeUser.fname} id="collasible-nav-dropdown">

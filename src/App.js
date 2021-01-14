@@ -10,6 +10,7 @@ import { useState } from 'react';
 import ActiveUserContext from './utils/ActiveUserContext';
 import Parse from 'parse';
 import UserModel from './model/UserModel';
+import GalleryPage from './pages/GalleriesPage/GalleryPage';
 
 function App() {
   const [activeUser, setActiveUser] = useState(
@@ -31,9 +32,10 @@ function App() {
         <Switch>
           <ActiveUserContext.Provider value={activeUser}>
             <Route exact path="/"><HomePage onLogin={handleLogin} onLogout={handleLogout}/></Route>
-            <Route exact path="/MyGarden"><MyGardenPage onLogout={handleLogout} /></Route>
-            <Route exact path="/DapeyKesher"><DapeyKesherPage onLogout={handleLogout} /></Route>
-            <Route exact path="/Galleries"><GalleriesPage onLogout={handleLogout} /></Route>
+            <Route exact path="/my-garden"><MyGardenPage onLogout={handleLogout} /></Route>
+            <Route exact path="/dapey-kesher"><DapeyKesherPage onLogout={handleLogout} /></Route>
+            <Route exact path="/galleries"><GalleriesPage onLogout={handleLogout} /></Route>
+            <Route exact path="/galleries/:id"><GalleryPage onLogout={handleLogout} /></Route>
             <Route exact path="/ContactUs"><ContactUsPage onLogout={handleLogout} /></Route>
           </ActiveUserContext.Provider>
         </Switch>
