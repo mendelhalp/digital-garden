@@ -29,8 +29,8 @@ const HomePage = (props) => {
                 </div>
             </div>
             <div className='buttons'>
-                <Button variant="warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
-                <Button variant="outline-warning" size='lg'>הרשמה</Button>
+                <Button variant="outline-warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
+                <Button variant="warning" size='lg'>הרשמה</Button>
             </div>
             <LoginModal showModal={loginModalShow} handleCloseLogin={handleCloseLogin} onLogin={onLogin}/>
 
