@@ -38,7 +38,7 @@ const GalleriesPage = (props) => {
     console.log(galleries);
     const galleriesView = galleries ? galleries.map( gallery =>
         <Col className='py-2' md={6} lg={3}>
-            <GalleryCard title={gallery.title} img={gallery.img} openGalleryPage={null}/>
+            <GalleryCard gallery={gallery}/>
         </Col>
     ) : null;
 

@@ -3,6 +3,7 @@ import { Card, CardColumns } from 'react-bootstrap';
 import TopNavbar from '../../components/TopNavbar/TopNavbar';
 
 const GalleryPage = (props) => {
+    const {onLogout} = props;
 
     return (
         <div className='p-gallery'>
