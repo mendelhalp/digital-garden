@@ -22,22 +22,19 @@ const GalleriesPage = (props) => {
             query.equalTo("gan", parseGan);
             const results = await query.find();
             setGalleries(results.map(gallery => {
-                return(
-                    {
+                return({
                         'id':gallery.id,
                         'title':gallery.get('title'),
                         'img':''
-                    }
-                )
+                    })
             }));
         }
 
         getGalleries();
     },[]);
 
-    console.log(galleries);
     const galleriesView = galleries ? galleries.map( gallery =>
-        <Col className='py-2' md={6} lg={3}>
+        <Col className='py-2' md={6} lg={3} key={gallery.id}>
             <GalleryCard gallery={gallery}/>
         </Col>
     ) : null;
