@@ -8,10 +8,19 @@ async function getGalleryMainImg(galleryId) {
     
     const query = new Parse.Query(Parse.Object.extend('Image'));
     query.equalTo('gallery', parseGallery);
+    const numOfImgs = await query.count();
+    const fullResult = await query.find();
     query.equalTo('isPrimary', true);
     const result = await query.find();
 
-    const mainImgUrl = result[0] ? result[0].get('file')._url : null;
+    let mainImgUrl;
+    if (result[0]) {
+        mainImgUrl = result[0].get('file')._url;
+    } else if (fullResult && numOfImgs > 0) {
+        mainImgUrl = fullResult[Math.floor(Math.random() * numOfImgs)].get('file')._url;
+    } else {
+        mainImgUrl = null;
+    }
 
     return (mainImgUrl);
 
