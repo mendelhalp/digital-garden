@@ -6,6 +6,7 @@ import TopNavbar from '../../components/TopNavbar/TopNavbar';
 import Parse from 'parse';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './DapeyKesherPage.css';
+import getHebrewDate from '../../utils/getHebrewDate';
 
 const DapeyKesherPage = (props) => {
     const {onLogout} = props;
@@ -19,15 +20,14 @@ const DapeyKesherPage = (props) => {
 
             const query = new Parse.Query(Parse.Object.extend('DafKesher'));
             query.equalTo('gan', parseGan);
+            query.descending("date");
             const results = await query.find();
 
             const dapeyKesher = results.map(dafKesher => {
-                const date = new Date(dafKesher.get('date')).toJSON().slice(0,10);
-                console.log(date);
                 return({
                     'id':dafKesher.id,
                     'title':dafKesher.get('title'),
-                    'date':date
+                    'hebDate':getHebrewDate(dafKesher.get('date'))
                 })
             });
             setDapeyKesher(dapeyKesher);
