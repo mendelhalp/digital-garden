@@ -22,9 +22,12 @@ const DapeyKesherPage = (props) => {
             const results = await query.find();
 
             const dapeyKesher = results.map(dafKesher => {
+                const date = new Date(dafKesher.get('date')).toJSON().slice(0,10);
+                console.log(date);
                 return({
                     'id':dafKesher.id,
-                    'title':dafKesher.get('title')
+                    'title':dafKesher.get('title'),
+                    'date':date
                 })
             });
             setDapeyKesher(dapeyKesher);

@@ -10,3 +10,11 @@
     color: #f8902f;
     text-decoration: none;
 }
+
+.c-daf-kesher-card .card-title.h5{
+    margin-top: 0.75rem;
+}
+
+.c-daf-kesher-card p.card-text{
+    font-size: 0.75rem;
+}
