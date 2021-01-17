@@ -19,8 +19,10 @@ const GalleryCard = ({gallery}) => {
     return (
         <div className='c-gallery-card'>
             <Card>
-                <Card.Img variant='top' src={mainImgUrl}/>
-                <Card.Title className='text-center'><Link to={'/galleries/'+id}>{title}</Link></Card.Title>
+                <Link to={'/galleries/'+id}>
+                    <Card.Img variant='top' src={mainImgUrl}/>
+                    <Card.Title className='text-center'>{title}</Card.Title>
+                </Link>
             </Card>
         </div>
     )

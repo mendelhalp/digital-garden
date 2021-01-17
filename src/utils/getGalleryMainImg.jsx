@@ -13,7 +13,6 @@ async function getGalleryMainImg(galleryId) {
 
     const mainImgUrl = result[0] ? result[0].get('file')._url : null;
 
-    console.log(mainImgUrl);
     return (mainImgUrl);
 
 }
