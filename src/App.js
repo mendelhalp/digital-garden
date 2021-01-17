@@ -11,6 +11,7 @@ import ActiveUserContext from './utils/ActiveUserContext';
 import Parse from 'parse';
 import UserModel from './model/UserModel';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
+import DafKesherPage from './pages/DafKesherPage/DafKesherPage';
 
 function App() {
   const [activeUser, setActiveUser] = useState(
@@ -34,6 +35,7 @@ function App() {
             <Route exact path="/"><HomePage onLogin={handleLogin} onLogout={handleLogout}/></Route>
             <Route exact path="/my-garden"><MyGardenPage onLogout={handleLogout} /></Route>
             <Route exact path="/dapey-kesher"><DapeyKesherPage onLogout={handleLogout} /></Route>
+            <Route exact path="/dapey-kesher/:id"><DafKesherPage onLogout={handleLogout} /></Route>
             <Route exact path="/galleries"><GalleriesPage onLogout={handleLogout} /></Route>
             <Route exact path="/galleries/:id"><GalleryPage onLogout={handleLogout} /></Route>
             <Route exact path="/contact-us"><ContactUsPage onLogout={handleLogout} /></Route>
