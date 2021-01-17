@@ -1,5 +1,7 @@
 .navbar{
     margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 1px 1px 9px -5px #000;
 }
 
 .navbar .dropdown-menu{

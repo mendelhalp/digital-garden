@@ -12,7 +12,7 @@ const TopNavbar = ({ onLogout }) => {
   const path = useLocation().pathname.split('/')[1];
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light">
+    <Navbar collapseOnSelect expand="lg">
       <Navbar.Brand href="#/" className='ml-2'>
         <img src={logo} alt="Digital Garden logo" className="d-inline-block align-top"/>
         {/* הגן הדיגיטלי */}
