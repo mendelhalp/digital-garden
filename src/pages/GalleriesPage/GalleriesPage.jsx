@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import TopNavbar from '../../components/TopNavbar/TopNavbar'
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import Parse from 'parse';
-import './GalleriesPage.css'
+import './GalleriesPage.css';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { Col, Container, Row } from 'react-bootstrap';
 

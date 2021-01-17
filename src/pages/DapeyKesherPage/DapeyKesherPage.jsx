@@ -1,16 +1,37 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
-import TopNavbar from '../../components/TopNavbar/TopNavbar'
+import TopNavbar from '../../components/TopNavbar/TopNavbar';
+import Parse from 'parse';
 import ActiveUserContext from '../../utils/ActiveUserContext';
-import './DapeyKesherPage.css'
+import './DapeyKesherPage.css';
 
 const DapeyKesherPage = (props) => {
     const {onLogout} = props;
+    const [dapeyKesher, setDapeyKesher] = useState([]);
     const activeUser = useContext(ActiveUserContext);
-    const [dapeyKesher, setDapeyKesher] = useState([{id:123, title:'פרשת שלח'},{id:124, title:'פרשת משפטים'}]);
     
+    useEffect(() => {
+        async function getDapeyKesher() {
+            const parseUser = await new Parse.Query(new Parse.User()).get(activeUser.id);
+            const parseGan = await new Parse.Query(new Parse.Object.extend('Gan')).get(parseUser.get('gan').id);
+
+            const query = new Parse.Query(Parse.Object.extend('DafKesher'));
+            query.equalTo('gan', parseGan);
+            const results = await query.find();
+
+            const dapeyKesher = results.map(dafKesher => {
+                return({
+                    'id':dafKesher.id,
+                    'title':dafKesher.get('title')
+                })
+            });
+            setDapeyKesher(dapeyKesher);
+        }
+        getDapeyKesher();
+    },[])
+
     const dapeyKesherView = dapeyKesher ? dapeyKesher.map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
             <DafKesherCard dafKesher={dafKesher}/>
