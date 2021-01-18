@@ -1,27 +1,17 @@
 import './GalleryCard.css'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import getGalleryMainImg from '../../utils/getGalleryMainImg';
 
 const GalleryCard = ({gallery}) => {
-    const {id, title} = gallery;
-    const [mainImgUrl, setMainImgUrl] = useState('');
-
-    useEffect(() => {
-        async function getImg() {
-            const img = await getGalleryMainImg(id);
-            setMainImgUrl(img)
-        }
-        getImg()
-    },[])
+    const {parseGallery, name, mainImg } = gallery;
 
     return (
         <div className='c-gallery-card'>
             <Card>
-                <Link to={'/galleries/'+id}>
-                    <Card.Img variant='top' src={mainImgUrl}/>
-                    <Card.Title className='text-center'>{title}</Card.Title>
+                <Link to={'/galleries/'+parseGallery.id}>
+                    <Card.Img variant='top' src={mainImg}/>
+                    <Card.Title className='text-center'>{name}</Card.Title>
                 </Link>
             </Card>
         </div>

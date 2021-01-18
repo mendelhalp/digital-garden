@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import ActiveUserContext from '../../utils/ActiveUserContext';
-import Parse from 'parse';
 import './GalleriesPage.css';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { Col, Container, Row } from 'react-bootstrap';
 import getGardenGalleries from '../../utils/getGardenGalleries';
+import getGardenDetails from '../../utils/getGardenDetails';
 
 const GalleriesPage = () => {
     const [galleries, setGalleries] = useState([]);
@@ -13,8 +13,8 @@ const GalleriesPage = () => {
 
     useEffect(() => {
         async function getGalleries () {
-            const parseUser = await new Parse.Query(new Parse.User()).get(activeUser.id);
-            const galleries = await getGardenGalleries(parseUser.get('gan').id);
+            const gardenId = (await getGardenDetails(activeUser)).id;
+            const galleries = await getGardenGalleries(gardenId);
             setGalleries(galleries);
         }
 
@@ -22,7 +22,7 @@ const GalleriesPage = () => {
     },[]);
 
     const galleriesView = galleries ? galleries.map( gallery =>
-        <Col className='py-2' md={6} lg={3} key={gallery.id}>
+        <Col className='py-2' md={6} lg={3} key={gallery.parseGalery.id}>
             <GalleryCard gallery={gallery}/>
         </Col>
     ) : null;

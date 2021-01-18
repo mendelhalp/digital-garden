@@ -20,8 +20,6 @@ async function getGalleryImages(galleryId) {
         })
     });
 
-    const name = Gallery.get('title');
-
-    return ({'galleryName':name, 'images': images});
+    return (images);
 }
 export default getGalleryImages;

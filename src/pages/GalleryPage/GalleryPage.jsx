@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import ImageModal from '../../components/ImageModal/ImageModal';
 import getGalleryImages from '../../utils/getGalleryImages';
+import getGardenDetails from '../../utils/getGardenDetails';
 
 const GalleryPage = () => {
     const [images, setImages] = useState([]);
@@ -17,9 +18,10 @@ const GalleryPage = () => {
     useState(() => {
 
         async function getImages (){
-            const data = await getGalleryImages(galleryId);
-            setGalleryName(data.galleryName);
-            setImages(data.images);
+            const images = await getGalleryImages(galleryId);
+            const name = (await getGardenDetails(galleryId)).name;
+            setImages(images);
+            setGalleryName(name);
         }
         
         getImages();
