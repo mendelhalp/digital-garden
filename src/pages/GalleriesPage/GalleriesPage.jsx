@@ -15,7 +15,6 @@ const GalleriesPage = () => {
         async function getGalleries () {
             const gardenId = (await getGardenDetails(activeUser)).id;
             const galleries = await getGardenGalleries(gardenId);
-            console.log(galleries);
             setGalleries(galleries);
         }
 
