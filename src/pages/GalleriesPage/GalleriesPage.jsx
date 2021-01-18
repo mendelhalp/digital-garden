@@ -15,17 +15,18 @@ const GalleriesPage = () => {
         async function getGalleries () {
             const gardenId = (await getGardenDetails(activeUser)).id;
             const galleries = await getGardenGalleries(gardenId);
+            console.log(galleries);
             setGalleries(galleries);
         }
 
         getGalleries();
     },[]);
 
-    const galleriesView = galleries ? galleries.map( gallery =>
-        <Col className='py-2' md={6} lg={3} key={gallery.parseGalery.id}>
+    const galleriesView = galleries ? galleries.map( gallery => {
+        return(<Col className='py-2' md={6} lg={3} key={gallery.id}>
             <GalleryCard gallery={gallery}/>
-        </Col>
-    ) : null;
+        </Col>)
+    }) : null;
 
 
     if (!activeUser) {

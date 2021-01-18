@@ -15,9 +15,9 @@ async function getGalleryMainImg(galleryId) {
 
     let mainImgUrl;
     if (result[0]) {
-        mainImgUrl = result[0].get('file')._url;
+        mainImgUrl = await result[0].get('file')._url;
     } else if (fullResult && numOfImgs > 0) {
-        mainImgUrl = fullResult[Math.floor(Math.random() * numOfImgs)].get('file')._url;
+        mainImgUrl = await fullResult[Math.floor(Math.random() * numOfImgs)].get('file')._url;
     } else {
         const parseGan = await parseGallery.get('gan');
         const ganLogo = await parseGan.get('logo')._url;

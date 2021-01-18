@@ -12,7 +12,6 @@ async function getGardenDetails(activeUser) {
         'name':ganName,
         'logo':ganLogo
     }
-    console.log(gardenDetails);
     return (gardenDetails);
 }
 
