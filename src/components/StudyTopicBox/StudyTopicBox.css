@@ -1,0 +1,9 @@
+.c-study-topic-box .card-title > span{
+    float: left;
+    cursor: pointer;
+    display: none;
+}
+
+.c-study-topic-box:hover .card-title > span.show-edit{
+    display: initial;
+}
