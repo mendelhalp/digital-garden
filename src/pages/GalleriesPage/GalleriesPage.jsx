@@ -5,6 +5,7 @@ import Parse from 'parse';
 import './GalleriesPage.css';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { Col, Container, Row } from 'react-bootstrap';
+import getGardenGalleries from '../../utils/getGardenGalleries';
 
 const GalleriesPage = () => {
     const [galleries, setGalleries] = useState([]);
@@ -13,18 +14,7 @@ const GalleriesPage = () => {
     useEffect(() => {
         async function getGalleries () {
             const parseUser = await new Parse.Query(new Parse.User()).get(activeUser.id);
-            const parseGan = await new Parse.Query(new Parse.Object.extend('Gan')).get(parseUser.get('gan').id);
-
-            const query = new Parse.Query(Parse.Object.extend('Gallery'));
-            query.equalTo("gan", parseGan);
-            const results = await query.find();
-
-            const galleries = results.map(gallery => {
-                return({
-                        'id':gallery.id,
-                        'title':gallery.get('title')
-                    })
-            });
+            const galleries = await getGardenGalleries(parseUser.get('gan').id);
             setGalleries(galleries);
         }
 
