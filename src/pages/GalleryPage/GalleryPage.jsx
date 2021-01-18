@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { CardColumns, Container } from 'react-bootstrap';
 import './GalleryPage.css'
-import TopNavbar from '../../components/TopNavbar/TopNavbar';
 import { useParams } from 'react-router-dom';
 import Parse from 'parse';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import ImageModal from '../../components/ImageModal/ImageModal';
 
-const GalleryPage = (props) => {
-    const {onLogout} = props;
+const GalleryPage = () => {
     const [images, setImages] = useState([]);
     const [galleryName, setGalleryName] = useState('');
     const [showImageModal, setShowImageModal] = useState(false);
@@ -60,7 +58,6 @@ const GalleryPage = (props) => {
 
     return (
         <div className='p-gallery'>
-            <TopNavbar onLogout={onLogout}/>
             <h2>{galleryName}</h2>
             <Container>
                 <CardColumns>

@@ -2,14 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
-import TopNavbar from '../../components/TopNavbar/TopNavbar';
 import Parse from 'parse';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './DapeyKesherPage.css';
 import getHebrewDate from '../../utils/getHebrewDate';
 
-const DapeyKesherPage = (props) => {
-    const {onLogout} = props;
+const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
     const activeUser = useContext(ActiveUserContext);
     
@@ -47,7 +45,6 @@ const DapeyKesherPage = (props) => {
 
     return (
         <div className="p-dapey-kesher">
-            <TopNavbar onLogout={onLogout}/>
             <Container>
                 <Row>
                     {dapeyKesherView}

@@ -12,6 +12,7 @@ import Parse from 'parse';
 import UserModel from './model/UserModel';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import DafKesherPage from './pages/DafKesherPage/DafKesherPage';
+import TopNavbar from './components/TopNavbar/TopNavbar';
 
 function App() {
   const [activeUser, setActiveUser] = useState(
@@ -32,13 +33,14 @@ function App() {
       <HashRouter>
         <Switch>
           <ActiveUserContext.Provider value={activeUser}>
-            <Route exact path="/"><HomePage onLogin={handleLogin} onLogout={handleLogout}/></Route>
-            <Route exact path="/my-garden"><MyGardenPage onLogout={handleLogout} /></Route>
-            <Route exact path="/dapey-kesher"><DapeyKesherPage onLogout={handleLogout} /></Route>
-            <Route exact path="/dapey-kesher/:id"><DafKesherPage onLogout={handleLogout} /></Route>
-            <Route exact path="/galleries"><GalleriesPage onLogout={handleLogout} /></Route>
-            <Route exact path="/galleries/:id"><GalleryPage onLogout={handleLogout} /></Route>
-            <Route exact path="/contact-us"><ContactUsPage onLogout={handleLogout} /></Route>
+            <TopNavbar onLogout={handleLogout}/>
+            <Route exact path="/"><HomePage onLogin={handleLogin} /></Route>
+            <Route exact path="/my-garden"><MyGardenPage /></Route>
+            <Route exact path="/dapey-kesher"><DapeyKesherPage /></Route>
+            <Route exact path="/dapey-kesher/:id"><DafKesherPage /></Route>
+            <Route exact path="/galleries"><GalleriesPage /></Route>
+            <Route exact path="/galleries/:id"><GalleryPage /></Route>
+            <Route exact path="/contact-us"><ContactUsPage /></Route>
           </ActiveUserContext.Provider>
         </Switch>
       </HashRouter>

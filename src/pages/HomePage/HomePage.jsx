@@ -1,5 +1,4 @@
 import './HomePage.css'
-import TopNavbar from '../../components/TopNavbar/TopNavbar';
 import logo from '../../images/logo192.png'
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
@@ -7,7 +6,7 @@ import LoginModal from '../../components/LoginModal/LoginModal';
 
 const HomePage = (props) => {
     const [loginModalShow, setLoginModalShow] = useState(false);
-    const {onLogin, onLogout} = props;
+    const { onLogin } = props;
 
     const handleCloseLogin = () => {
         setLoginModalShow(false);
@@ -15,7 +14,6 @@ const HomePage = (props) => {
 
     return (
         <div className="p-home">
-            <TopNavbar activeLink='Home' onLogout={onLogout}/>
             <div className='main-content'>
                 <div className='logo'>
                     <img className='logo-img' src={logo} alt="logo"/>

@@ -1,14 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import TopNavbar from '../../components/TopNavbar/TopNavbar'
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import Parse from 'parse';
 import './GalleriesPage.css';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { Col, Container, Row } from 'react-bootstrap';
 
-const GalleriesPage = (props) => {
-    const {onLogout} = props;
+const GalleriesPage = () => {
     const [galleries, setGalleries] = useState([]);
     const activeUser = useContext(ActiveUserContext);
 
@@ -46,7 +44,6 @@ const GalleriesPage = (props) => {
 
     return (
         <div className="p-galleries">
-            <TopNavbar onLogout={onLogout}/>
             <Container>
                 <Row>
                     {galleriesView}
