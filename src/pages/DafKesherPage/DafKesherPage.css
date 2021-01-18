@@ -23,7 +23,8 @@
     justify-content: flex-end;
 }
 .p-daf-kesher .logo > img{
-    /* box-shadow: 1px 1px 9px -5px #000; */
+    max-width: 100%;
+    height: auto;
 }
 
 
