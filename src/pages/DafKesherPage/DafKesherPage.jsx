@@ -1,13 +1,15 @@
 import './DafKesherPage.css'
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
+import ActiveUserContext from '../../utils/ActiveUserContext';
 
-function DafKesherPage(props) {
-
+function DafKesherPage() {
+    const activeUser = useContext(ActiveUserContext);
     const dafKesherId = useParams().id;
 
-    const topicsView = 'topics';
+    const topicsView = <StudyTopicBox topic={{headline:"תורה", content:"השבוע למדנו על יעקב אבינו"}} showEdit={activeUser ? true : false}/>;
 
     const messagesView = 'messages';
 
@@ -19,13 +21,17 @@ function DafKesherPage(props) {
                     <Col md={8}>
                         <Card>
                             <Card.Header as='h5'>מה למדנו השבוע?</Card.Header>
-                            {topicsView}
+                            <Card.Body>
+                                {topicsView}
+                            </Card.Body>
                         </Card>
                     </Col>
                     <Col md={4}>
                         <Card>
                             <Card.Header as='h5'>הודעות</Card.Header>
-                            {messagesView}
+                            <Card.Body>
+                                {messagesView}
+                            </Card.Body>
                         </Card>
                     </Col>
                 </Row>
