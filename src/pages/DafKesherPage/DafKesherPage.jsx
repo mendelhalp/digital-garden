@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import getDafKesherDetails from '../../utils/getDafKesherDetails';
+import getGardenDetails from '../../utils/getGardenDetails';
+import MessageBox from '../../components/MessageBox/MessageBox';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
@@ -16,9 +18,12 @@ function DafKesherPage() {
     useEffect(() => {
         async function getData() {
             const dafKesher = await getDafKesherDetails(dafKesherId);
+            const gardenDetails = (await getGardenDetails(activeUser));
             const header = {
                 'title':dafKesher.title,
-                'hebDate':dafKesher.hebDate
+                'hebDate':dafKesher.hebDate,
+                'logo':gardenDetails.logo,
+                'name':gardenDetails.name
             };
             setHeader(header);
             setData(dafKesher.data);
@@ -33,20 +38,30 @@ function DafKesherPage() {
         </div>
         ) : null;
 
+    const bg = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
+    const randombg = bg[Math.floor(Math.random() * bg.length)];
+
     const messagesView = data.messages ? data.messages.map( (message, index) => 
         <div key={index}>
-            <StudyTopicBox topic={{'headline':message.headline, 'content':message.content}} showEdit={activeUser ? true : false}/>
+            <MessageBox topic={{'headline':message.headline, 'content':message.content}} showEdit={activeUser ? true : false} bg={randombg}/>
         </div>
         ) : null;
 
     return (
         <div className='p-daf-kesher'>
             <Container>
-                <h2>{`דף קשר ${header.title}`}</h2>
-                <div className='date'>{header.hebDate}</div>
-                <div className='logo'></div>
+                <Row className='mx-0 header'>
+                    <Col sm={9}>
+                        <div className='name'>{header.name}</div>
+                        <h2>{`דף קשר ${header.title}`}</h2>
+                        <div className='date'>{header.hebDate}</div>
+                    </Col>
+                    <Col sm={3} className='p-0'>
+                        <div className='logo'><img src={header.logo} alt="logo"/></div>
+                    </Col>
+                </Row>
                 <Row>
-                    <Col md={8}>
+                    <Col md={8} className='mb-3'>
                         <Card>
                             <Card.Header as='h5'>מה למדנו השבוע?</Card.Header>
                             <Card.Body>
@@ -57,9 +72,7 @@ function DafKesherPage() {
                     <Col md={4}>
                         <Card>
                             <Card.Header as='h5'>הודעות</Card.Header>
-                            <Card.Body>
                                 {messagesView}
-                            </Card.Body>
                         </Card>
                     </Col>
                 </Row>
