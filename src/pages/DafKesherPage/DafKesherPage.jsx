@@ -1,22 +1,50 @@
 import './DafKesherPage.css'
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
+import getDafKesherDetails from '../../utils/getDafKesherDetails';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
+    const [data, setData] = useState({});
+    const [header, setHeader] = useState({});
+    
     const dafKesherId = useParams().id;
+    
+    useEffect(() => {
+        async function getData() {
+            const dafKesher = await getDafKesherDetails(dafKesherId);
+            const header = {
+                'title':dafKesher.title,
+                'hebDate':dafKesher.hebDate
+            };
+            setHeader(header);
+            setData(dafKesher.data);
+        }
+        getData();
+    },[]);
 
-    const topicsView = <StudyTopicBox topic={{headline:"תורה", content:"השבוע למדנו על יעקב אבינו"}} showEdit={activeUser ? true : false}/>;
 
-    const messagesView = 'messages';
+    const topicsView = data.sdutyTopics ? data.sdutyTopics.map( (topic, index) => 
+        <div key={index}>
+            <StudyTopicBox topic={{'headline':topic.headline, 'content':topic.content}} showEdit={activeUser ? true : false}/>
+        </div>
+        ) : null;
+
+    const messagesView = data.messages ? data.messages.map( (message, index) => 
+        <div key={index}>
+            <StudyTopicBox topic={{'headline':message.headline, 'content':message.content}} showEdit={activeUser ? true : false}/>
+        </div>
+        ) : null;
 
     return (
         <div className='p-daf-kesher'>
             <Container>
-                <h2>{`דף קשר ${dafKesherId}`}</h2>
+                <h2>{`דף קשר ${header.title}`}</h2>
+                <div className='date'>{header.hebDate}</div>
+                <div className='logo'></div>
                 <Row>
                     <Col md={8}>
                         <Card>
