@@ -21,6 +21,7 @@ function getHebrewYearName(yearNum) {
     yearName = taf > 1 ? 'תת' : taf === 1 ? 'ת' : '';
     yearName += shin === 1 ? 'ש' : '';
     yearName += reish === 1 ? 'ר' : '';
+    yearName += kuf === 1 ? 'ק' : '';
     if (year !== 0 && year % 10 !== 0) {
         yearName += tensNames[parseInt(year / 10) - 1];
         yearName += '"';
