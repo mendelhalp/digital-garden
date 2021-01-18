@@ -20,9 +20,11 @@ const TopNavbar = ({ onLogout }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="#/my-garden" active={path === 'my-garden' ? true : false}>הגן שלי</Nav.Link>
-          <Nav.Link href="#/dapey-kesher" active={path === 'dapey-kesher' ? true : false}>דפי קשר</Nav.Link>
-          <Nav.Link href="#/galleries" active={path === 'galleries' ? true : false}>גלריות</Nav.Link>
+          { activeUser ? <>
+            <Nav.Link href="#/my-garden" active={path === 'my-garden' ? true : false}>הגן שלי</Nav.Link>
+            <Nav.Link href="#/dapey-kesher" active={path === 'dapey-kesher' ? true : false}>דפי קשר</Nav.Link>
+            <Nav.Link href="#/galleries" active={path === 'galleries' ? true : false}>גלריות</Nav.Link>
+          </> : null}
           <Nav.Link href="#/contact-us" active={path === 'contact-us' ? true : false}>צור קשר</Nav.Link>
         </Nav>
         { activeUser ? <Nav>
