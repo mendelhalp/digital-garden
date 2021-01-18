@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
-import Parse from 'parse';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './DapeyKesherPage.css';
 import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher';
+import getGardenDetails from '../../utils/getGardenDetails';
 
 const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
@@ -13,8 +13,8 @@ const DapeyKesherPage = () => {
     
     useEffect(() => {
         async function getDapeyKesher() {
-            const parseUser = await new Parse.Query(new Parse.User()).get(activeUser.id);
-            const dapeyKesher = await getGardenDapeyKesher(parseUser.get('gan').id);
+            const gardenId = (await getGardenDetails(activeUser)).id;
+            const dapeyKesher = await getGardenDapeyKesher(gardenId);
             setDapeyKesher(dapeyKesher);
         }
         
