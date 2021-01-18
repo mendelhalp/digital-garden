@@ -3,8 +3,7 @@ import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../utils/ActiveUserContext'
 import './MyGardenPage.css'
 
-const MyGardenPage = (props) => {
-    const {onLogout} = props;
+const MyGardenPage = () => {
     const activeUser = useContext(ActiveUserContext);
 
     if (!activeUser) {
