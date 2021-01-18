@@ -1,0 +1,9 @@
+.c-message-box .card-title > span{
+    float: left;
+    cursor: pointer;
+    display: none;
+}
+
+.c-message-box:hover .card-title > span.show-edit{
+    display: initial;
+}
