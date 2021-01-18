@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { CardColumns, Container } from 'react-bootstrap';
 import './GalleryPage.css'
 import { useParams } from 'react-router-dom';
-import Parse from 'parse';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import ImageModal from '../../components/ImageModal/ImageModal';
+import getGalleryImages from '../../utils/getGalleryImages';
 
 const GalleryPage = () => {
     const [images, setImages] = useState([]);
@@ -17,23 +17,9 @@ const GalleryPage = () => {
     useState(() => {
 
         async function getImages (){
-            const parseGallery = await new Parse.Query(new Parse.Object.extend('Gallery')).get(galleryId);
-            setGalleryName(parseGallery.get('title'));
-
-            const Image = Parse.Object.extend('Image');
-            const query = new Parse.Query(Image);
-            query.equalTo("gallery", parseGallery);
-            const results = await query.find();
-            setImages(results.map(image => {
-                const desc = image.get('desc') ? image.get('desc') : '';
-                const url = image.get('file')._url;
-                return({
-                    'id': image.id,
-                    'desc': desc,
-                    'url': url
-                })
-            }));
-            
+            const data = await getGalleryImages(galleryId);
+            setGalleryName(data.galleryName);
+            setImages(data.images);
         }
         
         getImages();
