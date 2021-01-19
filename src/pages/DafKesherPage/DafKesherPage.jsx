@@ -7,6 +7,8 @@ import ActiveUserContext from '../../utils/ActiveUserContext';
 import getDafKesherDetails from '../../utils/getDafKesherDetails';
 import getGardenDetails from '../../utils/getGardenDetails';
 import MessageBox from '../../components/MessageBox/MessageBox';
+import bookIcon from '../../images/book-icon.png';
+import messageIcon from '../../images/message-icon.png';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
@@ -63,7 +65,10 @@ function DafKesherPage() {
                 <Row>
                     <Col md={8} className='mb-3'>
                         <Card>
-                            <Card.Header as='h5'>מה למדנו השבוע?</Card.Header>
+                            <Card.Header as='h5'>
+                                <span>מה למדנו השבוע?</span>
+                                <img src={bookIcon} alt="book icon"/>
+                            </Card.Header>
                             <Card.Body>
                                 {topicsView}
                             </Card.Body>
@@ -71,7 +76,10 @@ function DafKesherPage() {
                     </Col>
                     <Col md={4}>
                         <Card>
-                            <Card.Header as='h5'>הודעות</Card.Header>
+                            <Card.Header as='h5'>
+                                <div>הודעות</div>
+                                <div><img src={messageIcon} alt="message icon"/></div>
+                            </Card.Header>
                                 {messagesView}
                         </Card>
                     </Col>
