@@ -1,0 +1,19 @@
+.p-contact-us{
+    padding: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.p-contact-us h2{
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.p-contact-us #formContactUsFile{
+    /* width: 400px; */
+}
+
+.p-contact-us .custom-switch{
+    display: inline-block;
+    float: left;
+}
