@@ -14,9 +14,15 @@ const ContactUsPage = () => {
     const [useUserInfo, setUseUserInfo] = useState(activeUser ? true : false);
     const [files, setFiles] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(true);
     
     function sendForm () {
-        console.log(isEmailValid(email))
+        //send to email via parse...
+
+        setSubject('');
+        setRequest('');
+        setFiles({});
+        setIsFormSubmitted(true);
     }
     
     useEffect(() => {
@@ -56,6 +62,15 @@ const ContactUsPage = () => {
     }
 
     const filesAmount = files ? files.length : 0;
+
+    if (isFormSubmitted) {
+        return(
+            <div className="p-contact-us success">
+                <h2>פנייתך נשלחה בהצלחה</h2>
+                <Button variant='info' onClick={() => {setIsFormSubmitted(false)}} >פנייה נוספת</Button>
+            </div>
+        )
+    }
 
     return (
         <div className="p-contact-us">

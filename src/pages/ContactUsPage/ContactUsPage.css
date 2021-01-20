@@ -17,3 +17,12 @@
     text-align: left;
     overflow: hidden;
 }
+
+.p-contact-us.success{
+    height: 70vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
