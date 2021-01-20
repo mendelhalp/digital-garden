@@ -1,22 +1,42 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
+import isEmailValid from '../../utils/isEmailValid';
 import './ContactUsPage.css'
 
 
 const ContactUsPage = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const activeUser = useContext(ActiveUserContext);
+    const [name, setName] = useState(activeUser ? `${activeUser.fname} ${activeUser.lname}` : '');
+    const [email, setEmail] = useState(activeUser ? activeUser.email : '');
     const [subject, setSubject] = useState('');
     const [request, setRequest] = useState('');
-    const activeUser = useContext(ActiveUserContext);
     const [useUserInfo, setUseUserInfo] = useState(activeUser ? true : false);
     const [files, setFiles] = useState({});
+    const [isFormValid, setIsFormValid] = useState(false);
     
+    function sendForm () {
+        console.log(isEmailValid(email))
+    }
+    
+    useEffect(() => {
+        if ((useUserInfo || (name && isEmailValid(email))) && subject && request) {
+            setIsFormValid(true);
+        } else if (!useUserInfo && name && !isEmailValid(email) && subject && request) {
+            
+            if (isFormValid) {
+                setIsFormValid(false);
+            }
+        } else {
+            if (isFormValid) {
+                setIsFormValid(false);
+            }
+        }
+    });
     
     function onSwitchMode () {
         setName(`${activeUser.fname} ${activeUser.lname}`);
-        setEmail(activeUser.mail);
+        setEmail(activeUser.email);
         setUseUserInfo(!useUserInfo);
     }
 
@@ -50,8 +70,8 @@ const ContactUsPage = () => {
                 
                 <Form.Group controlId="formContactUsEmail">
                     <Form.Label>דואר אלקטרוני</Form.Label>
-                    {useUserInfo ? <Form.Control type="email" value={activeUser.mail} readOnly />
-                    : <Form.Control type="email" value={email}  onChange={e => {setEmail(e.target.value)}}/>}
+                    {useUserInfo ? <Form.Control type="email" value={activeUser.email} readOnly />
+                    : <Form.Control type="email" value={email} className={!isEmailValid(email) ? 'is-invalid' : null} onChange={e => {setEmail(e.target.value)}}/>}
                 </Form.Group>
 
                 <Form.Group controlId="formContactUsSubject">
@@ -65,10 +85,10 @@ const ContactUsPage = () => {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.File id="formContactUsFile" label={files ? filesNames : 'בחירת קבצים'} data-browse="בחר" custom multiple onChange={onFilesSelect}/>
+                    <Form.File id="formContactUsFile" label={files ? filesNames : 'בחירת קבצים'} data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
                     <Form.Text className="text-muted">{filesAmount >0 ? `נבחרו ${filesAmount} קבצים` : 'ניתן לבחור מספר קבצים יחד'}</Form.Text>
                 </Form.Group>
-                <Button variant="primary" type="button" className='w-100'>
+                <Button variant="primary" type="button" className='w-100' disabled={!isFormValid} onClick={sendForm}>
                     שליחה
                 </Button>
             </Form>
