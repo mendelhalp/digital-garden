@@ -3,7 +3,7 @@
 }
 
 .c-gallery-card:hover{
-    animation: gelatine 0.5s;
+    transform: scale(1.1);
 }
 
 .c-gallery-card .card a{
@@ -19,13 +19,6 @@
     padding: 4px;
     height: 110px;
     object-fit: cover;
-}
-
-@keyframes gelatine{
-    from, to { transform: scale(1, 1); }
-    25% { transform: scale(0.9, 1.1); }
-    50% { transform: scale(1.1, 0.9); }
-    75% { transform: scale(0.95, 1.05); }
 }
 
 @media screen and (max-width: 767px) {
