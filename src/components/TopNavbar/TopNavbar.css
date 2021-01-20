@@ -4,18 +4,10 @@
     box-shadow: 1px 1px 9px -5px #000;
 }
 
-.navbar .dropdown-menu{
-    text-align: right;
-}
-
-.navbar .nav-link.active, .navbar .nav-link:hover{
+.navbar .nav-link.active, .navbar .nav-link:hover, .navbar-nav > .btn:hover{
     color:#f8902f !important;
 }
 
-.navbar .dropdown-item:hover{
-    background-color: #f8902f !important;
-    color: white;
-}
 
 .navbar img{
     width: 60px;
