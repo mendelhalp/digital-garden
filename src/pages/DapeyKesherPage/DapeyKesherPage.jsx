@@ -10,11 +10,13 @@ import getGardenDetails from '../../utils/getGardenDetails';
 const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
     const activeUser = useContext(ActiveUserContext);
+    const [garden, setGarden] = useState('');
     
     useEffect(() => {
         async function getDapeyKesher() {
-            const gardenId = (await getGardenDetails(activeUser)).id;
-            const dapeyKesher = await getGardenDapeyKesher(gardenId);
+            const garden = await getGardenDetails(activeUser);
+            setGarden(garden);
+            const dapeyKesher = await getGardenDapeyKesher(garden.id);
             setDapeyKesher(dapeyKesher);
         }
         
@@ -34,6 +36,15 @@ const DapeyKesherPage = () => {
     return (
         <div className="p-dapey-kesher">
             <Container>
+                <Row className='mx-0 header'>
+                    <Col sm={9}>
+                        <div className='name'>{garden.name}</div>
+                        <h2>דפי הקשר שלנו</h2>
+                    </Col>
+                    <Col sm={3} className='p-0'>
+                        <div className='logo'><img src={garden.logo} alt="logo"/></div>
+                    </Col>
+                </Row>
                 <Row>
                     {dapeyKesherView}
                 </Row>
