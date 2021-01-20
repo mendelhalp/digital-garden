@@ -9,11 +9,11 @@
     margin-bottom: 16px;
 }
 
-.p-contact-us #formContactUsFile{
-    /* width: 400px; */
+.p-contact-us .custom-switch{
+    float: left;
 }
 
-.p-contact-us .custom-switch{
-    display: inline-block;
-    float: left;
+.p-contact-us .custom-file-label{
+    text-align: left;
+    overflow: hidden;
 }

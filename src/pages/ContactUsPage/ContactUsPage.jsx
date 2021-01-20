@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
-import { Button, Form, ToggleButton } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
-import TopNavbar from '../../components/TopNavbar/TopNavbar'
+import { Button, Form } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './ContactUsPage.css'
+
 
 const ContactUsPage = () => {
     const [name, setName] = useState('');
@@ -12,7 +11,7 @@ const ContactUsPage = () => {
     const [request, setRequest] = useState('');
     const activeUser = useContext(ActiveUserContext);
     const [useUserInfo, setUseUserInfo] = useState(activeUser ? true : false);
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState({});
     
     
     function onSwitchMode () {
@@ -21,9 +20,22 @@ const ContactUsPage = () => {
         setUseUserInfo(!useUserInfo);
     }
 
-    function onFileAdd(event) {
-        console.log(event.target.files);
+    function onFilesSelect(event) {
+        setFiles(event.target.files);
     }
+
+    let filesNames= '';
+    if (files) { 
+        for (let i =0 ; i < files.length ; i++){
+            if (i===0) {
+                filesNames += files[i].name.split('.')[0];
+            }else {
+                filesNames += `, ${files[i].name.split('.')[0]}`;
+            }
+        }
+    }
+
+    const filesAmount = files ? files.length : 0;
 
     return (
         <div className="p-contact-us">
@@ -53,7 +65,8 @@ const ContactUsPage = () => {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.File id="formContactUsFile" multiple onChange={onFileAdd}/>
+                    <Form.File id="formContactUsFile" label={files ? filesNames : 'בחירת קבצים'} data-browse="בחר" custom multiple onChange={onFilesSelect}/>
+                    <Form.Text className="text-muted">{filesAmount >0 ? `נבחרו ${filesAmount} קבצים` : 'ניתן לבחור מספר קבצים יחד'}</Form.Text>
                 </Form.Group>
                 <Button variant="primary" type="button" className='w-100'>
                     שליחה
