@@ -1,17 +1,29 @@
 import './HomePage.css'
 import logo from '../../images/logo192.png'
 import { Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import LoginModal from '../../components/LoginModal/LoginModal';
+import { Redirect } from 'react-router-dom';
+import ActiveUserContext from '../../utils/ActiveUserContext';
 
 const HomePage = (props) => {
     const [loginModalShow, setLoginModalShow] = useState(false);
+    const activeUser = useContext(ActiveUserContext);
+    const [redirectToMyGarden, setRedirectToMyGarden] = useState(activeUser ? true : false);
     const { onLogin } = props;
 
+    const handleLogin = (user) => {
+        onLogin(user);
+        setRedirectToMyGarden(true);
+    }
+    
     const handleCloseLogin = () => {
         setLoginModalShow(false);
     }
-
+    
+    if (redirectToMyGarden) {
+        return <Redirect to="my-garden"/>;
+    }
     return (
         <div className="p-home">
             <div className='main-content'>
@@ -30,7 +42,7 @@ const HomePage = (props) => {
                 <Button variant="outline-warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
                 <Button variant="warning" size='lg'>הרשמה</Button>
             </div>
-            <LoginModal showModal={loginModalShow} handleCloseLogin={handleCloseLogin} onLogin={onLogin}/>
+            <LoginModal showModal={loginModalShow} handleCloseLogin={handleCloseLogin} onLogin={handleLogin}/>
 
         </div>
     )

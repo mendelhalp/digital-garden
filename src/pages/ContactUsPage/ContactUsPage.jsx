@@ -14,7 +14,7 @@ const ContactUsPage = () => {
     const [useUserInfo, setUseUserInfo] = useState(activeUser ? true : false);
     const [files, setFiles] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
-    const [isFormSubmitted, setIsFormSubmitted] = useState(true);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     
     function sendForm () {
         //send to email via parse...
