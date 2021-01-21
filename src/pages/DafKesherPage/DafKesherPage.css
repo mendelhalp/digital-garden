@@ -11,6 +11,7 @@
 .p-daf-kesher h2{
     text-align: center;
     text-shadow: -1px 1px 1px rgba(100,43,27,0.56);
+    color: #B80753;
 }
 .p-daf-kesher .date{
     text-align: center;
@@ -39,6 +40,7 @@
     align-items: center;
     padding: 0 20px;
     height: 48px;
+    color: #B80753;
 }
 
 .p-daf-kesher .card h5 img{
