@@ -4,7 +4,7 @@ import Parse from 'parse';
 async function getGalleryMainImg(galleryId) {
     
     const galleryQuery = new Parse.Query(Parse.Object.extend('Gallery'));
-    const parseGallery = galleryQuery.get(galleryId);
+    const parseGallery = await galleryQuery.get(galleryId);
     
     const query = new Parse.Query(Parse.Object.extend('Image'));
     query.equalTo('gallery', parseGallery);

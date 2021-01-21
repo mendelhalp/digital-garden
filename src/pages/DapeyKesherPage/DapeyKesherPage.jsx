@@ -42,7 +42,7 @@ const DapeyKesherPage = () => {
                         <h2>דפי הקשר שלנו</h2>
                     </Col>
                     <Col sm={3} className='p-0'>
-                        <div className='logo'><img src={garden.logo} alt="logo"/></div>
+                        {garden ? <div className='logo'><img src={garden.logo} alt="logo"/></div> : null}
                     </Col>
                 </Row>
                 <Row>

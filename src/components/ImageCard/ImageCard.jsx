@@ -7,7 +7,7 @@ const ImageCard = ({image, onClick}) => {
     return (
         <div className='c-image-card'>
             <Card onClick={onClick}>
-                <Card.Img variant="top" src={image.url} />
+                {image ? <Card.Img variant="top" src={image.url} /> : null}
                 {image.desc ? <Card.Footer>
                         <small className="text-muted text-center d-block">{image.desc}</small>
                 </Card.Footer> : null}

@@ -21,7 +21,7 @@ const GalleryCard = ({gallery}) => {
         <div className='c-gallery-card'>
             <Card>
                 <Link to={'/galleries/'+ id}>
-                    <Card.Img variant='top' src={mainImg}/>
+                    {mainImg ? <Card.Img variant='top' src={mainImg}/> : null}
                     <Card.Title className='text-center'>{name}</Card.Title>
                 </Link>
             </Card>

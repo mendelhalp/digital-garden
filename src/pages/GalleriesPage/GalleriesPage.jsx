@@ -39,11 +39,11 @@ const GalleriesPage = () => {
             <Container>
                 <Row className='mx-0 header'>
                     <Col sm={9}>
-                        <div className='name'>{garden.name}</div>
+                        {garden ? <div className='name'>{garden.name}</div> : null}
                         <h2>הגלריות שלנו</h2>
                     </Col>
                     <Col sm={3} className='p-0'>
-                        <div className='logo'><img src={garden.logo} alt="logo"/></div>
+                        {garden ? <div className='logo'><img src={garden.logo} alt="logo"/></div> : null}
                     </Col>
                 </Row>
                 <Row>
