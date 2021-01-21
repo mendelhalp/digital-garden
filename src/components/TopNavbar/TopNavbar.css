@@ -4,11 +4,25 @@
     box-shadow: 1px 1px 9px -5px #000;
 }
 
+.navbar-light .navbar-nav a.nav-link{
+    color: #212529;
+}
 .navbar .nav-link.active, .navbar .nav-link:hover, .navbar-nav > .btn:hover{
     color:#f8902f !important;
 }
 
+.navbar-nav:last-of-type a.btn{
+    padding-top: 7px;
+}
 
 .navbar img{
     width: 60px;
+}
+
+@media screen and (max-width:991px){
+    .navbar-nav:last-of-type{
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
 }

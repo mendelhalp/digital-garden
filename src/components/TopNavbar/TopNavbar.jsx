@@ -1,7 +1,7 @@
-import { Button, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Nav, Navbar } from 'react-bootstrap';
 import './TopNavbar.css';
 import logo from '../../images/logo192.png';
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import { useLocation } from 'react-router-dom';
 import getGreeting from '../../utils/getGreeting';
@@ -36,7 +36,7 @@ const TopNavbar = ({ onLogout }) => {
         { activeUser ?
         <Nav>
           <Navbar.Text>{`${greeting}, ${activeUser.fname}`}</Navbar.Text>
-          <Button variant='' onClick={onLogout}>התנתק</Button>
+          <Button as='a' variant='' onClick={onLogout}>התנתק</Button>
         </Nav> : null}
 
       </Navbar.Collapse>
