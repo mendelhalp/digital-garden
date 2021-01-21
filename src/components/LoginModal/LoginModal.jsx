@@ -84,9 +84,9 @@ function LoginModal(props) {
                     {showError ? <Alert variant="danger">מייל או סיסמה שגויים</Alert> : null}
                 </Modal.Body>
                 <Modal.Footer>
-                        <div className='ml-auto'><Link to={'/signup'}>עדיין לא רשומים?</Link></div>
+                    <Button as='a' variant='link' className='ml-auto'><Link to={'/signup'}>עדיין לא רשומים?</Link></Button>
                     <Button variant="secondary" onClick={close}>סגירה</Button>
-                    <Button variant="primary" onClick={login}>כניסה</Button>
+                    <Button variant="warning" onClick={login}>כניסה</Button>
                 </Modal.Footer>
             </Modal>
         </div>

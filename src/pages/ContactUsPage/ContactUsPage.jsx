@@ -84,7 +84,7 @@ const ContactUsPage = () => {
             <Form>
                 <Form.Group controlId="formContactUsName">
                     <Form.Label>שם</Form.Label>
-                    {activeUser ? <Form.Check type='switch' id='formContactUsFileSwitch' label={useUserInfo ? 'משתמש בפרטים שלי' : 'השתמש בפרטים שלי'} checked={useUserInfo} onChange={onSwitchMode} /> : null}
+                    {activeUser ? <Form.Check type='switch' variant='warning' id='formContactUsFileSwitch' label={useUserInfo ? 'משתמש בפרטים שלי' : 'השתמש בפרטים שלי'} checked={useUserInfo} onChange={onSwitchMode} /> : null}
                     <Form.Control type="text" value={name} onChange={e => {setName(e.target.value)}}/>
                 </Form.Group>
                 
@@ -108,7 +108,7 @@ const ContactUsPage = () => {
                     <Form.File id="formContactUsFile" label={files ? filesNames : 'בחירת קבצים'} data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
                     <Form.Text className="text-muted">{filesAmount >0 ? `נבחרו ${filesAmount} קבצים` : 'ניתן לבחור מספר קבצים יחד'}</Form.Text>
                 </Form.Group>
-                <Button variant="primary" type="button" className='w-100' disabled={!isFormValid} onClick={sendForm}>
+                <Button variant="warning" type="button" className='w-100' disabled={!isFormValid} onClick={sendForm}>
                     שליחה
                 </Button>
             </Form>
