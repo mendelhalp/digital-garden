@@ -37,6 +37,9 @@ const ContactUsPage = () => {
             }
         } else if (isEmailValid(email)) {
             setShowEmailError(false);
+            if (isFormValid) {
+                setIsFormValid(false);
+            }
         }
     });
     
