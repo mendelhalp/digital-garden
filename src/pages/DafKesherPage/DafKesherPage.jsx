@@ -40,12 +40,9 @@ function DafKesherPage() {
         </div>
         ) : null;
 
-    const bg = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
-    const randombg = bg[Math.floor(Math.random() * bg.length)];
-
     const messagesView = data.messages ? data.messages.map( (message, index) => 
         <div key={index}>
-            <MessageBox topic={{'headline':message.headline, 'content':message.content}} showEdit={activeUser ? true : false} bg={randombg}/>
+            <MessageBox topic={{'headline':message.headline, 'content':message.content}}/>
         </div>
         ) : null;
 

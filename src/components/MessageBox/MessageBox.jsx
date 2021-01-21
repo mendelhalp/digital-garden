@@ -1,14 +1,16 @@
 import './MessageBox.css';
 import { Card } from 'react-bootstrap';
+import getRandomBgColor from '../../utils/getRandomBgColor';
 
-const MessageBox = ({topic, showEdit, bg}) => {
-    const {headline, content} = topic;
+const MessageBox = ({topic}) => {
+    const { headline, content } = topic;
+    
+    const bgColor = getRandomBgColor();
 
-    const spanClass = showEdit ? 'show-edit' : null
     return (
-        <Card className='c-message-box m-2' bg={bg} text={bg === 'light' ? 'dark' : 'white'}>
+        <Card className='c-message-box m-2' bg={bgColor} text={bgColor === 'light' ? 'dark' : 'white'}>
             <Card.Body>
-                <Card.Title>{headline} <span className={spanClass}>x</span></Card.Title>
+                <Card.Title>{headline}</Card.Title>
                 <Card.Text>{content}</Card.Text>
             </Card.Body>
         </Card>
