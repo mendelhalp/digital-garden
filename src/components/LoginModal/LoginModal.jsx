@@ -80,11 +80,11 @@ function LoginModal(props) {
                             <Form.Control type="password" placeholder="סיסמה" value={pwd}
                                 onChange={e => {setPwd(e.target.value)}}  onKeyPress={ifEnterPressed}/>
                         </Form.Group>
-                        <div className='mt-auto'><Link to={'/signup'}>עדיין לא רשומים?</Link></div>
                     </Form>
                     {showError ? <Alert variant="danger">מייל או סיסמה שגויים</Alert> : null}
                 </Modal.Body>
                 <Modal.Footer>
+                        <div className='ml-auto'><Link to={'/signup'}>עדיין לא רשומים?</Link></div>
                     <Button variant="secondary" onClick={close}>סגירה</Button>
                     <Button variant="primary" onClick={login}>כניסה</Button>
                 </Modal.Footer>
