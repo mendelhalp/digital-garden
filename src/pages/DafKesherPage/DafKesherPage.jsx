@@ -36,7 +36,7 @@ function DafKesherPage() {
 
     const topicsView = data.sdutyTopics ? data.sdutyTopics.map( (topic, index) => 
         <div key={index}>
-            <StudyTopicBox topic={{'headline':topic.headline, 'content':topic.content}} showEdit={activeUser ? true : false}/>
+            <StudyTopicBox topic={{'headline':topic.headline, 'content':topic.content}}/>
         </div>
         ) : null;
 
