@@ -13,6 +13,7 @@ const ContactUsPage = () => {
     const [request, setRequest] = useState('');
     const [useUserInfo, setUseUserInfo] = useState(activeUser ? true : false);
     const [files, setFiles] = useState({});
+    const [showEmailError, setShowEmailError] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     
@@ -28,8 +29,9 @@ const ContactUsPage = () => {
     useEffect(() => {
         if ((useUserInfo || (name && isEmailValid(email))) && subject && request) {
             setIsFormValid(true);
+            setShowEmailError(false);
         } else if (!useUserInfo && name && !isEmailValid(email) && subject && request) {
-            
+            setShowEmailError(true);
             if (isFormValid) {
                 setIsFormValid(false);
             }
@@ -37,13 +39,22 @@ const ContactUsPage = () => {
             if (isFormValid) {
                 setIsFormValid(false);
             }
+            if (showEmailError) {
+                setShowEmailError(false);
+            }
         }
     });
     
-    function onSwitchMode () {
-        setName(`${activeUser.fname} ${activeUser.lname}`);
-        setEmail(activeUser.email);
-        setUseUserInfo(!useUserInfo);
+    function onSwitchMode() {
+        if (!useUserInfo) {
+            setName(`${activeUser.fname} ${activeUser.lname}`);
+            setEmail(activeUser.email);
+            setUseUserInfo(!useUserInfo);
+        } else {
+            setName('');
+            setEmail('');
+            setUseUserInfo(!useUserInfo);
+        }
     }
 
     function onFilesSelect(event) {
@@ -79,14 +90,12 @@ const ContactUsPage = () => {
                 <Form.Group controlId="formContactUsName">
                     <Form.Label>שם</Form.Label>
                     {activeUser ? <Form.Check type='switch' id='formContactUsFileSwitch' label={useUserInfo ? 'משתמש בפרטים שלי' : 'השתמש בפרטים שלי'} checked={useUserInfo} onChange={onSwitchMode} /> : null}
-                    {useUserInfo ? <Form.Control type="text" value={`${activeUser.fname} ${activeUser.lname}`} readOnly />
-                    : <Form.Control type="text" value={name} onChange={e => {setName(e.target.value)}}/>}
+                    <Form.Control type="text" value={name} onChange={e => {setName(e.target.value)}}/>
                 </Form.Group>
                 
                 <Form.Group controlId="formContactUsEmail">
                     <Form.Label>דואר אלקטרוני</Form.Label>
-                    {useUserInfo ? <Form.Control type="email" value={activeUser.email} readOnly />
-                    : <Form.Control type="email" value={email} className={!isEmailValid(email) ? 'is-invalid' : null} onChange={e => {setEmail(e.target.value)}}/>}
+                    <Form.Control type="email" value={email} className={showEmailError ? 'is-invalid' : null} onChange={e => {setEmail(e.target.value)}}/>
                 </Form.Group>
 
                 <Form.Group controlId="formContactUsSubject">
