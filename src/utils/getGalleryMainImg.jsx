@@ -4,7 +4,7 @@ import Parse from 'parse';
 async function getGalleryMainImg(galleryId) {
     
     const galleryQuery = new Parse.Query(Parse.Object.extend('Gallery'));
-    const parseGallery = await galleryQuery.get(galleryId);
+    const parseGallery = galleryQuery.get(galleryId);
     
     const query = new Parse.Query(Parse.Object.extend('Image'));
     query.equalTo('gallery', parseGallery);
@@ -15,12 +15,12 @@ async function getGalleryMainImg(galleryId) {
 
     let mainImgUrl;
     if (result[0]) {
-        mainImgUrl = await result[0].get('file')._url;
+        mainImgUrl = result[0].get('file')._url;
     } else if (fullResult && numOfImgs > 0) {
-        mainImgUrl = await fullResult[Math.floor(Math.random() * numOfImgs)].get('file')._url;
+        mainImgUrl = fullResult[Math.floor(Math.random() * numOfImgs)].get('file')._url;
     } else {
-        const parseGan = await parseGallery.get('gan');
-        const ganLogo = await parseGan.get('logo')._url;
+        const parseGan = parseGallery.get('gan');
+        const ganLogo = parseGan.get('logo')._url;
         
         mainImgUrl = ganLogo;
     }
