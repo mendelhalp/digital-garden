@@ -27,21 +27,18 @@ const ContactUsPage = () => {
     }
     
     useEffect(() => {
-        if ((useUserInfo || (name && isEmailValid(email))) && subject && request) {
+        if (name && isEmailValid(email) && subject && request) {
             setIsFormValid(true);
             setShowEmailError(false);
-        } else if (!useUserInfo && name && !isEmailValid(email) && subject && request) {
+            console.log('hi if' + isEmailValid(email));
+        } else if (!isEmailValid(email) && email!=='') {
             setShowEmailError(true);
             if (isFormValid) {
                 setIsFormValid(false);
             }
-        } else {
-            if (isFormValid) {
-                setIsFormValid(false);
-            }
-            if (showEmailError) {
-                setShowEmailError(false);
-            }
+            console.log('hi else if');
+        } else if (isEmailValid(email)) {
+            setShowEmailError(false);
         }
     });
     
@@ -95,7 +92,8 @@ const ContactUsPage = () => {
                 
                 <Form.Group controlId="formContactUsEmail">
                     <Form.Label>דואר אלקטרוני</Form.Label>
-                    <Form.Control type="email" value={email} className={showEmailError ? 'is-invalid' : null} onChange={e => {setEmail(e.target.value)}}/>
+                    <Form.Control type="email" value={email} className={showEmailError ? 'is-invalid' : null} onChange={e => { setEmail(e.target.value) }} />
+                    <Form.Control.Feedback type="invalid">כתובת מייל לא תקינה</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formContactUsSubject">
