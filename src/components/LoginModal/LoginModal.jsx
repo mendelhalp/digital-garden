@@ -5,12 +5,14 @@ import Parse from 'parse';
 import UserModel from '../../model/UserModel';
 import isEnterPressed from '../../utils/IsEnterPressed';
 import { Link } from 'react-router-dom';
+import isEmailValid from '../../utils/isEmailValid';
 
 function LoginModal(props) {
     const {showModal, handleCloseLogin, onLogin} = props;
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [showError, setShowError] = useState(false);
+    const [showEmailError, setShowEmailError] = useState(false);
 
     function cleanFormFields () {
         setEmail('');
@@ -25,6 +27,11 @@ function LoginModal(props) {
     },[pwd]);
     useEffect(() => {
         setShowError(false);
+        if (!isEmailValid(email) && email !== '') {
+            setShowEmailError(true);
+        } else if (isEmailValid(email)) { 
+            setShowEmailError(false);
+        }
     },[email]);
 
     async function login () {
@@ -64,8 +71,9 @@ function LoginModal(props) {
                     <Form>
                         <Form.Group controlId='loginUserName'>
                             <Form.Label>שם משתמש</Form.Label>
-                            <Form.Control type="email" placeholder="דואר אלקטרוני" value={email} lang="en"
-                                onChange={e => {setEmail(e.target.value)}}  onKeyPress={ifEnterPressed}/>
+                            <Form.Control type="email" placeholder="דואר אלקטרוני" value={email} className={showEmailError ? 'is-invalid' : null}
+                                onChange={e => { setEmail(e.target.value) }} onKeyPress={ifEnterPressed} />
+                            <Form.Control.Feedback type="invalid">כתובת מייל לא תקינה</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId='loginPwd'>
                             <Form.Label>סיסמה</Form.Label>

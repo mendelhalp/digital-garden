@@ -30,13 +30,11 @@ const ContactUsPage = () => {
         if (name && isEmailValid(email) && subject && request) {
             setIsFormValid(true);
             setShowEmailError(false);
-            console.log('hi if' + isEmailValid(email));
         } else if (!isEmailValid(email) && email!=='') {
             setShowEmailError(true);
             if (isFormValid) {
                 setIsFormValid(false);
             }
-            console.log('hi else if');
         } else if (isEmailValid(email)) {
             setShowEmailError(false);
         }
