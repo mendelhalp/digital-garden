@@ -2,10 +2,6 @@
     box-shadow: 1px 1px 9px -5px #000;
 }
 
-.c-daf-kesher-card:hover{
-    transform: scale(1.1);
-}
-
 .c-daf-kesher-card .card a{
     color: rgba(0,0,0,.5);
 }
@@ -21,4 +17,28 @@
 
 .c-daf-kesher-card p.card-text{
     font-size: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.c-daf-kesher-card .card-footer{
+    display: none;
+    padding: 3px 0;
+
+}
+.c-daf-kesher-card:hover .card-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.c-daf-kesher-card .card-footer .fa-trash-alt{
+    margin: 2px;
+    color: lightcoral;
+    cursor: pointer;
+}
+
+.c-daf-kesher-card .card-footer .fa-edit{
+    margin: 2px;
+    color: rgb(128, 240, 133);
+    cursor: pointer;
 }

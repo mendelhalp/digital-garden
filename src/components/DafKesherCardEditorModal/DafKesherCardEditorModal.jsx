@@ -3,17 +3,23 @@ import { useState } from 'react';
 import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import createNewDafKesher from '../../utils/createNewDafKesher';
 import isEnterPressed from '../../utils/IsEnterPressed';
+import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 
 const DafKesherCardEditorModal = (props) => {
-    const {data, parseGarden, showModal, handleCloseLogin} = props;
+    const {data, parseGarden, showModal, closeModal, cleanDataToEdit} = props;
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
     const [showError, setShowError] = useState(false);
-    const [showEmailError, setShowEmailError] = useState(false);
-
+    
     useEffect(() => { 
-        
-    },[]);
+        if (data) {
+            setTitle(data.title);
+
+            const date = data.date.toLocaleString().split('.');
+            const viewDate = `${date[2].split(',')[0]}-${date[1].length === 1 ? '0' + date[1] : date[1]}-${date[0].length === 1 ? '0' + date[0] : date[0]}`;
+            setDate(viewDate);
+        }
+    }, [data]);
 
     function cleanFormFields () {
         setTitle('');
@@ -23,16 +29,20 @@ const DafKesherCardEditorModal = (props) => {
 
 
     function close () {
-        handleCloseLogin();
+        closeModal();
         cleanFormFields();
+        cleanDataToEdit();
     }
 
     function onSave() {
-        if (!(title, date)) {
+        if (!(title && date)) {
             setShowError(true);
-        } else {
+        } else if (!data) {
             createNewDafKesher(parseGarden, title, date);
             close()
+        } else { 
+            updateDafKesherDetails(data.id, title, date);
+            close();
         }
     }
 
@@ -42,11 +52,13 @@ const DafKesherCardEditorModal = (props) => {
         }
     }
 
+    const modalTitle = data ? 'עריכת פרטי דף קשר' : 'יצירת דף קשר חדש';
+
     return (
         <div className='c-daf-kesher-card-editor-modal'>
             <Modal size='sm' show={showModal} onHide={close} centered>
                 <Modal.Header>
-                    <Modal.Title>יצירת דף קשר חדש</Modal.Title>
+                    <Modal.Title>{modalTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>

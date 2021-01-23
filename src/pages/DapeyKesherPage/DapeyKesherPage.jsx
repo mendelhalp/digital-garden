@@ -8,12 +8,16 @@ import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher';
 import getGardenDetails from '../../utils/getGardenDetails';
 import AddDafKesherCard from '../../components/DafKesherCard/AddDafKesherCard';
 import DafKesherCardEditorModal from '../../components/DafKesherCardEditorModal/DafKesherCardEditorModal';
+import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
+import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 
 const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
     const activeUser = useContext(ActiveUserContext);
     const [garden, setGarden] = useState('');
-    const [showNewDafKesherModal, setShowNewDafKesherModal] = useState(false);
+    const [showDafKesherEditorModal, setShowDafKesherEditorModal] = useState(false);
+    const [dafKesherToEdit, setDafKesherToEdit] = useState('');
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     
     useEffect(() => {
         async function getDapeyKesher() {
@@ -24,21 +28,32 @@ const DapeyKesherPage = () => {
         }
         
         getDapeyKesher();
-    }, [showNewDafKesherModal])
+    }, [showDafKesherEditorModal,showDeleteAlert])
 
     if (!activeUser) {
         return <Redirect to="/" />
     }
 
+    function handleEdit(dafKesher) {
+        setDafKesherToEdit(dafKesher);
+        setShowDafKesherEditorModal(true);
+    }
+
+    function handledeleteClick(dafKesher) {
+        console.log(dafKesher)
+        setDafKesherToEdit(dafKesher);
+        setShowDeleteAlert(true);
+    }
+
     const addDafKesher = activeUser.role === 'manager' ?
         <Col className='py-2' md={6} lg={3}>
-            <AddDafKesherCard onClick={() => { setShowNewDafKesherModal(true) }}/>
+            <AddDafKesherCard onClick={() => { setShowDafKesherEditorModal(true) }}/>
         </Col>
     : null;
 
     const dapeyKesherView = dapeyKesher ? dapeyKesher.map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
-            <DafKesherCard dafKesher={dafKesher}/>
+            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handledeleteClick={handledeleteClick} />
         </Col>
     ) : null;
 
@@ -60,7 +75,10 @@ const DapeyKesherPage = () => {
                     {dapeyKesherView}
                 </Row>
             </Container>
-            <DafKesherCardEditorModal parseGarden={garden.parseGarden} showModal={showNewDafKesherModal } handleCloseLogin={() => {setShowNewDafKesherModal(false)}} />
+            <DafKesherCardEditorModal data={dafKesherToEdit} parseGarden={garden.parseGarden}
+                showModal={showDafKesherEditorModal} closeModal={() => { setShowDafKesherEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
+            <DeleteWarningModal data={dafKesherToEdit} objectType='דף קשר' show={showDeleteAlert}
+                close={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
         </div>
     )
 }

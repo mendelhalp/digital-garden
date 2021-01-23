@@ -13,7 +13,8 @@ async function getGardenDapeyKesher(ganId) {
     const dapeyKesher = results.map(dafKesher => {
         return({
             'id':dafKesher.id,
-            'title':dafKesher.get('title'),
+            'title': dafKesher.get('title'),
+            'date':dafKesher.get('date'),
             'hebDate':getHebrewDate(dafKesher.get('date'))
         })
     });
