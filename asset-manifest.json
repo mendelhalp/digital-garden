@@ -1,27 +1,28 @@
 {
   "files": {
-    "main.css": "/digital-garden/static/css/main.1ed1d64d.chunk.css",
-    "main.js": "/digital-garden/static/js/main.dd96363b.chunk.js",
-    "main.js.map": "/digital-garden/static/js/main.dd96363b.chunk.js.map",
-    "runtime-main.js": "/digital-garden/static/js/runtime-main.f7d6891f.js",
-    "runtime-main.js.map": "/digital-garden/static/js/runtime-main.f7d6891f.js.map",
+    "main.css": "/digital-garden/static/css/main.f581ba2e.chunk.css",
+    "main.js": "/digital-garden/static/js/main.4cbe707e.chunk.js",
+    "main.js.map": "/digital-garden/static/js/main.4cbe707e.chunk.js.map",
+    "runtime-main.js": "/digital-garden/static/js/runtime-main.ed6072f4.js",
+    "runtime-main.js.map": "/digital-garden/static/js/runtime-main.ed6072f4.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/digital-garden/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.cbc8e2ba.chunk.js": "/digital-garden/static/js/2.cbc8e2ba.chunk.js",
-    "static/js/2.cbc8e2ba.chunk.js.map": "/digital-garden/static/js/2.cbc8e2ba.chunk.js.map",
-    "static/js/3.6fe744db.chunk.js": "/digital-garden/static/js/3.6fe744db.chunk.js",
-    "static/js/3.6fe744db.chunk.js.map": "/digital-garden/static/js/3.6fe744db.chunk.js.map",
+    "static/js/2.45bba836.chunk.js": "/digital-garden/static/js/2.45bba836.chunk.js",
+    "static/js/2.45bba836.chunk.js.map": "/digital-garden/static/js/2.45bba836.chunk.js.map",
+    "static/js/3.8bc37bc7.chunk.js": "/digital-garden/static/js/3.8bc37bc7.chunk.js",
+    "static/js/3.8bc37bc7.chunk.js.map": "/digital-garden/static/js/3.8bc37bc7.chunk.js.map",
     "index.html": "/digital-garden/index.html",
     "static/css/2.ae9f1eb3.chunk.css.map": "/digital-garden/static/css/2.ae9f1eb3.chunk.css.map",
-    "static/css/main.1ed1d64d.chunk.css.map": "/digital-garden/static/css/main.1ed1d64d.chunk.css.map",
-    "static/js/2.cbc8e2ba.chunk.js.LICENSE.txt": "/digital-garden/static/js/2.cbc8e2ba.chunk.js.LICENSE.txt",
+    "static/css/main.f581ba2e.chunk.css.map": "/digital-garden/static/css/main.f581ba2e.chunk.css.map",
+    "static/js/2.45bba836.chunk.js.LICENSE.txt": "/digital-garden/static/js/2.45bba836.chunk.js.LICENSE.txt",
+    "static/media/book-icon.38b0a9d3.png": "/digital-garden/static/media/book-icon.38b0a9d3.png",
     "static/media/logo192.f73b2edd.png": "/digital-garden/static/media/logo192.f73b2edd.png",
-    "static/media/message-icon.4c052ec3.png": "/digital-garden/static/media/message-icon.4c052ec3.png"
+    "static/media/message-icon.12cbb3d2.png": "/digital-garden/static/media/message-icon.12cbb3d2.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f7d6891f.js",
+    "static/js/runtime-main.ed6072f4.js",
     "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.cbc8e2ba.chunk.js",
-    "static/css/main.1ed1d64d.chunk.css",
-    "static/js/main.dd96363b.chunk.js"
+    "static/js/2.45bba836.chunk.js",
+    "static/css/main.f581ba2e.chunk.css",
+    "static/js/main.4cbe707e.chunk.js"
   ]
 }
