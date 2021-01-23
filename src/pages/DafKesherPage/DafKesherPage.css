@@ -52,8 +52,8 @@
     font-size: 20px;
     margin: 3px;
     cursor: pointer;
-    color: #ffc107;
 }
+
 .p-daf-kesher .svg-inline--fa:not(.add-icon){
     display: none;
 }

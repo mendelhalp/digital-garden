@@ -1,0 +1,12 @@
+.c-add-study-topic-box .h5{
+    font-size: 2rem;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.c-add-message-box .card-body{
+    padding: 0;
+}
+
+.c-add-study-topic-box:hover .h5{
+    transform: scale(1.5);
+}

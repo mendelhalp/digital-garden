@@ -6,6 +6,9 @@ import ActiveUserContext from '../../utils/ActiveUserContext';
 import './DapeyKesherPage.css';
 import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher';
 import getGardenDetails from '../../utils/getGardenDetails';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import AddDafKesherCard from '../../components/DafKesherCard/AddDafKesherCard';
 
 const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
@@ -21,7 +24,17 @@ const DapeyKesherPage = () => {
         }
         
         getDapeyKesher();
-    },[])
+    }, [])
+
+    if (!activeUser) {
+        return <Redirect to="/" />
+    }
+
+    const addDafKesher = activeUser.role === 'manager' ?
+        <Col className='py-2' md={6} lg={3}>
+            <AddDafKesherCard />
+        </Col>
+    : null;
 
     const dapeyKesherView = dapeyKesher ? dapeyKesher.map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
@@ -29,9 +42,6 @@ const DapeyKesherPage = () => {
         </Col>
     ) : null;
 
-    if (!activeUser) {
-        return <Redirect to="/"/>
-    }
 
     return (
         <div className="p-dapey-kesher">
@@ -45,7 +55,8 @@ const DapeyKesherPage = () => {
                         {garden ? <div className='logo'><img src={garden.logo} alt="logo"/></div> : null}
                     </Col>
                 </Row>
-                <Row>
+                <Row className='align-items-stretch'>
+                    {addDafKesher}
                     {dapeyKesherView}
                 </Row>
             </Container>

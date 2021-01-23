@@ -1,0 +1,12 @@
+.c-add-message-box .h5{
+    font-size: 2rem;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.c-add-message-box .card-body{
+    padding: 0;
+}
+
+.c-add-message-box:hover{
+    transform: scale(1.02);
+}

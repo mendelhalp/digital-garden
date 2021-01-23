@@ -6,11 +6,11 @@ import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import getDafKesherDetails from '../../utils/getDafKesherDetails';
 import getGardenDetails from '../../utils/getGardenDetails';
-import MessageBox from '../../components/MessageBox/MessageBox';
 import bookIcon from '../../images/book-icon.png';
 import messageIcon from '../../images/message-icon.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import MessageBox from '../../components/MessageBox/MessageBox';
+import AddMessageBox from '../../components/MessageBox/AddMessageBox';
+import AddStudyTopicBox from '../../components/StudyTopicBox/AddStudyTopicBox';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
@@ -19,8 +19,6 @@ function DafKesherPage() {
     
     const dafKesherId = useParams().id;
     
-    const addStudyTopic = <FontAwesomeIcon className='add-icon' icon={faPlusCircle} />;
-    const addMessage = <FontAwesomeIcon className='add-icon' icon={faPlusCircle} />;
         
     useEffect(() => {
         async function getData() {
@@ -73,9 +71,9 @@ function DafKesherPage() {
                             </Card.Header>
                             <Card.Body>
                                 {topicsView}
+                                {activeUser.role === 'manager' ? <AddStudyTopicBox/> : null}
                             </Card.Body>
                         </Card>
-                        {addStudyTopic}
                     </Col>
                     <Col md={4}>
                         <Card>
@@ -83,9 +81,9 @@ function DafKesherPage() {
                                 <div>הודעות</div>
                                 <div><img src={messageIcon} alt="message icon"/></div>
                             </Card.Header>
-                                {messagesView}
+                            {messagesView}
+                            {activeUser.role === 'manager' ? <AddMessageBox/> : null}
                         </Card>
-                        {addMessage}
                     </Col>
                 </Row>
             </Container>
