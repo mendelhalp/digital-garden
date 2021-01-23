@@ -6,14 +6,14 @@ import ActiveUserContext from '../../utils/ActiveUserContext';
 import './DapeyKesherPage.css';
 import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher';
 import getGardenDetails from '../../utils/getGardenDetails';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AddDafKesherCard from '../../components/DafKesherCard/AddDafKesherCard';
+import DafKesherCardEditorModal from '../../components/DafKesherCardEditorModal/DafKesherCardEditorModal';
 
 const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
     const activeUser = useContext(ActiveUserContext);
     const [garden, setGarden] = useState('');
+    const [showNewDafKesherModal, setShowNewDafKesherModal] = useState(false);
     
     useEffect(() => {
         async function getDapeyKesher() {
@@ -24,7 +24,7 @@ const DapeyKesherPage = () => {
         }
         
         getDapeyKesher();
-    }, [])
+    }, [showNewDafKesherModal])
 
     if (!activeUser) {
         return <Redirect to="/" />
@@ -32,7 +32,7 @@ const DapeyKesherPage = () => {
 
     const addDafKesher = activeUser.role === 'manager' ?
         <Col className='py-2' md={6} lg={3}>
-            <AddDafKesherCard />
+            <AddDafKesherCard onClick={() => { setShowNewDafKesherModal(true) }}/>
         </Col>
     : null;
 
@@ -60,6 +60,7 @@ const DapeyKesherPage = () => {
                     {dapeyKesherView}
                 </Row>
             </Container>
+            <DafKesherCardEditorModal parseGarden={garden.parseGarden} showModal={showNewDafKesherModal } handleCloseLogin={() => {setShowNewDafKesherModal(false)}} />
         </div>
     )
 }
