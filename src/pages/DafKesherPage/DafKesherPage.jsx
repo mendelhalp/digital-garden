@@ -9,6 +9,8 @@ import getGardenDetails from '../../utils/getGardenDetails';
 import MessageBox from '../../components/MessageBox/MessageBox';
 import bookIcon from '../../images/book-icon.png';
 import messageIcon from '../../images/message-icon.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
@@ -17,6 +19,9 @@ function DafKesherPage() {
     
     const dafKesherId = useParams().id;
     
+    const addStudyTopic = <FontAwesomeIcon className='add-icon' icon={faPlusCircle} />;
+    const addMessage = <FontAwesomeIcon className='add-icon' icon={faPlusCircle} />;
+        
     useEffect(() => {
         async function getData() {
             const dafKesher = await getDafKesherDetails(dafKesherId);
@@ -56,7 +61,7 @@ function DafKesherPage() {
                         <div className='date'>{header.hebDate}</div>
                     </Col>
                     <Col sm={3} className='p-0'>
-                        <div className='logo'><img src={header.logo} alt="logo"/></div>
+                        {header.logo ? <div className='logo'><img src={header.logo} alt="logo"/></div> : null}
                     </Col>
                 </Row>
                 <Row>
@@ -70,6 +75,7 @@ function DafKesherPage() {
                                 {topicsView}
                             </Card.Body>
                         </Card>
+                        {addStudyTopic}
                     </Col>
                     <Col md={4}>
                         <Card>
@@ -79,6 +85,7 @@ function DafKesherPage() {
                             </Card.Header>
                                 {messagesView}
                         </Card>
+                        {addMessage}
                     </Col>
                 </Row>
             </Container>
