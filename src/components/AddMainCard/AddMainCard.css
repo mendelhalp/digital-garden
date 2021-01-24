@@ -1,31 +1,31 @@
-.c-add-daf-kesher-card{
+.c-add-main-card{
     box-shadow: 1px 1px 9px -5px #000;
     height: 100%;
     cursor: pointer;
 }
 
-.c-add-daf-kesher-card:hover{
+.c-add-main-card:hover{
     transform: scale(1.1);
 }
 
-.c-add-daf-kesher-card .card{
+.c-add-main-card .card{
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.c-add-daf-kesher-card .h5{
+.c-add-main-card .h5{
     font-size: 2rem;
     color: rgba(0,0,0,.5);
 }
 
-.c-add-daf-kesher-card .card a:hover{
+.c-add-main-card .card a:hover{
     color: #f8902f;
     text-decoration: none;
 }
 
-.c-add-daf-kesher-card .card-title.h5{
+.c-add-main-card .card-title.h5{
     margin: 0;
 }
 

@@ -5,7 +5,7 @@ import createNewDafKesher from '../../utils/createNewDafKesher';
 import isEnterPressed from '../../utils/IsEnterPressed';
 import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 
-const DafKesherCardEditorModal = (props) => {
+const MainCardEditorModal = (props) => {
     const {data, parseGarden, showModal, closeModal, cleanDataToEdit} = props;
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
@@ -51,7 +51,7 @@ const DafKesherCardEditorModal = (props) => {
     const modalTitle = data ? 'עריכת פרטי דף קשר' : 'יצירת דף קשר חדש';
 
     return (
-        <div className='c-daf-kesher-card-editor-modal'>
+        <div className='c-main-card-editor-modal'>
             <Modal size='sm' show={showModal} onHide={close} centered>
                 <Modal.Header>
                     <Modal.Title>{modalTitle}</Modal.Title>
@@ -79,4 +79,4 @@ const DafKesherCardEditorModal = (props) => {
     );
 }
 
-export default DafKesherCardEditorModal;
+export default MainCardEditorModal;
