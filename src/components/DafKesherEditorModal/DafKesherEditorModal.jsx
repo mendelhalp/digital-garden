@@ -60,7 +60,7 @@ const DafKesherEditorModal = (props) => {
                     </Form.Group>
                     <Form.Group controlId='content'>
                         <Form.Label>תוכן</Form.Label>
-                        <Form.Control type="text" value={content} onChange={e => {setContent(e.target.value)}} />
+                            <Form.Control as="textarea" rows={5} value={content} onChange={e => {setContent(e.target.value)}} />
                     </Form.Group>
                     </Form>
                     {showError ? <Alert variant="danger">נא למלא את כל השדות</Alert> : null}
