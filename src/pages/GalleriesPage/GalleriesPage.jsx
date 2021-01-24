@@ -32,6 +32,7 @@ const GalleriesPage = () => {
     if (!activeUser) {
         return <Redirect to="/"/>
     }
+    
     function handleEdit(gallery) {
         setGalleryToEdit(gallery);
         setShowMainCardEditorModal(true);
