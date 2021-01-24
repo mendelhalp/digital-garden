@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import deleteDafKesher from '../../utils/deleteDafKesher';
 import deleteGallery from '../../utils/deleteGallery';
+import deleteImage from '../../utils/deleteImage';
 import updateDafKesherContent from '../../utils/updateDafKesherContent';
 
 function DeleteWarningModal(props) {
@@ -22,6 +23,9 @@ function DeleteWarningModal(props) {
             fullData[data.type].splice(data.index, 1);
             updateDafKesherContent(dafKesherId, fullData);
             handleClose();
+        } else if (objectType === 'תמונה') {
+            deleteImage(data.id);
+            handleClose();
         }
     }
 
@@ -32,7 +36,7 @@ function DeleteWarningModal(props) {
                     <Modal.Title>מחיקת {objectType}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center'>
-                    <h5>הנך מנסה למחוק {objectType} <span className='font-weight-bold'>{data.title}</span>,</h5>
+                    <h5>הנך מנסה למחוק {objectType}{data.title && <span className='font-weight-bold'> {data.title}</span>},</h5>
                     <div>פעולה זו איננה ניתנת לביטול</div>
                 </Modal.Body>
                 <Modal.Footer>

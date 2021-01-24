@@ -1,8 +1,11 @@
-.modal-body img{
+.c-image-modal .modal-content{
+    border-width: 0;
+}
+.c-image-modal .modal-body img{
     width: 100%;
 }
 
-.modal-x-button{
+.c-image-modal .modal-x-button{
     position: absolute;
     right: 0;
     background-color: transparent;
@@ -11,15 +14,7 @@
     text-shadow: 1px 1px 2px #000;
 }
 
-.modal-image-desc{
-    position: absolute;
-    width: 100%;
-    color: white;
-    text-shadow: 1px 1px 2px #000;
-    text-align: center;
-    bottom: 10px
-}
-div.prev, div.next{
+.c-image-modal div.prev, .c-image-modal div.next{
     background-color: #000;
     text-align: center;
     color: white;
@@ -31,7 +26,7 @@ div.prev, div.next{
     padding: 0;
 }
 
-a.prev, a.next{
+.c-image-modal a.prev, .c-image-modal a.next{
     cursor: pointer;
     width: auto;
     padding: 3rem 0px;
