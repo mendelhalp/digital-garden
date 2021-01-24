@@ -14,7 +14,7 @@ const MainCardEditorModal = (props) => {
     const [showError, setShowError] = useState(false);
     
     useEffect(() => { 
-        if (data) {
+        if (typeof data === 'object') {
             if (cardType === 'dafKesher') {
                 setTitle(data.title);
 
@@ -29,8 +29,10 @@ const MainCardEditorModal = (props) => {
             setDate('');
         }
     }, [data]);
-
+    
     function close () {
+        setTitle('');
+        setDate('');        
         closeModal();
         setShowError(false);
         cleanDataToEdit();
@@ -89,7 +91,7 @@ const MainCardEditorModal = (props) => {
                     <Form>
                         <Form.Group controlId='title'>
                             <Form.Label>כותרת</Form.Label>
-                            <Form.Control type="text" value={title} onChange={e => { setTitle(e.target.value) }} />
+                            <Form.Control type="text" value={title} onChange={e => { setTitle(e.target.value) }} onKeyPress={ifEnterPressed} />
                         </Form.Group>
                         {cardType === 'dafKesher' ? <Form.Group controlId='date'>
                             <Form.Label>תאריך</Form.Label>
