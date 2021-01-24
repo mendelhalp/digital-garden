@@ -61,23 +61,23 @@ function DafKesherPage() {
 
     const topicsView = data.studyTopics ? data.studyTopics.map( (topic, index) => 
         <div key={index}>
-            <StudyTopicBox topic={{ 'headline': topic.headline, 'content': topic.content }} role={activeUser.role}
+            <StudyTopicBox topic={{ 'headline': topic.headline, 'content': topic.content }} activeUser={activeUser}
                 onEditClick={() => { handleEditClick({ type: 'studyTopics', index: index }) }}
                 onDeleteClick={() => { handleDeleteClick({ type: 'studyTopics', index: index }) }} />
         </div>
     ) : null;
     
-    const addTopic = activeUser.role === 'manager' && <AddStudyTopicBox onClick={() => { handleAddClick('studyTopics') }}/>;
+    const addTopic = activeUser && activeUser.role === 'manager' && <AddStudyTopicBox onClick={() => { handleAddClick('studyTopics') }}/>;
 
     const messagesView = data.messages ? data.messages.map( (message, index) => 
         <div key={index}>
-            <MessageBox topic={{ 'headline': message.headline, 'content': message.content }} role={activeUser.role}
+            <MessageBox topic={{ 'headline': message.headline, 'content': message.content }} activeUser={activeUser}
                 onEditClick={() => { handleEditClick({ type: 'messages', index: index }) }}
                 onDeleteClick={() => { handleDeleteClick({ type: 'messages', index: index }) }} />
         </div>
     ) : null;
     
-    const addMessage = activeUser.role === 'manager' && <AddMessageBox onClick={() => { handleAddClick('messages') }}/>;
+    const addMessage = activeUser && activeUser.role === 'manager' && <AddMessageBox onClick={() => { handleAddClick('messages') }}/>;
 
     return (
         <div className='p-daf-kesher'>

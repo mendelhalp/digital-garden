@@ -14,19 +14,16 @@ const DafKesherEditorModal = (props) => {
         if (type === 'object') {
             setHeadline(fullData[data.type][data.index].headline);
             setContent(fullData[data.type][data.index].content);
+        } else {
+            setHeadline('');
+            setContent('');
         }
     }, [data]);
 
-    function cleanFormFields () {
-        setHeadline('');
-        setContent('');
-        setShowError(false);
-    }
-    
     function close () {
-        cleanFormFields();
-        cleanDataToEdit();
         closeModal();
+        setShowError(false);
+        cleanDataToEdit();
     }
 
     function onSave() {

@@ -18,19 +18,15 @@ const DafKesherCardEditorModal = (props) => {
             const date = data.date.toLocaleString().split('.');
             const viewDate = `${date[2].split(',')[0]}-${date[1].length === 1 ? '0' + date[1] : date[1]}-${date[0].length === 1 ? '0' + date[0] : date[0]}`;
             setDate(viewDate);
+        } else {
+            setTitle('');
+            setDate('');
         }
     }, [data]);
 
-    function cleanFormFields () {
-        setTitle('');
-        setDate('');
-        setShowError(false);
-    }
-
-
     function close () {
         closeModal();
-        cleanFormFields();
+        setShowError(false);
         cleanDataToEdit();
     }
 

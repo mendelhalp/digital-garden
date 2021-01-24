@@ -43,7 +43,7 @@ const DapeyKesherPage = () => {
         setShowDeleteAlert(true);
     }
 
-    const addDafKesher = activeUser.role === 'manager' ?
+    const addDafKesher = activeUser && activeUser.role === 'manager' ?
         <Col className='py-2' md={6} lg={3}>
             <AddDafKesherCard onClick={() => { setShowDafKesherCardEditorModal(true) }}/>
         </Col>

@@ -5,16 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Redirect } from 'react-router-dom';
 
-const MessageBox = ({topic, role, onDeleteClick, onEditClick}) => {
+const MessageBox = ({topic, activeUser, onDeleteClick, onEditClick}) => {
     const { headline, content } = topic;
     
     const bgColor = getRandomBgColor();
 
-    if (!role) {
+    if (!activeUser) {
         return <Redirect to="/"/>
     }
     let editIcon = null, deleteIcon = null;
-    if (role === 'manager') {
+    if (activeUser && activeUser.role === 'manager') {
         editIcon = <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />;
         deleteIcon = <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
     }    
