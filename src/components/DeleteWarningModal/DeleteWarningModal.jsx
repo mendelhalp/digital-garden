@@ -1,16 +1,13 @@
-
-
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import deleteDafKesher from '../../utils/deleteDafKesher';
 import updateDafKesherContent from '../../utils/updateDafKesherContent';
-import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 
 function DeleteWarningModal(props) {
-    const {fullData, data, dafKesherId, objectType, show, close, cleanDataToEdit} = props;
+    const {fullData, data, dafKesherId, objectType, showModal, closeModal, cleanDataToEdit} = props;
 
     function handleClose() {
-        close();
+        closeModal();
         cleanDataToEdit();
     }
     
@@ -24,7 +21,7 @@ function DeleteWarningModal(props) {
             console.log('delete gallery')
         } else if (objectType === 'חומר לימודי' || objectType === 'הודעה') {
             fullData[data.type].splice(data.index, 1);
-            updateDafKesherContent(dafKesherId, fullData)
+            updateDafKesherContent(dafKesherId, fullData);
             console.log(fullData);
             handleClose();
         }
@@ -32,7 +29,7 @@ function DeleteWarningModal(props) {
 
     return (
         <div className='c-delete-warning-modal'>
-            <Modal size='sm' show={show} onHide={close} backdrop="static" keyboard={false} centered>
+            <Modal size='sm' show={showModal} onHide={handleClose} backdrop="static" keyboard={false} centered>
                 <Modal.Header>
                     <Modal.Title>מחיקת {objectType}</Modal.Title>
                 </Modal.Header>

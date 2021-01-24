@@ -9,10 +9,10 @@ async function updateDafKesherContent(dafKesherId, content) {
         dafKesher.set('data', content);
         dafKesher.save().then(
             (result) => {
-                console.log('DafKesher updated');
+                // console.log('DafKesher updated');
             },
             (error) => {
-                console.error('Error while updating DafKesher: ', error);
+                // console.error('Error while updating DafKesher: ', error);
             }
 
         );

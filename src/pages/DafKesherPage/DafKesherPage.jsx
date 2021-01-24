@@ -12,12 +12,14 @@ import MessageBox from '../../components/MessageBox/MessageBox';
 import AddMessageBox from '../../components/MessageBox/AddMessageBox';
 import AddStudyTopicBox from '../../components/StudyTopicBox/AddStudyTopicBox';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
+import DafKesherEditorModal from '../../components/DafKesherEditorModal/DafKesherEditorModal';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
     const [data, setData] = useState({});
     const [header, setHeader] = useState({});
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+    const [showEditorModal, setShowEditorModal] = useState(false);
     const [contentToEdit, setContentToEdit] = useState('');
     
     const dafKesherId = useParams().id;
@@ -42,29 +44,40 @@ function DafKesherPage() {
         return <Redirect to="/" />
     }
     
+    function handleAddClick(contentToEdit) {
+        setContentToEdit(contentToEdit);
+        setShowEditorModal(true);
+    }
+
+    function handleEditClick(contentToEdit) {
+        setContentToEdit(contentToEdit);
+        setShowEditorModal(true);
+    }
+
     function handleDeleteClick(contentToEdit) {
         setContentToEdit(contentToEdit);
-        // setDafKesherToEdit(dafKesher);
         setShowDeleteAlert(true);
     }
 
     const topicsView = data.studyTopics ? data.studyTopics.map( (topic, index) => 
         <div key={index}>
-            <StudyTopicBox topic={{ 'headline': topic.headline, 'content': topic.content }}
-                role={activeUser.role} onDeleteClick={() => { handleDeleteClick({ type:'studyTopics', index:index }) }} />
+            <StudyTopicBox topic={{ 'headline': topic.headline, 'content': topic.content }} role={activeUser.role}
+                onEditClick={() => { handleEditClick({ type: 'studyTopics', index: index }) }}
+                onDeleteClick={() => { handleDeleteClick({ type: 'studyTopics', index: index }) }} />
         </div>
     ) : null;
     
-    const addTopic = activeUser.role === 'manager' && <AddStudyTopicBox />;
+    const addTopic = activeUser.role === 'manager' && <AddStudyTopicBox onClick={() => { handleAddClick('studyTopics') }}/>;
 
     const messagesView = data.messages ? data.messages.map( (message, index) => 
         <div key={index}>
-            <MessageBox topic={{ 'headline': message.headline, 'content': message.content }}
-                role={activeUser.role} onDeleteClick={() => { handleDeleteClick({ type:'messages', index:index }) }} />
+            <MessageBox topic={{ 'headline': message.headline, 'content': message.content }} role={activeUser.role}
+                onEditClick={() => { handleEditClick({ type: 'messages', index: index }) }}
+                onDeleteClick={() => { handleDeleteClick({ type: 'messages', index: index }) }} />
         </div>
     ) : null;
     
-    const addMessage = activeUser.role === 'manager' && <AddMessageBox />;
+    const addMessage = activeUser.role === 'manager' && <AddMessageBox onClick={() => { handleAddClick('messages') }}/>;
 
     return (
         <div className='p-daf-kesher'>
@@ -104,9 +117,10 @@ function DafKesherPage() {
                     </Col>
                 </Row>
             </Container>
-
+            <DafKesherEditorModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} 
+                showModal={showEditorModal} closeModal={() => setShowEditorModal(false)} cleanDataToEdit={() => { setContentToEdit('') }}/>
             <DeleteWarningModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} objectType={contentToEdit.type === 'studyTopics' ? 'חומר לימודי' : 'הודעה'}
-                show={showDeleteAlert} close={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setContentToEdit('') }} />
+                showModal={showDeleteAlert} closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setContentToEdit('') }} />
         </div>
     );
 }

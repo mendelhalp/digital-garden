@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Redirect } from 'react-router-dom';
 
-const StudyTopicBox = ({topic, role, onDeleteClick}) => {
+const StudyTopicBox = ({topic, role, onDeleteClick, onEditClick}) => {
     const { headline, content } = topic;
 
     if (!role) {
@@ -13,7 +13,7 @@ const StudyTopicBox = ({topic, role, onDeleteClick}) => {
 
     let editIcon = null, deleteIcon = null;
     if (role = 'manager') {
-        editIcon = <FontAwesomeIcon className='edit-icon' icon={faEdit} />;
+        editIcon = <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />;
         deleteIcon = <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
     }
 

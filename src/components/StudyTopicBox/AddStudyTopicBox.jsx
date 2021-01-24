@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import { Redirect } from 'react-router-dom';
 
-const AddStudyTopicBox = () => {
+const AddStudyTopicBox = ({onClick}) => {
     const activeUser = useContext(ActiveUserContext);
 
     if (!activeUser) {
@@ -12,7 +12,7 @@ const AddStudyTopicBox = () => {
     }
 
     return (
-        <div className='c-add-study-topic-box text-center'>
+        <div className='c-add-study-topic-box text-center' onClick={onClick}>
             <Card.Title>+</Card.Title>
         </div>
     );
