@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import getGalleryMainImg from '../../utils/getGalleryMainImg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-const GalleryCard = ({gallery}) => {
-    const {id, name } = gallery;
+const GalleryCard = ({gallery, handleEdit, handleDeleteClick, activeUser}) => {
+    const {id, title } = gallery;
     const [mainImg, setMainImg] = useState('');
 
     useEffect(() => {
@@ -13,8 +15,8 @@ const GalleryCard = ({gallery}) => {
             const mainImg = await getGalleryMainImg(id);
             setMainImg(mainImg);
         }
-        getMainImg()
-    });
+        getMainImg();
+    },[]);
 
 
     return (
@@ -22,8 +24,14 @@ const GalleryCard = ({gallery}) => {
             <Card>
                 <Link to={'/galleries/'+ id}>
                     {mainImg ? <Card.Img variant='top' src={mainImg}/> : null}
-                    <Card.Title className='text-center'>{name}</Card.Title>
+                    <Card.Title className='text-center'>{title}</Card.Title>
                 </Link>
+                {activeUser && activeUser.role === 'manager' &&
+                    <Card.Footer>
+                        <FontAwesomeIcon className='edit-icon' onClick={() => {handleEdit(gallery)}} icon={faEdit}/>
+                        <FontAwesomeIcon className='delete-icon' onClick={() => {handleDeleteClick(gallery)}} icon={faTrashAlt}/>
+                    </Card.Footer>
+                }
             </Card>
         </div>
     )

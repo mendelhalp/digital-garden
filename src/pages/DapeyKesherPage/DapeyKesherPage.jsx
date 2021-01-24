@@ -73,7 +73,7 @@ const DapeyKesherPage = () => {
                     {dapeyKesherView}
                 </Row>
             </Container>
-            <MainCardEditorModal data={dafKesherToEdit} parseGarden={garden.parseGarden}
+            <MainCardEditorModal data={dafKesherToEdit} parseGarden={garden.parseGarden} cardType='dafKesher'
                 showModal={showMainCardEditorModal} closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
             <DeleteWarningModal data={dafKesherToEdit} objectType='דף קשר' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setDafKesherToEdit('') }} />

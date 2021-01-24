@@ -8,10 +8,10 @@ async function deleteDafKesher(dafKesherId) {
     query.get(dafKesherId).then((dafKesher) => {
         dafKesher.destroy().then(
             (dafKesher) => {
-                console.log('DafKesher destroyed');
+                // console.log('DafKesher destroyed');
             },
             (error) => {
-                console.error('Error while destroying DafKesher: ', error);
+                // console.error('Error while destroying DafKesher: ', error);
             }
 
         );

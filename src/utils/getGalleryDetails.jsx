@@ -7,6 +7,6 @@ async function getGalleryDetails(galleryId) {
     const galleryName = Gallery.get('title');
     const galleryMainImg = await getGalleryMainImg(galleryId);
 
-    return ({'parseGallery':Gallery, 'name':galleryName, 'mainImg': galleryMainImg});
+    return ({'parseGallery':Gallery, 'title':galleryName, 'mainImg': galleryMainImg});
 }
 export default getGalleryDetails;

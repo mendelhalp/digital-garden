@@ -117,7 +117,7 @@ function DafKesherPage() {
                     </Col>
                 </Row>
             </Container>
-            <DafKesherEditorModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} 
+            <DafKesherEditorModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} cardType='dafKesher'
                 showModal={showEditorModal} closeModal={() => setShowEditorModal(false)} cleanDataToEdit={() => { setContentToEdit('') }}/>
             <DeleteWarningModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} objectType={contentToEdit.type === 'studyTopics' ? 'חומר לימודי' : 'הודעה'}
                 showModal={showDeleteAlert} closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setContentToEdit('') }} />

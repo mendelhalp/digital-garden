@@ -12,10 +12,10 @@ async function createNewDafKesher(parseGarden, title, date) {
 
     myNewDafKesher.save().then(
     (result) => {
-        console.log('DafKesher created', result);
+        // console.log('DafKesher created', result);
     },
     (error) => {
-        console.error('Error while creating DafKesher: ', error);
+        // console.error('Error while creating DafKesher: ', error);
     }
     );
     

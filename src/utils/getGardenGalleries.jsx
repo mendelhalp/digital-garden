@@ -10,7 +10,7 @@ async function getGardenGalleries(ganId) {
     const galleries = results.map(gallery => {
         return({
             'id':gallery.id,
-            'name':gallery.get('title')
+            'title':gallery.get('title')
         })
     });
 

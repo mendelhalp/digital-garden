@@ -9,7 +9,7 @@ import getGalleryDetails from '../../utils/getGalleryDetails';
 
 const GalleryPage = () => {
     const [images, setImages] = useState([]);
-    const [galleryName, setGalleryName] = useState('');
+    const [galleryTitle, setGalleryTitle] = useState('');
     const [showImageModal, setShowImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -19,9 +19,9 @@ const GalleryPage = () => {
 
         async function getImages (){
             const images = await getGalleryImages(galleryId);
-            const name = (await getGalleryDetails(galleryId)).name;
+            const title = (await getGalleryDetails(galleryId)).title;
             setImages(images);
-            setGalleryName(name);
+            setGalleryTitle(title);
         }
         
         getImages();
@@ -46,7 +46,7 @@ const GalleryPage = () => {
 
     return (
         <div className='p-gallery'>
-            <h2>{galleryName}</h2>
+            <h2>{galleryTitle}</h2>
             <Container>
                 <CardColumns>
                     {imagesView}
