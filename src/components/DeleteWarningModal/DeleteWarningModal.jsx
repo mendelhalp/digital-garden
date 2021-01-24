@@ -3,9 +3,11 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import deleteDafKesher from '../../utils/deleteDafKesher';
+import updateDafKesherContent from '../../utils/updateDafKesherContent';
+import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 
 function DeleteWarningModal(props) {
-    const {data, objectType, show, close, cleanDataToEdit} = props;
+    const {fullData, data, dafKesherId, objectType, show, close, cleanDataToEdit} = props;
 
     function handleClose() {
         close();
@@ -16,9 +18,15 @@ function DeleteWarningModal(props) {
         if (objectType === 'דף קשר') {
             deleteDafKesher(data.id);
             handleClose();
-        } else {
+        } else if (objectType === 'גלריה') {
             // deleteGallery(data.id);
+            handleClose();
             console.log('delete gallery')
+        } else if (objectType === 'חומר לימודי' || objectType === 'הודעה') {
+            fullData[data.type].splice(data.index, 1);
+            updateDafKesherContent(dafKesherId, fullData)
+            console.log(fullData);
+            handleClose();
         }
     }
 

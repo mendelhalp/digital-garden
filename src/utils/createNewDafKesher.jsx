@@ -8,7 +8,7 @@ async function createNewDafKesher(parseGarden, title, date) {
     myNewDafKesher.set('title',title);
     myNewDafKesher.set('gan', parseGarden);
     myNewDafKesher.set('date', new Date(date));
-    myNewDafKesher.set('data', {"sdutyTopics":[], "messages":[]});
+    myNewDafKesher.set('data', {"studyTopics":[], "messages":[]});
 
     myNewDafKesher.save().then(
     (result) => {

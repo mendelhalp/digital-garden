@@ -1,7 +1,7 @@
 import './DafKesherPage.css'
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import getDafKesherDetails from '../../utils/getDafKesherDetails';
@@ -11,43 +11,60 @@ import messageIcon from '../../images/message-icon.png';
 import MessageBox from '../../components/MessageBox/MessageBox';
 import AddMessageBox from '../../components/MessageBox/AddMessageBox';
 import AddStudyTopicBox from '../../components/StudyTopicBox/AddStudyTopicBox';
+import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
     const [data, setData] = useState({});
     const [header, setHeader] = useState({});
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+    const [contentToEdit, setContentToEdit] = useState('');
     
     const dafKesherId = useParams().id;
     
-        
     useEffect(() => {
         async function getData() {
             const dafKesher = await getDafKesherDetails(dafKesherId);
             const gardenDetails = (await getGardenDetails(activeUser));
             const header = {
-                'title':dafKesher.title,
-                'hebDate':dafKesher.hebDate,
-                'logo':gardenDetails.logo,
-                'name':gardenDetails.name
+                'title': dafKesher.title,
+                'hebDate': dafKesher.hebDate,
+                'logo': gardenDetails.logo,
+                'name': gardenDetails.name
             };
             setHeader(header);
             setData(dafKesher.data);
         }
         getData();
-    },[]);
+    }, []);
+    
+    if (!activeUser) {
+        return <Redirect to="/" />
+    }
+    
+    function handleDeleteClick(contentToEdit) {
+        setContentToEdit(contentToEdit);
+        // setDafKesherToEdit(dafKesher);
+        setShowDeleteAlert(true);
+    }
 
-
-    const topicsView = data.sdutyTopics ? data.sdutyTopics.map( (topic, index) => 
+    const topicsView = data.studyTopics ? data.studyTopics.map( (topic, index) => 
         <div key={index}>
-            <StudyTopicBox topic={{'headline':topic.headline, 'content':topic.content}}/>
+            <StudyTopicBox topic={{ 'headline': topic.headline, 'content': topic.content }}
+                role={activeUser.role} onDeleteClick={() => { handleDeleteClick({ type:'studyTopics', index:index }) }} />
         </div>
-        ) : null;
+    ) : null;
+    
+    const addTopic = activeUser.role === 'manager' && <AddStudyTopicBox />;
 
     const messagesView = data.messages ? data.messages.map( (message, index) => 
         <div key={index}>
-            <MessageBox topic={{'headline':message.headline, 'content':message.content}}/>
+            <MessageBox topic={{ 'headline': message.headline, 'content': message.content }}
+                role={activeUser.role} onDeleteClick={() => { handleDeleteClick({ type:'messages', index:index }) }} />
         </div>
-        ) : null;
+    ) : null;
+    
+    const addMessage = activeUser.role === 'manager' && <AddMessageBox />;
 
     return (
         <div className='p-daf-kesher'>
@@ -71,7 +88,7 @@ function DafKesherPage() {
                             </Card.Header>
                             <Card.Body>
                                 {topicsView}
-                                {activeUser.role === 'manager' ? <AddStudyTopicBox/> : null}
+                                {addTopic}
                             </Card.Body>
                         </Card>
                     </Col>
@@ -82,11 +99,14 @@ function DafKesherPage() {
                                 <div><img src={messageIcon} alt="message icon"/></div>
                             </Card.Header>
                             {messagesView}
-                            {activeUser.role === 'manager' ? <AddMessageBox/> : null}
+                            {addMessage}
                         </Card>
                     </Col>
                 </Row>
             </Container>
+
+            <DeleteWarningModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} objectType={contentToEdit.type === 'studyTopics' ? 'חומר לימודי' : 'הודעה'}
+                show={showDeleteAlert} close={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setContentToEdit('') }} />
         </div>
     );
 }

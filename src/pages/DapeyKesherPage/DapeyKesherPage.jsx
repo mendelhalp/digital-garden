@@ -14,9 +14,9 @@ const DapeyKesherPage = () => {
     const [dapeyKesher, setDapeyKesher] = useState([]);
     const activeUser = useContext(ActiveUserContext);
     const [garden, setGarden] = useState('');
-    const [showDafKesherEditorModal, setShowDafKesherEditorModal] = useState(false);
-    const [dafKesherToEdit, setDafKesherToEdit] = useState('');
+    const [showDafKesherCardEditorModal, setShowDafKesherCardEditorModal] = useState(false);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+    const [dafKesherToEdit, setDafKesherToEdit] = useState('');
     
     useEffect(() => {
         async function getDapeyKesher() {
@@ -27,7 +27,7 @@ const DapeyKesherPage = () => {
         }
         
         getDapeyKesher();
-    }, [showDafKesherEditorModal,showDeleteAlert])
+    }, [showDafKesherCardEditorModal,showDeleteAlert])
 
     if (!activeUser) {
         return <Redirect to="/" />
@@ -35,7 +35,7 @@ const DapeyKesherPage = () => {
 
     function handleEdit(dafKesher) {
         setDafKesherToEdit(dafKesher);
-        setShowDafKesherEditorModal(true);
+        setShowDafKesherCardEditorModal(true);
     }
 
     function handleDeleteClick(dafKesher) {
@@ -45,13 +45,13 @@ const DapeyKesherPage = () => {
 
     const addDafKesher = activeUser.role === 'manager' ?
         <Col className='py-2' md={6} lg={3}>
-            <AddDafKesherCard onClick={() => { setShowDafKesherEditorModal(true) }}/>
+            <AddDafKesherCard onClick={() => { setShowDafKesherCardEditorModal(true) }}/>
         </Col>
     : null;
 
     const dapeyKesherView = dapeyKesher ? dapeyKesher.map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
-            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handledeleteClick={handleDeleteClick} activeUser={activeUser}/>
+            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
         </Col>
     ) : null;
 
@@ -74,7 +74,7 @@ const DapeyKesherPage = () => {
                 </Row>
             </Container>
             <DafKesherCardEditorModal data={dafKesherToEdit} parseGarden={garden.parseGarden}
-                showModal={showDafKesherEditorModal} closeModal={() => { setShowDafKesherEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
+                showModal={showDafKesherCardEditorModal} closeModal={() => { setShowDafKesherCardEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
             <DeleteWarningModal data={dafKesherToEdit} objectType='דף קשר' show={showDeleteAlert}
                 close={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
         </div>

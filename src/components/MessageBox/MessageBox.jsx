@@ -3,24 +3,20 @@ import { Card } from 'react-bootstrap';
 import getRandomBgColor from '../../utils/getRandomBgColor';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import ActiveUserContext from '../../utils/ActiveUserContext';
 import { Redirect } from 'react-router-dom';
-import { useContext } from 'react';
 
-const MessageBox = ({topic}) => {
+const MessageBox = ({topic, role, onDeleteClick}) => {
     const { headline, content } = topic;
-    const activeUser = useContext(ActiveUserContext);
     
     const bgColor = getRandomBgColor();
 
-    if (!activeUser) {
+    if (!role) {
         return <Redirect to="/"/>
     }
-
     let editIcon = null, deleteIcon = null;
-    if (activeUser.role === 'manager') {
+    if (role === 'manager') {
         editIcon = <FontAwesomeIcon className='edit-icon' icon={faEdit} />;
-        deleteIcon = <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} />;
+        deleteIcon = <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
     }    
 
     return (
