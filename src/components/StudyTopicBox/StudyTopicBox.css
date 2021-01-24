@@ -1,0 +1,11 @@
+.c-study-topic-box .fa-trash-alt{
+    margin: 2px;
+    color: lightcoral;
+    cursor: pointer;
+}
+
+.c-study-topic-box .fa-edit{
+    margin: 2px;
+    color: rgb(128, 240, 133);
+    cursor: pointer;
+}

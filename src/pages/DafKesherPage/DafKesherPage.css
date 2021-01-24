@@ -60,6 +60,7 @@
 
 .p-daf-kesher svg.edit-icon, .p-daf-kesher svg.add-icon{
     float: left;
+    margin: 3px;
 }
 .p-daf-kesher svg.add-icon{
     margin: 5px;
