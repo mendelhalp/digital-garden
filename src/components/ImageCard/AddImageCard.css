@@ -1,0 +1,16 @@
+.c-add-image-card{
+    box-shadow: 1px 1px 9px -5px #000;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.c-add-image-card:hover{
+    transform: scale(1.01);
+}
+
+.c-add-image-card .card-title.h5{
+    font-size: 2rem;
+    color: rgba(0,0,0,.5);
+    margin: 0;
+}

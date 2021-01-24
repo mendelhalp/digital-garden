@@ -8,6 +8,8 @@ import getGalleryImages from '../../utils/getGalleryImages';
 import getGalleryDetails from '../../utils/getGalleryDetails';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
+import AddImageCard from '../../components/ImageCard/AddImageCard';
+import AddImageModal from '../../components/AddImage/AddImageModal';
 
 const GalleryPage = () => {
     const activeUser = useContext(ActiveUserContext);
@@ -16,6 +18,7 @@ const GalleryPage = () => {
     const [showImageModal, setShowImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+    const [showAddImage, setShowAddImage] = useState(false);
     const [imageToEdit, setImageToEdit] = useState('');
 
     const galleryId = useParams().id;
@@ -31,7 +34,7 @@ const GalleryPage = () => {
         
         getImages();
         
-    }, [showDeleteAlert])
+    },[showDeleteAlert, showAddImage])
     
     if (!activeUser) {
         return <Redirect to="/"/>
@@ -51,8 +54,10 @@ const GalleryPage = () => {
         setShowDeleteAlert(true);
     } 
     
-    const imagesView = images ? images.map((image, index) =>
-        <ImageCard image={image} key={image.id} activeUser={activeUser} onClick={() => onImageSelect(index)} handleDeleteClick={handleDeleteClick}/>) : null;
+    const addImage = activeUser && activeUser.role === 'manager' && <AddImageCard onClick={() => {setShowAddImage(true)}}/>;
+
+    const imagesView = images && images.map((image, index) =>
+        <ImageCard image={image} key={image.id} activeUser={activeUser} onClick={() => onImageSelect(index)} handleDeleteClick={handleDeleteClick}/>);
 
 
     return (
@@ -60,12 +65,15 @@ const GalleryPage = () => {
             <h2>{galleryTitle}</h2>
             <Container>
                 <CardColumns>
+                    {addImage}
                     {imagesView}
                 </CardColumns>
             </Container>
-            {selectedImage !== undefined && <ImageModal images={images} showModal={showImageModal} selectedImage={selectedImage} close={() => {setShowImageModal(false)}} onImageChange={onImageChange} />}
+            {selectedImage && images.length>0 &&
+                <ImageModal images={images} showModal={showImageModal} selectedImage={selectedImage} close={() => { setShowImageModal(false) }} onImageChange={onImageChange} />}
             <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setImageToEdit('') }} />
+            {images && <AddImageModal galleryTitle={galleryTitle} galleryId={galleryId} showModal={showAddImage} closeModal={() => {setShowAddImage(false)}}/>}
         </div>
     )
 }
