@@ -1,6 +1,9 @@
 .c-daf-kesher-card{
     box-shadow: 1px 1px 9px -5px #000;
 }
+.c-daf-kesher-card:hover{
+    transform: scale(1.1);
+}
 
 .c-daf-kesher-card .card a{
     color: rgba(0,0,0,.5);
