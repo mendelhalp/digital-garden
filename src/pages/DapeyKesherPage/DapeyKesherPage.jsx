@@ -8,7 +8,6 @@ import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher';
 import getGardenDetails from '../../utils/getGardenDetails';
 import AddDafKesherCard from '../../components/DafKesherCard/AddDafKesherCard';
 import DafKesherCardEditorModal from '../../components/DafKesherCardEditorModal/DafKesherCardEditorModal';
-import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 
 const DapeyKesherPage = () => {
@@ -39,8 +38,7 @@ const DapeyKesherPage = () => {
         setShowDafKesherEditorModal(true);
     }
 
-    function handledeleteClick(dafKesher) {
-        console.log(dafKesher)
+    function handleDeleteClick(dafKesher) {
         setDafKesherToEdit(dafKesher);
         setShowDeleteAlert(true);
     }
@@ -53,7 +51,7 @@ const DapeyKesherPage = () => {
 
     const dapeyKesherView = dapeyKesher ? dapeyKesher.map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
-            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handledeleteClick={handledeleteClick} />
+            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handledeleteClick={handleDeleteClick} activeUser={activeUser}/>
         </Col>
     ) : null;
 

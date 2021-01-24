@@ -15,8 +15,7 @@ import DafKesherPage from './pages/DafKesherPage/DafKesherPage';
 import TopNavbar from './components/TopNavbar/TopNavbar';
 
 function App() {
-  const [activeUser, setActiveUser] = useState(
-    Parse.User.current() ? new UserModel(Parse.User.current()) : null);
+  const [activeUser, setActiveUser] = useState(Parse.User.current() ? new UserModel(Parse.User.current()) : null);
   
   const handleLogin = (loggedinUser) => {
     setActiveUser(loggedinUser);
@@ -26,7 +25,6 @@ function App() {
     setActiveUser(null);
     Parse.User.logOut();
   }
-  
 
   return (
     <>
