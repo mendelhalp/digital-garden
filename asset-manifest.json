@@ -1,28 +1,26 @@
 {
   "files": {
-    "main.css": "/digital-garden/static/css/main.7f61e25e.chunk.css",
-    "main.js": "/digital-garden/static/js/main.0cec86d0.chunk.js",
-    "main.js.map": "/digital-garden/static/js/main.0cec86d0.chunk.js.map",
-    "runtime-main.js": "/digital-garden/static/js/runtime-main.fa96054b.js",
-    "runtime-main.js.map": "/digital-garden/static/js/runtime-main.fa96054b.js.map",
+    "main.css": "/digital-garden/static/css/main.670cfb91.chunk.css",
+    "main.js": "/digital-garden/static/js/main.8cee3d8b.chunk.js",
+    "main.js.map": "/digital-garden/static/js/main.8cee3d8b.chunk.js.map",
+    "runtime-main.js": "/digital-garden/static/js/runtime-main.6bc7b635.js",
+    "runtime-main.js.map": "/digital-garden/static/js/runtime-main.6bc7b635.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/digital-garden/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.bd4ab746.chunk.js": "/digital-garden/static/js/2.bd4ab746.chunk.js",
-    "static/js/2.bd4ab746.chunk.js.map": "/digital-garden/static/js/2.bd4ab746.chunk.js.map",
-    "static/js/3.e295151c.chunk.js": "/digital-garden/static/js/3.e295151c.chunk.js",
-    "static/js/3.e295151c.chunk.js.map": "/digital-garden/static/js/3.e295151c.chunk.js.map",
+    "static/js/2.6821adb0.chunk.js": "/digital-garden/static/js/2.6821adb0.chunk.js",
+    "static/js/2.6821adb0.chunk.js.map": "/digital-garden/static/js/2.6821adb0.chunk.js.map",
+    "static/js/3.93afb60e.chunk.js": "/digital-garden/static/js/3.93afb60e.chunk.js",
+    "static/js/3.93afb60e.chunk.js.map": "/digital-garden/static/js/3.93afb60e.chunk.js.map",
     "index.html": "/digital-garden/index.html",
     "static/css/2.ae9f1eb3.chunk.css.map": "/digital-garden/static/css/2.ae9f1eb3.chunk.css.map",
-    "static/css/main.7f61e25e.chunk.css.map": "/digital-garden/static/css/main.7f61e25e.chunk.css.map",
-    "static/js/2.bd4ab746.chunk.js.LICENSE.txt": "/digital-garden/static/js/2.bd4ab746.chunk.js.LICENSE.txt",
-    "static/media/book-icon.38b0a9d3.png": "/digital-garden/static/media/book-icon.38b0a9d3.png",
-    "static/media/logo192.f73b2edd.png": "/digital-garden/static/media/logo192.f73b2edd.png",
-    "static/media/message-icon.12cbb3d2.png": "/digital-garden/static/media/message-icon.12cbb3d2.png"
+    "static/css/main.670cfb91.chunk.css.map": "/digital-garden/static/css/main.670cfb91.chunk.css.map",
+    "static/js/2.6821adb0.chunk.js.LICENSE.txt": "/digital-garden/static/js/2.6821adb0.chunk.js.LICENSE.txt",
+    "static/media/logo192.f73b2edd.png": "/digital-garden/static/media/logo192.f73b2edd.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.fa96054b.js",
+    "static/js/runtime-main.6bc7b635.js",
     "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.bd4ab746.chunk.js",
-    "static/css/main.7f61e25e.chunk.css",
-    "static/js/main.0cec86d0.chunk.js"
+    "static/js/2.6821adb0.chunk.js",
+    "static/css/main.670cfb91.chunk.css",
+    "static/js/main.8cee3d8b.chunk.js"
   ]
 }
