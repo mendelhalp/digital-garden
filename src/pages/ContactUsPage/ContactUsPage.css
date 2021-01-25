@@ -13,11 +13,6 @@
     float: left;
 }
 
-.p-contact-us .custom-file-label{
-    text-align: left;
-    overflow: hidden;
-}
-
 .p-contact-us.success{
     height: 70vh;
     display: flex;

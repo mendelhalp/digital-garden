@@ -58,7 +58,7 @@ function AddImageModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <Form.Group>
-                    <Form.File id="formContactUsFile" label={images ? 'filesNames' : 'בחירת קבצים'} data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
+                    <Form.File id="formFiles" label={images ? 'filesNames' : 'בחירת קבצים'} data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
                     <Form.Text className="text-muted">{imagesAmount >0 ? `נבחרו ${imagesAmount} קבצים` : 'ניתן לבחור מספר קבצים יחד'}</Form.Text>
                     <CardColumns>
                         {imagesView}

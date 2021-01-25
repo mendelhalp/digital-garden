@@ -13,10 +13,12 @@ import UserModel from './model/UserModel';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import DafKesherPage from './pages/DafKesherPage/DafKesherPage';
 import TopNavbar from './components/TopNavbar/TopNavbar';
+import{ init } from 'emailjs-com';
 
 function App() {
   const [activeUser, setActiveUser] = useState(Parse.User.current() ? new UserModel(Parse.User.current()) : null);
   
+  init("user_AV4NvFTR6vJnUEHOtXINx");
   const handleLogin = (loggedinUser) => {
     setActiveUser(loggedinUser);
   }

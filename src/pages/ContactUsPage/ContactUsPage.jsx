@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, CardColumns, Card, Form, Spinner } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
+import addImage from '../../utils/addImage';
+import emailjs from 'emailjs-com';
 import isEmailValid from '../../utils/isEmailValid';
 import './ContactUsPage.css'
 
@@ -12,17 +14,25 @@ const ContactUsPage = () => {
     const [subject, setSubject] = useState('');
     const [request, setRequest] = useState('');
     const [useUserInfo, setUseUserInfo] = useState(activeUser ? true : false);
-    const [files, setFiles] = useState({});
+    const [files, setFiles] = useState('');
+    const [filesUrl, setFilesUrl] = useState('');
     const [showEmailError, setShowEmailError] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     
     function sendForm () {
-        //send to email via parse...
+        emailjs.send("service_5cx738e","template_k3nemuh",{
+            from_name: name,
+            from_email: email,
+            topic: subject,
+            message: request,
+            file_links: filesUrl,
+            });
 
         setSubject('');
         setRequest('');
-        setFiles({});
+        setFiles('');
+        setFilesUrl('');
         setIsFormSubmitted(true);
     }
     
@@ -54,23 +64,27 @@ const ContactUsPage = () => {
             setUseUserInfo(!useUserInfo);
         }
     }
-
-    function onFilesSelect(event) {
+    
+    async function onFilesSelect(event) {
         setFiles(event.target.files);
-    }
-
-    let filesNames= '';
-    if (files) { 
-        for (let i =0 ; i < files.length ; i++){
-            if (i===0) {
-                filesNames += files[i].name.split('.')[0];
-            }else {
-                filesNames += `, ${files[i].name.split('.')[0]}`;
-            }
-        }
+        const filesArr = Object.values(event.target.files);
+        let newFilesUrl = [];
+        await Promise.all(filesArr.map(async file => {
+            const res = await addImage(file, 'fe0qzAHNtH');
+            console.log(res.get('file')._url);
+            newFilesUrl.push(res.get('file')._url);
+            debugger
+        }));
+        setFilesUrl(newFilesUrl);
     }
 
     const filesAmount = files ? files.length : 0;
+
+    const filesView = filesUrl ? filesUrl.map((fileUrl, index) =>
+        <Card key={index}>
+            <Card.Img src={fileUrl}/>
+        </Card>
+    ) : null;
 
     if (isFormSubmitted) {
         return(
@@ -108,8 +122,16 @@ const ContactUsPage = () => {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.File id="formContactUsFile" label={files ? filesNames : 'בחירת קבצים'} data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
-                    <Form.Text className="text-muted">{filesAmount >0 ? `נבחרו ${filesAmount} קבצים` : 'ניתן לבחור מספר קבצים יחד'}</Form.Text>
+                    <Form.File id="formContactUsFile" label='' data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
+                    <Form.Text className="text-muted">{filesAmount >0 ? `נבחרו ${filesAmount} קבצים` : 'ניתן לבחור מספר קבצים'}</Form.Text>
+                    <CardColumns>
+                        {filesView}
+                    </CardColumns>
+                    {files && filesView === null && 
+                        <div className='images-spinner row justify-content-center mt-3'>
+                            <Spinner animation="border" variant="warning" />
+                        </div>
+                    }
                 </Form.Group>
                 <Button variant="warning" type="button" className='w-100' disabled={!isFormValid} onClick={sendForm}>
                     שליחה
