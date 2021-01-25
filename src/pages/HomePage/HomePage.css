@@ -36,6 +36,7 @@
 @media screen and (max-width: 575px){
     .p-home .main-content{
         width: 320px;
+        margin: 30px auto;
     }
 
     .p-home .main-text, .p-home .logo-img{
