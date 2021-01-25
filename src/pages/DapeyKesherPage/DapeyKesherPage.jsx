@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
 import ActiveUserContext from '../../utils/ActiveUserContext';
@@ -21,9 +21,9 @@ const DapeyKesherPage = () => {
     useEffect(() => {
         async function getDapeyKesher() {
             const garden = await getGardenDetails(activeUser);
-            setGarden(garden);
             const dapeyKesher = await getGardenDapeyKesher(garden.id);
             setDapeyKesher(dapeyKesher);
+            setGarden(garden);
         }
         
         getDapeyKesher();
@@ -55,6 +55,11 @@ const DapeyKesherPage = () => {
         </Col>
     ) : null;
 
+    if (!garden) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
 
     return (
         <div className="p-dapey-kesher">

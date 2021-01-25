@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CardColumns, Container } from 'react-bootstrap';
+import { CardColumns, Container, Spinner } from 'react-bootstrap';
 import './GalleryPage.css'
 import { Redirect, useParams } from 'react-router-dom';
 import ImageCard from '../../components/ImageCard/ImageCard';
@@ -59,6 +59,11 @@ const GalleryPage = () => {
     const imagesView = images && images.map((image, index) =>
         <ImageCard image={image} key={image.id} activeUser={activeUser} onClick={() => onImageSelect(index)} handleDeleteClick={handleDeleteClick}/>);
 
+    if (!galleryTitle) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
 
     return (
         <div className='p-gallery'>
