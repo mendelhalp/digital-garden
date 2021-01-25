@@ -1,8 +1,7 @@
 import Parse from 'parse';
-import getGalleryDetails from './getGalleryDetails';
 
 async function addImage(image, galleryId) {
-    const parseGallery = (await getGalleryDetails(galleryId)).parseGallery;
+    const parseGallery = await new Parse.Query(new Parse.Object.extend('Gallery')).get(galleryId);
     
     const Image = Parse.Object.extend('Image');
     const myNewImage = new Image();
