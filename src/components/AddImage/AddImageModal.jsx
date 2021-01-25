@@ -52,7 +52,7 @@ function AddImageModal(props) {
     ) : null;
 
     return (
-        <Modal className='c-add-image-modal' size={'md'} show={showModal} onHide={handleClose} centered>
+        <Modal className='c-add-image-modal' size={'md'} show={showModal} onHide={handleClose} centered backdrop="static" keyboard={false}>
             <Modal.Header>
                 <Modal.Title>הוספת תמונות לגלריה <span className='font-weight-bold'>{galleryTitle}</span></Modal.Title>
             </Modal.Header>
@@ -71,8 +71,8 @@ function AddImageModal(props) {
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={closeClicked}>ביטול</Button>
-                <Button variant="warning" onClick={addClicked}>הוספה</Button>
+                <Button variant="secondary" onClick={closeClicked} disabled={images && imagesView.length === 0}>ביטול</Button>
+                <Button variant="warning" onClick={addClicked} disabled={imagesView.length === 0}>הוספה</Button>
             </Modal.Footer>
         </Modal>
     );
