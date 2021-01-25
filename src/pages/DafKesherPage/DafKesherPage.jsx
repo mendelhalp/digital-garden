@@ -78,6 +78,7 @@ function DafKesherPage() {
     ) : null;
     
     const addMessage = activeUser && activeUser.role === 'manager' && <AddMessageBox onClick={() => { handleAddClick('messages') }}/>;
+
     if (data.length === 0) {
         return <div className='images-spinner row justify-content-center mt-3'>
                     <Spinner animation="border" variant="warning" />
