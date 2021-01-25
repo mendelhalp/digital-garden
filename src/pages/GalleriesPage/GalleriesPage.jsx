@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './GalleriesPage.css';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import getGardenGalleries from '../../utils/getGardenGalleries';
 import getGardenDetails from '../../utils/getGardenDetails';
 import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEditorModal';
@@ -21,9 +21,9 @@ const GalleriesPage = () => {
     useEffect(() => {
         async function getGalleries () {
             const garden = await getGardenDetails(activeUser);
-            setGarden(garden);
             const galleries = await getGardenGalleries(garden.id);
             setGalleries(galleries);
+            setGarden(garden);
         }
 
         getGalleries();
@@ -55,6 +55,11 @@ const GalleriesPage = () => {
         </Col>)        
     }) : null;
 
+    if (!garden) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
 
     return (
         <div className="p-galleries">

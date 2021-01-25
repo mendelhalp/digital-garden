@@ -1,6 +1,6 @@
 import './DafKesherPage.css'
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Redirect, useParams } from 'react-router-dom';
 import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
@@ -16,8 +16,8 @@ import DafKesherEditorModal from '../../components/DafKesherEditorModal/DafKeshe
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
-    const [data, setData] = useState({});
-    const [header, setHeader] = useState({});
+    const [data, setData] = useState('');
+    const [header, setHeader] = useState('');
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [showEditorModal, setShowEditorModal] = useState(false);
     const [contentToEdit, setContentToEdit] = useState('');
@@ -78,6 +78,12 @@ function DafKesherPage() {
     ) : null;
     
     const addMessage = activeUser && activeUser.role === 'manager' && <AddMessageBox onClick={() => { handleAddClick('messages') }}/>;
+    console.log(data);
+    if (data.length === 0) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
 
     return (
         <div className='p-daf-kesher'>
