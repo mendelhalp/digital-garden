@@ -71,7 +71,6 @@ const ContactUsPage = () => {
         let newFilesUrl = [];
         await Promise.all(filesArr.map(async file => {
             const res = await addImage(file, 'fe0qzAHNtH');
-            console.log(res.get('file')._url);
             newFilesUrl.push(res.get('file')._url);
             debugger
         }));
@@ -122,7 +121,7 @@ const ContactUsPage = () => {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.File id="formContactUsFile" label='' data-browse="בחירת קבצים" custom multiple onChange={onFilesSelect}/>
+                    <Form.File id="formContactUsFile" label='' data-browse="בחירת קבצים" accept="image/*" custom multiple onChange={onFilesSelect}/>
                     <Form.Text className="text-muted">{filesAmount >0 ? `נבחרו ${filesAmount} קבצים` : 'ניתן לבחור מספר קבצים'}</Form.Text>
                     <CardColumns>
                         {filesView}
