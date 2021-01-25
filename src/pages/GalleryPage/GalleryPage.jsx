@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CardColumns, Container } from 'react-bootstrap';
 import './GalleryPage.css'
 import { Redirect, useParams } from 'react-router-dom';
@@ -23,7 +23,7 @@ const GalleryPage = () => {
 
     const galleryId = useParams().id;
 
-    useState(() => {
+    useEffect(() => {
 
         async function getImages (){
             const images = await getGalleryImages(galleryId);
