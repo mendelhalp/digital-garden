@@ -24,7 +24,6 @@ const GalleryPage = () => {
     const galleryId = useParams().id;
 
     useEffect(() => {
-
         async function getImages (){
             const images = await getGalleryImages(galleryId);
             const title = (await getGalleryDetails(galleryId)).title;
@@ -34,7 +33,7 @@ const GalleryPage = () => {
         
         getImages();
         
-    },[showDeleteAlert, showAddImage])
+    },[showDeleteAlert, showAddImage, imageToEdit])
     
     if (!activeUser) {
         return <Redirect to="/"/>

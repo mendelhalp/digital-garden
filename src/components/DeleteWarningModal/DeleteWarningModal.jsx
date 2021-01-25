@@ -11,21 +11,25 @@ function DeleteWarningModal(props) {
         closeModal();
         cleanDataToEdit();
     }
-    
+    console.log(data);
     function deleteClick () {
         if (objectType === 'דף קשר') {
-            deleteDafKesher(data.id);
-            handleClose();
+            deleteDafKesher(data.id).then(() => {
+                handleClose();
+            })
         } else if (objectType === 'גלריה') {
-            deleteGallery(data.id);
-            handleClose();
+            deleteGallery(data.id).then(() => {
+                handleClose();
+            })
         } else if (objectType === 'חומר לימודי' || objectType === 'הודעה') {
             fullData[data.type].splice(data.index, 1);
-            updateDafKesherContent(dafKesherId, fullData);
-            handleClose();
+            updateDafKesherContent(dafKesherId, fullData).then(() => {
+                handleClose();
+            })
         } else if (objectType === 'תמונה') {
-            deleteImage(data.id);
-            handleClose();
+            deleteImage(data.id).then(() => {
+                handleClose();
+            })
         }
     }
 
