@@ -6,13 +6,13 @@ import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import getDafKesherDetails from '../../utils/getDafKesherDetails';
 import getGardenDetails from '../../utils/getGardenDetails';
-import bookIcon from '../../images/book-icon.png';
-import messageIcon from '../../images/message-icon.png';
 import MessageBox from '../../components/MessageBox/MessageBox';
 import AddMessageBox from '../../components/MessageBox/AddMessageBox';
 import AddStudyTopicBox from '../../components/StudyTopicBox/AddStudyTopicBox';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 import DafKesherEditorModal from '../../components/DafKesherEditorModal/DafKesherEditorModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommentDots, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 
 function DafKesherPage() {
     const activeUser = useContext(ActiveUserContext);
@@ -103,7 +103,7 @@ function DafKesherPage() {
                         <Card>
                             <Card.Header as='h5'>
                                 <span>מה למדנו השבוע?</span>
-                                <img src={bookIcon} alt="book icon"/>
+                                <FontAwesomeIcon className='view-icon' icon={faNewspaper}/>
                             </Card.Header>
                             <Card.Body>
                                 {topicsView}
@@ -115,7 +115,7 @@ function DafKesherPage() {
                         <Card>
                             <Card.Header as='h5'>
                                 <div>הודעות</div>
-                                <div><img src={messageIcon} alt="message icon"/></div>
+                                <FontAwesomeIcon className='view-icon' icon={faCommentDots}/>
                             </Card.Header>
                             {messagesView}
                             {addMessage}

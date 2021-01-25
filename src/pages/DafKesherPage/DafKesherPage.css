@@ -48,13 +48,13 @@
     height: auto;
 }
 
-.p-daf-kesher .svg-inline--fa{
+.p-daf-kesher .svg-inline--fa:not(.view-icon){
     font-size: 20px;
     margin: 3px;
     cursor: pointer;
 }
 
-.p-daf-kesher .svg-inline--fa:not(.add-icon){
+.p-daf-kesher .svg-inline--fa.edit-icon{
     display: none;
 }
 

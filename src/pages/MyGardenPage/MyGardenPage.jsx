@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { Card, Col, Container, Row, Spinner } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../utils/ActiveUserContext'
-import bookIcon from '../../images/book-icon.png';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher'
 import getGardenDetails from '../../utils/getGardenDetails'
@@ -10,7 +9,7 @@ import getGardenGalleries from '../../utils/getGardenGalleries'
 import './MyGardenPage.css'
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faImages, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 
 const MyGardenPage = () => {
     const activeUser = useContext(ActiveUserContext);
@@ -76,7 +75,7 @@ const MyGardenPage = () => {
                         <Card>
                             <Card.Header as='h5'>
                                 <span>דפי קשר</span>
-                                <img src={bookIcon} alt="book icon"/>
+                                <FontAwesomeIcon icon={faNewspaper}/>
                             </Card.Header>
                             <Card.Body>
                                 <Row>
@@ -94,7 +93,7 @@ const MyGardenPage = () => {
                         <Card>
                             <Card.Header as='h5'>
                                 <span>גלריות</span>
-                                <img src={bookIcon} alt="book icon"/>
+                                <FontAwesomeIcon icon={faImages}/>
                             </Card.Header>
                             <Card.Body>
                                 <Row>
