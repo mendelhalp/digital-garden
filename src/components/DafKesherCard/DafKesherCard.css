@@ -45,3 +45,9 @@
     color: rgb(128, 240, 133);
     cursor: pointer;
 }
+
+@media screen and (max-width: 991px) {
+    .c-daf-kesher-card:hover{
+        transform: unset;
+    }
+}
