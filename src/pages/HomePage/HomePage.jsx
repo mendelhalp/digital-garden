@@ -12,12 +12,12 @@ const HomePage = (props) => {
     const [redirectToMyGarden, setRedirectToMyGarden] = useState(activeUser ? true : false);
     const { onLogin } = props;
 
-    const handleLogin = (user) => {
+    function handleLogin(user) {
         onLogin(user);
         setRedirectToMyGarden(true);
     }
     
-    const handleCloseLogin = () => {
+    function handleCloseLogin() {
         setLoginModalShow(false);
     }
     
@@ -40,7 +40,7 @@ const HomePage = (props) => {
             </div>
             <div className='buttons'>
                 <Button variant="outline-warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
-                <Button variant="warning" size='lg'>הרשמה</Button>
+                <Button variant="warning" size='lg' as='a' href='#/signup'>הרשמה</Button>
             </div>
             <LoginModal showModal={loginModalShow} handleCloseLogin={handleCloseLogin} onLogin={handleLogin}/>
 
