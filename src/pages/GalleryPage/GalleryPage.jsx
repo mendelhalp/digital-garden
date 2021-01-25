@@ -74,7 +74,7 @@ const GalleryPage = () => {
                     {imagesView}
                 </CardColumns>
             </Container>
-            {selectedImage && images.length>0 &&
+            {selectedImage !== null && images.length>0 &&
                 <ImageModal images={images} showModal={showImageModal} selectedImage={selectedImage} close={() => { setShowImageModal(false) }} onImageChange={onImageChange} />}
             <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setImageToEdit('') }} />
