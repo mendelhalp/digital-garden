@@ -30,21 +30,19 @@ function DeleteWarningModal(props) {
     }
 
     return (
-        <div className='c-delete-warning-modal'>
-            <Modal size='md' show={showModal} onHide={handleClose} backdrop="static" keyboard={false} centered>
-                <Modal.Header>
-                    <Modal.Title>מחיקת {objectType}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className='text-center'>
-                    <h5>הנך מנסה למחוק {objectType}{data.title && <span className='font-weight-bold'> {data.title}</span>},</h5>
-                    <div>פעולה זו איננה ניתנת לביטול</div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>ביטול</Button>
-                    <Button variant="warning" onClick={deleteClick}>מחיקה</Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+        <Modal size='md' show={showModal} onHide={handleClose} backdrop="static" keyboard={false} centered className='c-delete-warning-modal'>
+            <Modal.Header>
+                <Modal.Title>מחיקת {objectType}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className='text-center'>
+                <h5>הנך מנסה למחוק {objectType}{data.title && <span className='font-weight-bold'> {data.title}</span>},</h5>
+                <div>פעולה זו איננה ניתנת לביטול</div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>ביטול</Button>
+                <Button variant="warning" onClick={deleteClick}>מחיקה</Button>
+            </Modal.Footer>
+        </Modal>
     );
 }
 

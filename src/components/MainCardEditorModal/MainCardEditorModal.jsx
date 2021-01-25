@@ -82,31 +82,29 @@ const MainCardEditorModal = (props) => {
     }
 
     return (
-        <div className='c-main-card-editor-modal'>
-            <Modal size='sm' show={showModal} onHide={close} centered>
-                <Modal.Header>
-                    <Modal.Title>{modalTitle}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId='title'>
-                            <Form.Label>כותרת</Form.Label>
-                            <Form.Control type="text" value={title} onChange={e => { setTitle(e.target.value) }} onKeyPress={ifEnterPressed} />
-                        </Form.Group>
-                        {cardType === 'dafKesher' ? <Form.Group controlId='date'>
-                            <Form.Label>תאריך</Form.Label>
-                            <Form.Control type="date" value={date}
-                                onChange={e => { setDate(e.target.value) }} onKeyPress={ifEnterPressed} />
-                        </Form.Group> : null}
-                    </Form>
-                    {showError ? <Alert variant="danger">נא למלא את כל השדות</Alert> : null}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={close}>סגירה</Button>
-                    <Button variant="warning" onClick={onSave}>שמירה</Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+        <Modal size='sm' show={showModal} onHide={close} centered className='c-main-card-editor-modal'>
+            <Modal.Header>
+                <Modal.Title>{modalTitle}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <Form.Group controlId='title'>
+                        <Form.Label>כותרת</Form.Label>
+                        <Form.Control type="text" value={title} onChange={e => { setTitle(e.target.value) }} onKeyPress={ifEnterPressed} />
+                    </Form.Group>
+                    {cardType === 'dafKesher' ? <Form.Group controlId='date'>
+                        <Form.Label>תאריך</Form.Label>
+                        <Form.Control type="date" value={date}
+                            onChange={e => { setDate(e.target.value) }} onKeyPress={ifEnterPressed} />
+                    </Form.Group> : null}
+                </Form>
+                {showError ? <Alert variant="danger">נא למלא את כל השדות</Alert> : null}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={close}>סגירה</Button>
+                <Button variant="warning" onClick={onSave}>שמירה</Button>
+            </Modal.Footer>
+        </Modal>
     );
 }
 

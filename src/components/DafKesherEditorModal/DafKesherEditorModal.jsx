@@ -47,31 +47,28 @@ const DafKesherEditorModal = (props) => {
     const modalTitle = (typeof data) === 'object' ? 'עריכת תוכן דף קשר' : 'הוספת תוכן חדש';
 
     return (
-        <div className='c-daf-kesher-editor-modal'>
-            <Modal size='md' show={showModal} onHide={close} centered>
-                <Modal.Header>
-                    <Modal.Title>{modalTitle}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <Form>
-                    <Form.Group controlId='headline'>
-                        <Form.Label>כותרת</Form.Label>
-                        <Form.Control type="text" value={headline} onChange={e => { setHeadline(e.target.value) }} />
-                    </Form.Group>
-                    <Form.Group controlId='content'>
-                        <Form.Label>תוכן</Form.Label>
-                            <Form.Control as="textarea" rows={5} value={content} onChange={e => {setContent(e.target.value)}} />
-                    </Form.Group>
-                    </Form>
-                    {showError ? <Alert variant="danger">נא למלא את כל השדות</Alert> : null}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={close}>סגירה</Button>
-                    <Button variant="warning" onClick={onSave}>שמירה</Button>
-                </Modal.Footer>
-            </Modal>
-
-        </div>
+        <Modal size='md' show={showModal} onHide={close} centered className='c-daf-kesher-editor-modal'>
+            <Modal.Header>
+                <Modal.Title>{modalTitle}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <Form>
+                <Form.Group controlId='headline'>
+                    <Form.Label>כותרת</Form.Label>
+                    <Form.Control type="text" value={headline} onChange={e => { setHeadline(e.target.value) }} />
+                </Form.Group>
+                <Form.Group controlId='content'>
+                    <Form.Label>תוכן</Form.Label>
+                        <Form.Control as="textarea" rows={5} value={content} onChange={e => {setContent(e.target.value)}} />
+                </Form.Group>
+                </Form>
+                {showError ? <Alert variant="danger">נא למלא את כל השדות</Alert> : null}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={close}>סגירה</Button>
+                <Button variant="warning" onClick={onSave}>שמירה</Button>
+            </Modal.Footer>
+        </Modal>
     );
 }
 

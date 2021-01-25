@@ -1,6 +1,5 @@
 import './DafKesherCard.css'
-import React, { useState } from 'react';
-import { Button, Card, Modal } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
