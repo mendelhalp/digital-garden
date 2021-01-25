@@ -1,0 +1,61 @@
+.p-my-gan{
+    margin-top: 1.5rem;
+}
+
+.p-my-gan .row.header{
+    margin-bottom: 24px;
+    text-shadow: -0.5px 0.5px 1px rgba(100,43,27,0.56);
+}
+
+.p-my-gan .row.header div:first-of-type{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.p-my-gan h2{
+    text-align: center;
+    text-shadow: -1px 1px 1px rgba(100,43,27,0.56);
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #B80753;
+}
+
+.p-my-gan .logo{
+    display: flex;
+    justify-content: flex-end;
+}
+.p-my-gan .logo > img{
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 575px){
+    .p-my-gan .row.header{
+        flex-direction: column-reverse;
+    }
+
+    .p-my-gan .logo{
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+}
+
+.p-my-gan div.row:not(.header) .card:not(.c-message-box){
+    box-shadow: 1px 1px 9px -5px #000;
+}
+
+.p-my-gan .card h5{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 48px;
+    color: #B80753;
+}
+
+.p-my-gan .card h5 img{
+    width: 30px;
+    height: auto;
+}
