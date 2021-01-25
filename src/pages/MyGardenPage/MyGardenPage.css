@@ -59,3 +59,12 @@
     width: 30px;
     height: auto;
 }
+
+.p-my-gan .card a{
+    color: rgba(0,0,0,.5);
+}
+
+.p-my-gan .card a:hover{
+    color: #f8902f;
+    text-decoration: none;
+}

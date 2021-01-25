@@ -1,12 +1,16 @@
 import { useContext, useEffect, useState } from 'react'
-import { Card, CardColumns, Col, Container, Row, Spinner } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
+import { Card, Col, Container, Row, Spinner } from 'react-bootstrap'
+import { Link, Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../utils/ActiveUserContext'
 import bookIcon from '../../images/book-icon.png';
+import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher'
 import getGardenDetails from '../../utils/getGardenDetails'
 import getGardenGalleries from '../../utils/getGardenGalleries'
 import './MyGardenPage.css'
+import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const MyGardenPage = () => {
     const activeUser = useContext(ActiveUserContext);
@@ -30,9 +34,25 @@ const MyGardenPage = () => {
         return <Redirect to="/"/>
     }
 
-    const dapeyKesherView = '';
+    const dapeyKesherView = dapeyKesher ? dapeyKesher.map((dafKesher, index) => {
+        
+        if (index < 6) {
+            return (
+                <Col className='py-2' md={12} lg={6} key={dafKesher.id}>
+                    <DafKesherCard dafKesher={dafKesher} activeUser={activeUser}/>
+                </Col>
+            )}
+    }) : null;
 
-    const galleriesView = '';
+    const galleriesView = galleries ? galleries.map((gallery, index) => {
+        
+        if (index < 4) {
+            return (
+                <Col className='py-2' md={12} lg={6} key={gallery.id}>
+                    <GalleryCard gallery={gallery} activeUser={activeUser}/>
+                </Col>
+            )}
+    }) : null;
 
     if (!garden) {
         return <div className='images-spinner row justify-content-center mt-3'>
@@ -52,30 +72,40 @@ const MyGardenPage = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={6}>
+                    <Col md={6} className='mb-3'>
                         <Card>
                             <Card.Header as='h5'>
                                 <span>דפי קשר</span>
                                 <img src={bookIcon} alt="book icon"/>
                             </Card.Header>
                             <Card.Body>
-                                <CardColumns>
+                                <Row>
                                     {dapeyKesherView}
-                                </CardColumns>
+                                </Row>
                             </Card.Body>
+                            <a href='#/dapey-kesher'>
+                                <Card.Footer className='text-center'>
+                                    <FontAwesomeIcon icon={faChevronLeft}/>
+                                </Card.Footer>
+                            </a>
                         </Card>
                     </Col>
-                    <Col sm={6}>
+                    <Col md={6} className='mb-3'>
                         <Card>
                             <Card.Header as='h5'>
                                 <span>גלריות</span>
                                 <img src={bookIcon} alt="book icon"/>
                             </Card.Header>
                             <Card.Body>
-                                <CardColumns>
+                                <Row>
                                     {galleriesView}
-                                </CardColumns>
+                                </Row>
                             </Card.Body>
+                            <a href='#/galleries'>
+                                <Card.Footer className='text-center'>
+                                <FontAwesomeIcon icon={faChevronLeft}/>
+                                </Card.Footer>
+                            </a>
                         </Card>
                     </Col>
                 </Row>

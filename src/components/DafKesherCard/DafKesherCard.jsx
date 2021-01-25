@@ -18,7 +18,7 @@ const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, activeUser}) =
                     <Card.Title className='text-center'>{title}</Card.Title>
                     <Card.Text className='text-center'>{hebDate}</Card.Text>
                 </Link>
-                {activeUser && activeUser.role === 'manager' &&
+                {activeUser && activeUser.role === 'manager' && handleEdit &&
                     <Card.Footer>
                         <FontAwesomeIcon className='edit-icon' onClick={() => {handleEdit(dafKesher)}} icon={faEdit}/>
                         <FontAwesomeIcon className='delete-icon' onClick={() => {handleDeleteClick(dafKesher)}} icon={faTrashAlt}/>
