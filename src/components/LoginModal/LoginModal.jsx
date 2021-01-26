@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, Modal, Form, Alert, Card } from 'react-bootstrap';
+import { Button, Modal, Form, Alert, Card, Spinner } from 'react-bootstrap';
 import Parse from 'parse';
 import UserModel from '../../model/UserModel';
 import isEnterPressed from '../../utils/IsEnterPressed';
@@ -17,6 +17,7 @@ function LoginModal(props) {
     const [showForgotPwdEmail, setShowForgotPwdEmail] = useState(false);
     const [showForgotPwdEmailError, setShowForgotPwdEmailError] = useState(false);
     const [showResetsecces, setShowResetsecces] = useState(false);
+    const [showLoginSpinner, setShowLoginSpinner] = useState(false);
 
     function cleanFormFields () {
         setEmail('');
@@ -26,6 +27,7 @@ function LoginModal(props) {
         setShowForgotPwdEmail(false);
         setShowForgotPwdEmailError(false);
         setShowResetsecces(false);
+        setShowLoginSpinner(false);
     }
 
     useEffect(() => {
@@ -52,6 +54,7 @@ function LoginModal(props) {
 
     async function login () {
         try {
+            setShowLoginSpinner(true);
             const parseUser = await Parse.User.logIn(email, pwd);
             // Trigger onLogin event and clean the fields
             onLogin(new UserModel(parseUser));
@@ -72,6 +75,7 @@ function LoginModal(props) {
     
     function ifEnterPressed (event) {                   //detecting if Enter pressed and executing login
         if (isEnterPressed(event) && email){
+            setShowLoginSpinner(true);
             login();
         }
     }
@@ -131,7 +135,16 @@ function LoginModal(props) {
             <Modal.Footer>
                 <Button variant='link' className='ml-auto' onClick={showSignup}>עדיין לא רשומים?</Button>
                 <Button variant="secondary" onClick={close}>סגירה</Button>
-                <Button variant="warning" onClick={login}>כניסה</Button>
+                <Button variant="warning" onClick={login}>
+                    <span className={showLoginSpinner && 'sr-only'}>כניסה</span>
+                    {showLoginSpinner &&<Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        />}
+                </Button>
             </Modal.Footer>
         </Modal>
     );
