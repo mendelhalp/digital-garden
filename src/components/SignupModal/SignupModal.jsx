@@ -32,7 +32,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
     const [showParentsLoginAlert, setShowParentsLoginAlert] = useState(false);
     
     useEffect(() => {
-        if (isRequierdFieldFull() && isEmailValid(userEmail) && isPasswordValid(userPwd)) {     // setting the form valid if all required fields filled &
+        if (isRequierdFieldFull() && isEmailValid(userEmail) && isPasswordValid(userPwd)) {     // setting the form as valid - if all required fields filled &
             setIsFormValid(true);                                                               //      email and pwd are valid
             setShowEmailError(false);
             setShowPwdError(false)

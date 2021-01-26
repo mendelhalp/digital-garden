@@ -19,8 +19,8 @@ const MyGardenPage = () => {
 
     useEffect(() => {
         async function getGardenData() {
-            const garden = await getGardenDetails(activeUser);
-            const dapeyKesher = await getGardenDapeyKesher(garden.id);
+            const garden = await getGardenDetails(activeUser);              // getting the garden data Asynchronously from the database
+            const dapeyKesher = await getGardenDapeyKesher(garden.id);      // getting the dapeyKesher and galleries details Asynchronously from the database
             const galleries = await getGardenGalleries(garden.id);
             setDapeyKesher(dapeyKesher);
             setGalleries(galleries);

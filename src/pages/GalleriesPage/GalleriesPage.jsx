@@ -19,7 +19,7 @@ const GalleriesPage = () => {
     const [galleryToEdit, setGalleryToEdit] = useState('');
 
     useEffect(() => {
-        async function getGalleries () {
+        async function getGalleries () {                                            // getting the galleries details Asynchronously from the database
             const garden = await getGardenDetails(activeUser);
             const galleries = await getGardenGalleries(garden.id);
             setGalleries(galleries);

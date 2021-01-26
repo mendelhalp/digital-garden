@@ -20,7 +20,7 @@ const ContactUsPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     
-    function sendForm () {
+    function sendForm () {                                      // sending the form to site's DevTeam and cleaning the fields
         emailjs.send("service_5cx738e","template_k3nemuh",{
             from_name: name,
             from_email: email,
@@ -37,10 +37,10 @@ const ContactUsPage = () => {
     }
     
     useEffect(() => {
-        if (name && isEmailValid(email) && subject && request) {
+        if (name && isEmailValid(email) && subject && request) {        // setting the form as valid - if all required fields filled & email is valid
             setIsFormValid(true);
             setShowEmailError(false);
-        } else if (!isEmailValid(email) && email!=='') {
+        } else if (!isEmailValid(email) && email!=='') {                // showing error if the email is not valid
             setShowEmailError(true);
             if (isFormValid) {
                 setIsFormValid(false);
@@ -53,7 +53,7 @@ const ContactUsPage = () => {
         }
     });
     
-    function onSwitchMode() {
+    function onSwitchMode() {                                           // giving the users option to automatically fill their details
         if (!useUserInfo) {
             setName(`${activeUser.fname} ${activeUser.lname}`);
             setEmail(activeUser.email);
@@ -65,7 +65,7 @@ const ContactUsPage = () => {
         }
     }
     
-    async function onFilesSelect(event) {
+    async function onFilesSelect(event) {                               // uploading images to show the problem if needed
         setFiles(event.target.files);
         const filesArr = Object.values(event.target.files);
         let newFilesUrl = [];
@@ -85,7 +85,7 @@ const ContactUsPage = () => {
         </Card>
     ) : null;
 
-    if (isFormSubmitted) {
+    if (isFormSubmitted) {                                              // showing success message after sending the form
         return(
             <div className="p-contact-us success">
                 <h2>פנייתך נשלחה בהצלחה</h2>

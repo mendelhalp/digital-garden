@@ -24,7 +24,7 @@ const GalleryPage = () => {
     const galleryId = useParams().id;
 
     useEffect(() => {
-        async function getImages (){
+        async function getImages (){                                        // getting the gallery images Asynchronously from the database
             const images = await getGalleryImages(galleryId);
             const title = (await getGalleryDetails(galleryId)).title;
             setImages(images);
@@ -74,10 +74,12 @@ const GalleryPage = () => {
                 </CardColumns>
             </Container>
             {selectedImage !== null && images.length>0 &&
-                <ImageModal images={images} showModal={showImageModal} selectedImage={selectedImage} close={() => { setShowImageModal(false) }} onImageChange={onImageChange} />}
+                <ImageModal images={images} showModal={showImageModal} selectedImage={selectedImage} 
+                close={() => { setShowImageModal(false) }} onImageChange={onImageChange} />}
             <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setImageToEdit('') }} />
-            {images && <AddImageModal galleryTitle={galleryTitle} galleryId={galleryId} showModal={showAddImage} closeModal={() => {setShowAddImage(false)}}/>}
+            {images && <AddImageModal galleryTitle={galleryTitle} galleryId={galleryId} showModal={showAddImage} 
+                closeModal={() => {setShowAddImage(false)}}/>}
         </div>
     )
 }

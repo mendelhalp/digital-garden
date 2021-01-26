@@ -19,7 +19,7 @@ const DapeyKesherPage = () => {
     const [dafKesherToEdit, setDafKesherToEdit] = useState('');
     
     useEffect(() => {
-        async function getDapeyKesher() {
+        async function getDapeyKesher() {                                           // getting the dapeyKesher details Asynchronously from the database
             const garden = await getGardenDetails(activeUser);
             const dapeyKesher = await getGardenDapeyKesher(garden.id);
             setDapeyKesher(dapeyKesher);

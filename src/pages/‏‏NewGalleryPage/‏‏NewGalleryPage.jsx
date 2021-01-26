@@ -1,1 +1,0 @@
-import './NewGalleryPage.css'

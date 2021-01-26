@@ -25,7 +25,7 @@ function DafKesherPage() {
     const dafKesherId = useParams().id;
     
     useEffect(() => {
-        async function getData() {
+        async function getData() {                                          // getting the dafKesher and garden data Asynchronously from the database
             const dafKesher = await getDafKesherDetails(dafKesherId);
             const gardenDetails = (await getGardenDetails(activeUser));
             const header = {
