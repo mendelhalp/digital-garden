@@ -1,0 +1,13 @@
+.c-login-modal .btn-link{
+    color: rgba(0,0,0,.5);
+}
+
+.c-login-modal .btn-link:hover{
+    color: #f8902f;
+    text-decoration: none;
+}
+
+.c-login-modal .btn-link:focus{
+    text-decoration: none;
+    box-shadow: none;
+    }

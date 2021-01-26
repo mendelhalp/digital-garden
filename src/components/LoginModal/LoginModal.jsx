@@ -5,6 +5,7 @@ import Parse from 'parse';
 import UserModel from '../../model/UserModel';
 import isEnterPressed from '../../utils/IsEnterPressed';
 import isEmailValid from '../../utils/isEmailValid';
+import './LoginModal.css';
 
 function LoginModal(props) {
     const {showModal, showSignupModal, handleCloseLogin, onLogin} = props;
