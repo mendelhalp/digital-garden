@@ -4,7 +4,7 @@ function getGreeting() {
     const hour = date.getHours();
     
     let greeting;
-    if (hour >=4 && hour <=10) {
+    if (hour >=4 && hour <=10) {                // setting the greeting according to the day part
         greeting = 'בוקר טוב';
     } else if (hour >= 11 && hour <=16) {
         greeting = 'צהריים טובים';
