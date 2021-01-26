@@ -21,13 +21,13 @@ function LoginModal(props) {
     }
 
     useEffect(() => {
-        if (pwd !== ''){
+        if (pwd !== ''){                                //hiding login error when retype password
             setShowError(false)
         }
     },[pwd]);
     useEffect(() => {
-        setShowError(false);
-        if (!isEmailValid(email) && email !== '') {
+        setShowError(false);                            //hiding login error when changing the email
+        if (!isEmailValid(email) && email !== '') {     //showing email pattern error if the email is not valid
             setShowEmailError(true);
         } else if (isEmailValid(email)) { 
             setShowEmailError(false);
@@ -43,7 +43,7 @@ function LoginModal(props) {
             handleCloseLogin();
             cleanFormFields();
             
-        } catch(error) {
+        } catch(error) {                                //showing login error & deleting the pwd field if the login failed
             // show an error alert
             setPwd('');
             setShowError(true);
@@ -55,7 +55,7 @@ function LoginModal(props) {
         cleanFormFields();
     }
 
-    function ifEnterPressed (event) {
+    function ifEnterPressed (event) {                   //detecting if Enter pressed and executing login
         if (isEnterPressed(event) && email){
             login();
         }

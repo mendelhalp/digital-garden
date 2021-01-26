@@ -7,6 +7,7 @@ import './ImageModal.css'
 const ImageModal = (props) => {
     const { images, showModal, selectedImage, close, onImageChange } = props;
 
+    //enabling loop browsing
     function nextImage() {
         if (selectedImage === images.length - 1) {
             onImageChange(0);

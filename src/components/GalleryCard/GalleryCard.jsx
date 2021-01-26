@@ -26,7 +26,7 @@ const GalleryCard = ({gallery, handleEdit, handleDeleteClick, activeUser}) => {
                     {mainImg ? <Card.Img variant='top' src={mainImg}/> : null}
                     <Card.Title className='text-center'>{title}</Card.Title>
                 </Link>
-                {activeUser && activeUser.role === 'manager' && handleEdit &&
+                {activeUser && activeUser.role === 'manager' && handleEdit &&       //showing edit icons only to garden owner
                     <Card.Footer>
                         <FontAwesomeIcon className='edit-icon' onClick={() => {handleEdit(gallery)}} icon={faEdit}/>
                         <FontAwesomeIcon className='delete-icon' onClick={() => {handleDeleteClick(gallery)}} icon={faTrashAlt}/>

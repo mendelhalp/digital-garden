@@ -11,10 +11,10 @@ const DafKesherEditorModal = (props) => {
 
     useEffect(() => { 
         const type = typeof data;
-        if (type === 'object') {
+        if (type === 'object') {                                //if editing existing content - filling the fields with the original data 
             setHeadline(fullData[data.type][data.index].headline);
             setContent(fullData[data.type][data.index].content);
-        } else {
+        } else {                                                //if adding new content - showing empty fields
             setHeadline('');
             setContent('');
         }
@@ -29,12 +29,12 @@ const DafKesherEditorModal = (props) => {
     function onSave() {
         if (!(headline && content)) {
             setShowError(true);
-        } else if (typeof data !== 'object') {
+        } else if (typeof data !== 'object') {                  //if adding new content - push new content object
             let newData = { ...fullData };
             newData[data].push({ headline: headline, content: content });
             updateDafKesherContent(dafKesherId, newData);
             close()
-        } else {
+        } else {                                                //if editing existing content - saving the changes
             let newData = { ...fullData };
             newData[data.type][data.index].headline = headline;
             newData[data.type][data.index].content = content;
@@ -44,7 +44,7 @@ const DafKesherEditorModal = (props) => {
     }
 
 
-    const modalTitle = (typeof data) === 'object' ? 'עריכת תוכן דף קשר' : 'הוספת תוכן חדש';
+    const modalTitle = (typeof data) === 'object' ? 'עריכת תוכן דף קשר' : 'הוספת תוכן חדש'; //setting the modal title depending on the situation (add/edit)
 
     return (
         <Modal size='md' show={showModal} onHide={close} centered className='c-daf-kesher-editor-modal'>

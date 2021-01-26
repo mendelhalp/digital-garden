@@ -10,9 +10,9 @@ const TopNavbar = ({ onLogout }) => {
 
   const activeUser = useContext(ActiveUserContext);
 
-  const path = useLocation().pathname.split('/')[1];
+  const path = useLocation().pathname.split('/')[1];              // detecting the location in the site from the url to set the active link
 
-  const greeting = getGreeting();
+  const greeting = getGreeting();                                 // detecting the day part to dynamically greeting the user
 
   return (
     <Navbar collapseOnSelect expand="lg">
@@ -23,7 +23,7 @@ const TopNavbar = ({ onLogout }) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className={activeUser ? "ml-auto" : "mr-auto"}>
           
-          { activeUser ?
+          { activeUser ?                                          // hiding the links inside the site from guests
           <>
             <Nav.Link href="#/my-garden" active={path === 'my-garden' ? true : false}>הגן שלי</Nav.Link>
             <Nav.Link href="#/dapey-kesher" active={path === 'dapey-kesher' ? true : false}>דפי קשר</Nav.Link>

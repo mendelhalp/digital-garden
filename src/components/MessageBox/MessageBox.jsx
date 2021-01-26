@@ -13,17 +13,17 @@ const MessageBox = ({topic, activeUser, onDeleteClick, onEditClick}) => {
     if (!activeUser) {
         return <Redirect to="/"/>
     }
-    let editIcon = null, deleteIcon = null;
-    if (activeUser && activeUser.role === 'manager') {
-        editIcon = <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />;
-        deleteIcon = <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
-    }    
+
+    const editIcon = 
+        <div>
+            <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />
+            <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />
+        </div>;
 
     return (
         <Card className='c-message-box m-2' bg={bgColor} text={bgColor === 'light' ? 'dark' : 'white'}>
             <Card.Body>
-                {deleteIcon}
-                {editIcon}
+                {activeUser && activeUser.role === 'manager' && editIcon}
                 <Card.Title>{headline}</Card.Title>
                 <Card.Text>{content}</Card.Text>
             </Card.Body>

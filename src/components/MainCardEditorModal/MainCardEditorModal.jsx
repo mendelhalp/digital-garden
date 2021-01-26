@@ -14,12 +14,13 @@ const MainCardEditorModal = (props) => {
     const [showError, setShowError] = useState(false);
     
     useEffect(() => { 
-        if (typeof data === 'object') {
+        if (typeof data === 'object') {                     //if editing existing content - filling the fields with the original data 
             if (cardType === 'dafKesher') {
                 setTitle(data.title);
 
-                const date = data.date.toLocaleString().split('.');
-                const viewDate = `${date[2].split(',')[0]}-${date[1].length === 1 ? '0' + date[1] : date[1]}-${date[0].length === 1 ? '0' + date[0] : date[0]}`;
+                const date = data.date.toLocaleString().split('.');                             //converting dafKesher date to simple format 
+                const viewDate = `${date[2].split(',')[0]}-${date[1].length === 1 ? '0' + 
+                    date[1] : date[1]}-${date[0].length === 1 ? '0' + date[0] : date[0]}`;
                 setDate(viewDate);
             } else if (cardType === 'gallery') {
                 setTitle(data.title);
@@ -39,13 +40,13 @@ const MainCardEditorModal = (props) => {
     }
 
     function onSave() {
-        if (cardType === 'dafKesher') {
+        if (cardType === 'dafKesher') {                         //detecting the type of Card (dafKesher/gallery)
             if (!(title && date)) {
                 setShowError(true);
-            } else if (!data) {
+            } else if (!data) {                                 //if adding new content - creating new row in the database
                 createNewDafKesher(parseGarden, title, date);
                 close()
-            } else {
+            } else {                                            //if updating existing content - updating the data in the database
                 updateDafKesherDetails(data.id, title, date);
                 close();
             }
@@ -62,7 +63,7 @@ const MainCardEditorModal = (props) => {
         }
     }
 
-    function ifEnterPressed (event) {
+    function ifEnterPressed (event) {                           //detecting if Enter pressed - and executing login if all fields that required are filled
         if (cardType === 'dafKesher') {
             if (isEnterPressed(event) && title && date) {
                 onSave();
@@ -74,7 +75,7 @@ const MainCardEditorModal = (props) => {
         }
     }
 
-    let modalTitle;
+    let modalTitle;                                             //setting the modal title depending on the situation (add/edit + dafKesher/gallery)
     if (cardType === 'dafKesher') {
         modalTitle = data ? 'עריכת פרטי דף קשר' : 'יצירת דף קשר חדש';
     } else if (cardType === 'gallery') {

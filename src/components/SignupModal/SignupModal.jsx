@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Button, CardColumns, Card, Form, Spinner, Col, Modal, Alert, Row } from 'react-bootstrap';
+import { Button, Card, Form, Spinner, Col, Modal, Alert, Row } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import addImage from '../../utils/addImage';
 import deleteImage from '../../utils/deleteImage';
@@ -32,13 +32,13 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
     const [showParentsLoginAlert, setShowParentsLoginAlert] = useState(false);
     
     useEffect(() => {
-        if (isRequierdFieldFull() && isEmailValid(userEmail) && isPasswordValid(userPwd)) {
-            setIsFormValid(true);
+        if (isRequierdFieldFull() && isEmailValid(userEmail) && isPasswordValid(userPwd)) {     // setting the form valid if all required fields filled &
+            setIsFormValid(true);                                                               //      email and pwd are valid
             setShowEmailError(false);
             setShowPwdError(false)
         } else {
             
-            if (!isEmailValid(userEmail) && userEmail !=='') {
+            if (!isEmailValid(userEmail) && userEmail !=='') {                  // showing error if the email is not valid
                 setShowEmailError(true);
                 if (isFormValid) {
                     setIsFormValid(false);
@@ -50,7 +50,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                 }
             }
             
-            if (!isPasswordValid(userPwd) && userPwd !=='') {
+            if (!isPasswordValid(userPwd) && userPwd !=='') {                   // showing error if the pwd is not valid
                 setShowPwdError(true);
                 if (isFormValid) {
                     setIsFormValid(false);
@@ -66,12 +66,10 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
 
     async function login () {
         try {
-            const parseUser = await Parse.User.logIn(userEmail, userPwd);
+            const parseUser = await Parse.User.logIn(userEmail, userPwd);   // performing login to the app
             
-            // Trigger onLogin event and clean the fields
-            onLogin(new UserModel(parseUser));
-            handleCloseSignup();
-            cleanFields();
+            onLogin(new UserModel(parseUser));                              // Trigger onLogin event on HomePage and cleaning the fields
+            close();
             
         } catch(error) {
             console.log('error while login')
@@ -80,7 +78,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
 
     function close () {
         handleCloseSignup();
-        logoId && deleteImage(logoId);
+        logoId && deleteImage(logoId);                                      // deleting the temporary logo file after leaving the signup
         cleanFields();
     }
     
@@ -106,7 +104,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         setShowParentsLoginAlert(false);
     }
 
-    function signupClicked(){
+    function signupClicked(){                                               // showing alert with parents login details after clicking signup
         setShowSignupSpinner(true);
         setShowParentsLoginAlert(true);
     }
@@ -121,24 +119,15 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         //create manager in parse
         await signup(userEmail, userPwd, 'manager', userFname, userFname, garden.id);
 
-        //delete temporary logo file
-        deleteImage(logoId);
-
         //login with the user
         login();
-
-        //show parents login details
-        
-        
-        // setIsFormSubmitted(true);
-        cleanFields();
     }
     
     if (activeUser) {
         return <Redirect to="/"/>
     }
     
-    async function onFileSelect(event) {
+    async function onFileSelect(event) {                                    // uploading temporary file to show preview
         const logo = event.target.files[0];
         setLogo(logo);
         const res = await addImage(logo, 'fe0qzAHNtH');
@@ -192,7 +181,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                     
                     <Form.Row>
                         <Form.Group as={Col} controlId="formUserEmail">
-                            <Form.Label>דואר אלקטרוני</Form.Label>
+                            <Form.Label>דואר אלקטרוני</Form.Label>              {/* onChanging this input it set the value of parentsEmail */}
                             <Form.Control type="email" value={userEmail} className={showEmailError ? 'is-invalid' : null} 
                                 onChange={e => { setUserEmail(e.target.value); setParentsEmail(`horim@${e.target.value.split('@')[0]}.com`) }} />
                             <Form.Control.Feedback type="invalid">כתובת מייל לא תקינה</Form.Control.Feedback>
@@ -207,7 +196,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                     
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGardenName">
-                            <Form.Label>שם הגן</Form.Label>
+                            <Form.Label>שם הגן</Form.Label>                     {/* onChanging this input it set the value of parentsFname */}
                             <Form.Control type="text" value={gardenName} 
                                 onChange={e => {setGardenName(e.target.value); setParentsFname(`הורי ${e.target.value}`)}}/>
                             <Form.Text className="text-muted">לדוגמה: גן השושנים</Form.Text>

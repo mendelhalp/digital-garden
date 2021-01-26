@@ -10,7 +10,7 @@ const ImageCard = (props) => {
         <div className='c-image-card'>
             <Card>
                 {image ? <Card.Img variant="top" src={image.url}  onClick={onClick} /> : null}
-                {activeUser && activeUser.role === 'manager' &&
+                {activeUser && activeUser.role === 'manager' &&                                     //showing edit icons only to garden owner
                     <Card.Footer>
                         <FontAwesomeIcon icon={faTrashAlt} onClick={() => {handleDeleteClick(image)}}/>
                     </Card.Footer>}

@@ -11,17 +11,15 @@ const StudyTopicBox = ({topic, activeUser, onDeleteClick, onEditClick}) => {
         return <Redirect to="/"/>
     }
 
-    let editIcon = null, deleteIcon = null;
-    if (activeUser && activeUser.role === 'manager') {
-        editIcon = <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />;
-        deleteIcon = <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
-    }
-
+    const editIcon = 
+        <div>
+            <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />;
+            <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
+        </div>
 
     return (
         <div className='c-study-topic-box mb-4'>
-            {deleteIcon}
-            {editIcon}
+            {activeUser && activeUser.role === 'manager' && editIcon}
             <Card.Title>{headline}</Card.Title>
             <Card.Text>{content}</Card.Text>
         </div>
