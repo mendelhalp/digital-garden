@@ -38,6 +38,7 @@ function LoginModal(props) {
             setShowEmailError(true);
         } else if (isEmailValid(email)) { 
             setShowEmailError(false);
+            setForgotPwdEmail(email);
         }
     },[email]);
     useEffect(() => {
@@ -79,7 +80,7 @@ function LoginModal(props) {
         showSignupModal();
     }
     
-    function handleForgotPassword(){
+    function handleForgotPassword(){                                        //giving option to reset password
         Parse.User.requestPasswordReset("email@example.com").then(() => {
             // Password reset request was sent successfully
             if (typeof document !== 'undefined') {
