@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/digital-garden/static/css/main.ca3559ef.chunk.css",
-    "main.js": "/digital-garden/static/js/main.36422a07.chunk.js",
-    "main.js.map": "/digital-garden/static/js/main.36422a07.chunk.js.map",
+    "main.js": "/digital-garden/static/js/main.fb517516.chunk.js",
+    "main.js.map": "/digital-garden/static/js/main.fb517516.chunk.js.map",
     "runtime-main.js": "/digital-garden/static/js/runtime-main.74672cbb.js",
     "runtime-main.js.map": "/digital-garden/static/js/runtime-main.74672cbb.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/digital-garden/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.1e919ba6.chunk.js": "/digital-garden/static/js/2.1e919ba6.chunk.js",
-    "static/js/2.1e919ba6.chunk.js.map": "/digital-garden/static/js/2.1e919ba6.chunk.js.map",
+    "static/js/2.b229ab71.chunk.js": "/digital-garden/static/js/2.b229ab71.chunk.js",
+    "static/js/2.b229ab71.chunk.js.map": "/digital-garden/static/js/2.b229ab71.chunk.js.map",
     "static/js/3.ecc8e9c1.chunk.js": "/digital-garden/static/js/3.ecc8e9c1.chunk.js",
     "static/js/3.ecc8e9c1.chunk.js.map": "/digital-garden/static/js/3.ecc8e9c1.chunk.js.map",
     "index.html": "/digital-garden/index.html",
     "static/css/2.ae9f1eb3.chunk.css.map": "/digital-garden/static/css/2.ae9f1eb3.chunk.css.map",
     "static/css/main.ca3559ef.chunk.css.map": "/digital-garden/static/css/main.ca3559ef.chunk.css.map",
-    "static/js/2.1e919ba6.chunk.js.LICENSE.txt": "/digital-garden/static/js/2.1e919ba6.chunk.js.LICENSE.txt",
+    "static/js/2.b229ab71.chunk.js.LICENSE.txt": "/digital-garden/static/js/2.b229ab71.chunk.js.LICENSE.txt",
     "static/media/logo192.f73b2edd.png": "/digital-garden/static/media/logo192.f73b2edd.png"
   },
   "entrypoints": [
     "static/js/runtime-main.74672cbb.js",
     "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.1e919ba6.chunk.js",
+    "static/js/2.b229ab71.chunk.js",
     "static/css/main.ca3559ef.chunk.css",
-    "static/js/main.36422a07.chunk.js"
+    "static/js/main.fb517516.chunk.js"
   ]
 }
