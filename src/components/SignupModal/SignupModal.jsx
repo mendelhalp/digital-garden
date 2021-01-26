@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Button, CardColumns, Card, Form, Spinner, Col, Modal } from 'react-bootstrap';
+import { Button, CardColumns, Card, Form, Spinner, Col, Modal, Alert, Row } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import addImage from '../../utils/addImage';
 import deleteImage from '../../utils/deleteImage';
@@ -9,6 +9,7 @@ import addGarden from '../../utils/addGarden';
 import signup from '../../utils/signup';
 import Parse from 'parse';
 import UserModel from '../../model/UserModel';
+import isPasswordValid from '../../utils/isPasswordValid';
 
 
 const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
@@ -25,22 +26,40 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
     const [logoUrl, setLogoUrl] = useState('');
     const [logoId, setLogoId] = useState('');
     const [showEmailError, setShowEmailError] = useState(false);
+    const [showPwdError, setShowPwdError] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [showSignupSpinner, setShowSignupSpinner] = useState(false);
+    const [showParentsLoginAlert, setShowParentsLoginAlert] = useState(false);
     
     useEffect(() => {
-        if (isRequierdFieldFull() && isEmailValid(userEmail)) {
+        if (isRequierdFieldFull() && isEmailValid(userEmail) && isPasswordValid(userPwd)) {
             setIsFormValid(true);
             setShowEmailError(false);
-        } else if (!isEmailValid(userEmail) && userEmail !=='') {
-            setShowEmailError(true);
-            if (isFormValid) {
-                setIsFormValid(false);
+            setShowPwdError(false)
+        } else {
+            
+            if (!isEmailValid(userEmail) && userEmail !=='') {
+                setShowEmailError(true);
+                if (isFormValid) {
+                    setIsFormValid(false);
+                }
+            } else if (isEmailValid(userEmail)) {
+                setShowEmailError(false);
+                if (isFormValid) {
+                    setIsFormValid(false);
+                }
             }
-        } else if (isEmailValid(userEmail)) {
-            setShowEmailError(false);
-            if (isFormValid) {
-                setIsFormValid(false);
+            
+            if (!isPasswordValid(userPwd) && userPwd !=='') {
+                setShowPwdError(true);
+                if (isFormValid) {
+                    setIsFormValid(false);
+                }
+            } else if (isPasswordValid(userPwd)) {
+                setShowPwdError(false);
+                if (isFormValid) {
+                    setIsFormValid(false);
+                }
             }
         }
     });
@@ -84,10 +103,15 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         setLogo('');
         setLogoUrl('');
         setShowSignupSpinner(false);
+        setShowParentsLoginAlert(false);
     }
 
-    async function sendForm () {
+    function signupClicked(){
         setShowSignupSpinner(true);
+        setShowParentsLoginAlert(true);
+    }
+
+    async function performSignup () {
         //creat garden in parse
         const garden = await addGarden(gardenName, gardenYear,logo);
 
@@ -95,7 +119,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         await signup(parentsEmail, 'Dd123456', 'parent', parentsFname, '', garden.id);
 
         //create manager in parse
-        const user = await signup(userEmail, userPwd, 'manager', userFname, userFname, garden.id);
+        await signup(userEmail, userPwd, 'manager', userFname, userFname, garden.id);
 
         //delete temporary logo file
         deleteImage(logoId);
@@ -103,6 +127,9 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         //login with the user
         login();
 
+        //show parents login details
+        
+        
         // setIsFormSubmitted(true);
         cleanFields();
     }
@@ -131,6 +158,26 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                 <Modal.Title>הרשמה לאתר הגן הדיגיטלי</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Alert show={showParentsLoginAlert} variant="info">
+                    <Alert.Heading as='h5'>פרטי התחברות להורים</Alert.Heading>
+                    <hr />
+                    <Form as={Row}>
+                    <Form.Group as={Col} className='mb-0'>
+                        <Form.Label>שם משתמש</Form.Label>
+                        <Form.Control placeholder={parentsEmail} disabled />
+                    </Form.Group>
+                    <Form.Group as={Col} className='mb-0'>
+                        <Form.Label>סיסמה</Form.Label>
+                        <Form.Control placeholder="Dd123456" disabled />
+                    </Form.Group>
+                    </Form>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => {setShowParentsLoginAlert(false); performSignup()}} variant="outline-info">
+                            רשמתי את הפרטים
+                        </Button>
+                    </div>
+                </Alert>
                 <Form>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formUserFname">
@@ -152,7 +199,8 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                         </Form.Group>
                         <Form.Group as={Col} controlId="formUserPwd">
                             <Form.Label>סיסמה</Form.Label>
-                            <Form.Control type="password" value={userPwd} onChange={e => { setUserPwd(e.target.value) }} />
+                            <Form.Control type="password" value={userPwd} className={showPwdError ? 'is-invalid' : null} 
+                            onChange={e => { setUserPwd(e.target.value) }} />
                             <Form.Text className="text-muted">סיסמה צריכה להיות מעל 8 תווים ולהכיל: אות גדולה, אות קטנה ומספר.</Form.Text>
                         </Form.Group>
                     </Form.Row>
@@ -203,7 +251,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
             </Modal.Body>
             <Modal.Footer className='flex-nowrap'>
                 <Button variant="secondary" className='w-50' onClick={close} disabled={showSignupSpinner}>סגירה</Button>
-                <Button variant="warning" className='w-50' type="button" disabled={!isFormValid} onClick={sendForm}>
+                <Button variant="warning" className='w-50' type="button" disabled={!isFormValid} onClick={signupClicked}>
                     <span className={showSignupSpinner && 'sr-only'}>הרשמה</span>
                     {showSignupSpinner &&<Spinner
                         as="span"
