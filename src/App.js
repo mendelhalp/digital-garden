@@ -14,7 +14,6 @@ import GalleryPage from './pages/GalleryPage/GalleryPage';
 import DafKesherPage from './pages/DafKesherPage/DafKesherPage';
 import TopNavbar from './components/TopNavbar/TopNavbar';
 import{ init } from 'emailjs-com';
-import SignupPage from './pages/SignupPage/SignupPage';
 
 function App() {
   const [activeUser, setActiveUser] = useState(Parse.User.current() ? new UserModel(Parse.User.current()) : null);
@@ -42,7 +41,6 @@ function App() {
             <Route exact path="/galleries"><GalleriesPage /></Route>
             <Route exact path="/galleries/:id"><GalleryPage /></Route>
             <Route exact path="/contact-us"><ContactUsPage /></Route>
-            <Route exact path="/signup"><SignupPage /></Route>
           </ActiveUserContext.Provider>
         </Switch>
       </HashRouter>

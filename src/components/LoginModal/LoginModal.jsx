@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import isEmailValid from '../../utils/isEmailValid';
 
 function LoginModal(props) {
-    const {showModal, handleCloseLogin, onLogin} = props;
+    const {showModal, showSignupModal, handleCloseLogin, onLogin} = props;
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [showError, setShowError] = useState(false);
@@ -61,6 +61,11 @@ function LoginModal(props) {
         }
     }
 
+    function showSignup(){
+        close();
+        showSignupModal();
+    }
+
     return (
         <Modal size='md' show={showModal} onHide={close} centered className='c-login-modal'>
             <Modal.Header>
@@ -83,7 +88,7 @@ function LoginModal(props) {
                 {showError ? <Alert variant="danger">מייל או סיסמה שגויים</Alert> : null}
             </Modal.Body>
             <Modal.Footer>
-                <Button as='a' variant='link' className='ml-auto'><Link to={'/signup'}>עדיין לא רשומים?</Link></Button>
+                <Button variant='link' className='ml-auto' onClick={showSignup}>עדיין לא רשומים?</Button>
                 <Button variant="secondary" onClick={close}>סגירה</Button>
                 <Button variant="warning" onClick={login}>כניסה</Button>
             </Modal.Footer>

@@ -5,9 +5,11 @@ import { useContext, useState } from 'react';
 import LoginModal from '../../components/LoginModal/LoginModal';
 import { Redirect } from 'react-router-dom';
 import ActiveUserContext from '../../utils/ActiveUserContext';
+import SignupModal from '../../components/SignupModal/SignupModal';
 
 const HomePage = (props) => {
-    const [loginModalShow, setLoginModalShow] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showSignupModal, setShowSignupModal] = useState(false);
     const activeUser = useContext(ActiveUserContext);
     const [redirectToMyGarden, setRedirectToMyGarden] = useState(activeUser ? true : false);
     const { onLogin } = props;
@@ -18,7 +20,10 @@ const HomePage = (props) => {
     }
     
     function handleCloseLogin() {
-        setLoginModalShow(false);
+        setShowLoginModal(false);
+    }
+    function handleCloseSignup() {
+        setShowSignupModal(false);
     }
     
     if (redirectToMyGarden) {
@@ -39,11 +44,12 @@ const HomePage = (props) => {
                 </div>
             </div>
             <div className='buttons'>
-                <Button variant="outline-warning" size='lg' onClick={() => { setLoginModalShow(true) }}>כניסה</Button>{' '}
-                <Button variant="warning" size='lg' as='a' href='#/signup'>הרשמה</Button>
+                <Button variant="outline-warning" size='lg' onClick={() => { setShowLoginModal(true) }}>כניסה</Button>{' '}
+                <Button variant="warning" size='lg' onClick={() => { setShowSignupModal(true) }}>הרשמה</Button>
             </div>
-            <LoginModal showModal={loginModalShow} handleCloseLogin={handleCloseLogin} onLogin={handleLogin}/>
-
+            <LoginModal showModal={showLoginModal} showSignupModal={() => {setShowSignupModal(true)}} 
+                handleCloseLogin={handleCloseLogin} onLogin={handleLogin}/>
+            <SignupModal showModal={showSignupModal} handleCloseSignup={handleCloseSignup} onLogin={handleLogin} />
         </div>
     )
 }
