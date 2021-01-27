@@ -13,8 +13,8 @@ const StudyTopicBox = ({topic, activeUser, onDeleteClick, onEditClick}) => {
 
     const editIcon = 
         <div>
-            <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />;
-            <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />;
+            <FontAwesomeIcon className='edit-icon' icon={faEdit} onClick={onEditClick} />
+            <FontAwesomeIcon className='edit-icon' icon={faTrashAlt} onClick={onDeleteClick} />
         </div>
 
     return (
