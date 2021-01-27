@@ -196,7 +196,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                     
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGardenName">
-                            <Form.Label>שם הגן</Form.Label>                     {/* onChanging this input it set the value of parentsFname */}
+                            <Form.Label>שם המוסד</Form.Label>                     {/* onChanging this input it set the value of parentsFname */}
                             <Form.Control type="text" value={gardenName} 
                                 onChange={e => {setGardenName(e.target.value); setParentsFname(`הורי ${e.target.value}`)}}/>
                             <Form.Text className="text-muted">לדוגמה: גן השושנים</Form.Text>
@@ -210,12 +210,14 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                     
                     <Form.Row>
                         <Form.Group as={Col} controlId="formParentsEmail">
-                            <Form.Label>שם משתמש להורי הגן</Form.Label>
+                            <Form.Label>שם משתמש להורים</Form.Label>
                             <Form.Control type="text" value={parentsEmail} onChange={e => {setParentsEmail(e.target.value)}}/>
+                            <Form.Text className="text-muted">ניתן לשינוי</Form.Text>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formParentsFname">
-                            <Form.Label>שם חשבון הורי הגן</Form.Label>
+                            <Form.Label>שם חשבון הורים</Form.Label>
                             <Form.Control type="text" value={parentsFname} onChange={e => {setParentsFname(e.target.value)}}/>
+                            <Form.Text className="text-muted">ניתן לשינוי</Form.Text>
                         </Form.Group>
                     </Form.Row>
 
