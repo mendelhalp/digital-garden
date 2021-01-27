@@ -128,6 +128,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
     }
     
     async function onFileSelect(event) {                                    // uploading temporary file to show preview
+        logoId && deleteImage(logoId);                                      // deleting the temporary logo file
         const logo = event.target.files[0];
         setLogo(logo);
         const res = await addImage(logo, 'fe0qzAHNtH');
