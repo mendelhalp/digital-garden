@@ -117,7 +117,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         await signup(parentsEmail, 'Dd123456', 'parent', parentsFname, '', garden.id);
 
         //create manager in parse
-        await signup(userEmail, userPwd, 'manager', userFname, userFname, garden.id);
+        await signup(userEmail, userPwd, 'manager', userFname, userLname, garden.id);
 
         //login with the user
         login();

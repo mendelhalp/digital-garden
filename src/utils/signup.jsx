@@ -6,10 +6,10 @@ async function signup(email, pwd, role, fname, lname, gardenId) {
 
     user.set('username', email);
     user.set('email', email);
-    user.set('role', 'manager');
+    user.set('role', role);
     user.set('gan', parseGarden);
     user.set('fname', fname);
-    role === 'manager' && user.set('lname', lname);
+    user.set('lname', lname);
     user.set('password', pwd);
     
     const res = await user.signUp();
