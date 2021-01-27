@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/digital-garden/static/css/main.ca3559ef.chunk.css",
-    "main.js": "/digital-garden/static/js/main.fb517516.chunk.js",
-    "main.js.map": "/digital-garden/static/js/main.fb517516.chunk.js.map",
+    "main.js": "/digital-garden/static/js/main.bf65f586.chunk.js",
+    "main.js.map": "/digital-garden/static/js/main.bf65f586.chunk.js.map",
     "runtime-main.js": "/digital-garden/static/js/runtime-main.74672cbb.js",
     "runtime-main.js.map": "/digital-garden/static/js/runtime-main.74672cbb.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/digital-garden/static/css/2.ae9f1eb3.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.ae9f1eb3.chunk.css",
     "static/js/2.b229ab71.chunk.js",
     "static/css/main.ca3559ef.chunk.css",
-    "static/js/main.fb517516.chunk.js"
+    "static/js/main.bf65f586.chunk.js"
   ]
 }
