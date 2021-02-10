@@ -6,6 +6,7 @@ class UserModel {
         this.lname = parseUser.get('lname');
         this.gardenId = parseUser.get('gan').id;
         this.role = parseUser.get('role');
+        this.parseUser = parseUser;
     }
 }
 
