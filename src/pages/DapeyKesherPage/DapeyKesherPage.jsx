@@ -9,25 +9,15 @@ import getGardenDetails from '../../utils/getGardenDetails';
 import AddMainCard from '../../components/AddMainCard/AddMainCard';
 import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEditorModal';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
+import ActiveGardenContext from '../../utils/ActiveGardenContext';
 
-const DapeyKesherPage = () => {
-    const [dapeyKesher, setDapeyKesher] = useState([]);
+const DapeyKesherPage = ({data}) => {
     const activeUser = useContext(ActiveUserContext);
-    const [garden, setGarden] = useState('');
+    const activeGarden = useContext(ActiveGardenContext);
     const [showMainCardEditorModal, setShowMainCardEditorModal] = useState(false);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [dafKesherToEdit, setDafKesherToEdit] = useState('');
     
-    useEffect(() => {
-        async function getDapeyKesher() {                                           // getting the dapeyKesher details Asynchronously from the database
-            const garden = await getGardenDetails(activeUser);
-            const dapeyKesher = await getGardenDapeyKesher(garden.id);
-            setDapeyKesher(dapeyKesher);
-            setGarden(garden);
-        }
-        
-        getDapeyKesher();
-    }, [showMainCardEditorModal,showDeleteAlert])
 
     if (!activeUser) {
         return <Redirect to="/" />
@@ -49,13 +39,13 @@ const DapeyKesherPage = () => {
         </Col>
     : null;
 
-    const dapeyKesherView = dapeyKesher ? dapeyKesher.map(dafKesher =>
+    const dapeyKesherView = data ? data.dapeyKesher.map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
             <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
         </Col>
     ) : null;
 
-    if (!garden) {
+    if (!activeGarden) {
         return <div className='images-spinner row justify-content-center mt-3'>
                     <Spinner animation="border" variant="warning" />
                 </div>
@@ -66,11 +56,11 @@ const DapeyKesherPage = () => {
             <Container>
                 <Row className='mx-0 header'>
                     <Col sm={9}>
-                        <div className='name'>{garden.name}</div>
+                        <div className='name'>{activeGarden.name}</div>
                         <h2>דפי הקשר שלנו</h2>
                     </Col>
                     <Col sm={3} className='p-0'>
-                        {garden ? <div className='logo'><img src={garden.logo} alt="logo"/></div> : null}
+                        <div className='logo'><img src={activeGarden.logo} alt="logo"/></div>
                     </Col>
                 </Row>
                 <Row className='align-items-stretch'>
@@ -78,7 +68,7 @@ const DapeyKesherPage = () => {
                     {dapeyKesherView}
                 </Row>
             </Container>
-            <MainCardEditorModal data={dafKesherToEdit} parseGarden={garden.parseGarden} cardType='dafKesher'
+            <MainCardEditorModal data={dafKesherToEdit} parseGarden={activeGarden.parseGarden} cardType='dafKesher'
                 showModal={showMainCardEditorModal} closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
             <DeleteWarningModal data={dafKesherToEdit} objectType='דף קשר' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setDafKesherToEdit('') }} />

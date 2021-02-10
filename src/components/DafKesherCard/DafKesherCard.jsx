@@ -1,15 +1,11 @@
 import './DafKesherCard.css'
 import { Card } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, activeUser}) => {
     const { id, title, hebDate} = dafKesher;
-
-    if (!activeUser) {
-        return <Redirect to="/" />
-    }
 
     return (
         <div className='c-daf-kesher-card'>

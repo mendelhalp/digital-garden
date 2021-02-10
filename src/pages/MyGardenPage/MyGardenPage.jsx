@@ -3,37 +3,21 @@ import { Card, Col, Container, Row, Spinner } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../utils/ActiveUserContext'
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
-import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher'
-import getGardenDetails from '../../utils/getGardenDetails'
-import getGardenGalleries from '../../utils/getGardenGalleries'
 import './MyGardenPage.css'
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faImages, faNewspaper } from '@fortawesome/free-solid-svg-icons';
+import ActiveGardenContext from '../../utils/ActiveGardenContext';
 
-const MyGardenPage = () => {
+const MyGardenPage = ({data}) => {
     const activeUser = useContext(ActiveUserContext);
-    const [garden, setGarden] = useState('');
-    const [galleries, setGalleries] = useState([]);
-    const [dapeyKesher, setDapeyKesher] = useState([]);
-
-    useEffect(() => {
-        async function getGardenData() {
-            const garden = await getGardenDetails(activeUser);              // getting the garden data Asynchronously from the database
-            const dapeyKesher = await getGardenDapeyKesher(garden.id);      // getting the dapeyKesher and galleries details Asynchronously from the database
-            const galleries = await getGardenGalleries(garden.id);
-            setDapeyKesher(dapeyKesher);
-            setGalleries(galleries);
-            setGarden(garden);
-        }
-        getGardenData();
-    },[garden]);
+    const activeGarden = useContext(ActiveGardenContext);
 
     if (!activeUser) {
         return <Redirect to="/"/>
     }
 
-    const dapeyKesherView = dapeyKesher ? dapeyKesher.map((dafKesher, index) => {
+    const dapeyKesherView = data ? data.dapeyKesher.map((dafKesher, index) => {
         
         if (index < 6) {
             return (
@@ -43,7 +27,7 @@ const MyGardenPage = () => {
             )}
     }) : null;
 
-    const galleriesView = galleries ? galleries.map((gallery, index) => {
+    const galleriesView = data ? data.galleries.map((gallery, index) => {
         
         if (index < 4) {
             return (
@@ -53,7 +37,7 @@ const MyGardenPage = () => {
             )}
     }) : null;
 
-    if (!garden) {
+    if (!activeGarden) {
         return <div className='images-spinner row justify-content-center mt-3'>
                     <Spinner animation="border" variant="warning" />
                 </div>
@@ -64,10 +48,10 @@ const MyGardenPage = () => {
             <Container>
                 <Row className='mx-0 header'>
                     <Col sm={9}>
-                        {garden ? <h2 className='name'>{garden.name}</h2> : null}
+                        <h2 className='name'>{activeGarden.name}</h2>
                     </Col>
                     <Col sm={3} className='p-0'>
-                        {garden ? <div className='logo'><img src={garden.logo} alt="logo"/></div> : null}
+                        <div className='logo'><img src={activeGarden.logo} alt="logo"/></div>
                     </Col>
                 </Row>
                 <Row>

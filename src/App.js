@@ -6,17 +6,33 @@ import MyGardenPage from './pages/MyGardenPage/MyGardenPage';
 import DapeyKesherPage from './pages/DapeyKesherPage/DapeyKesherPage';
 import GalleriesPage from './pages/GalleriesPage/GalleriesPage';
 import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ActiveUserContext from './utils/ActiveUserContext';
+import ActiveGardenContext from './utils/ActiveGardenContext';
 import Parse from 'parse';
 import UserModel from './model/UserModel';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import DafKesherPage from './pages/DafKesherPage/DafKesherPage';
 import TopNavbar from './components/TopNavbar/TopNavbar';
 import{ init } from 'emailjs-com';
+import getGardenDetails from './utils/getGardenDetails';
+import getGardenData from './utils/getGardenData';
 
 function App() {
   const [activeUser, setActiveUser] = useState(Parse.User.current() ? new UserModel(Parse.User.current()) : null);
+  const [activeGarden, setActiveGarden] = useState(null);
+  const [gardenData, setGardenData] = useState(null);
+
+  useEffect(() => {
+    async function getGarden(){
+      const garden = await getGardenDetails(activeUser);
+      const data = await getGardenData(garden.parseGarden);
+      setActiveGarden(garden);
+      setGardenData(data);
+    }
+    activeUser && getGarden();
+  },[activeUser]);
+  
   
   init("user_AV4NvFTR6vJnUEHOtXINx");
   const handleLogin = (loggedinUser) => {
@@ -33,14 +49,16 @@ function App() {
       <HashRouter>
         <Switch>
           <ActiveUserContext.Provider value={activeUser}>
-            <TopNavbar onLogout={handleLogout}/>
-            <Route exact path="/"><HomePage onLogin={handleLogin} /></Route>
-            <Route exact path="/my-garden"><MyGardenPage /></Route>
-            <Route exact path="/dapey-kesher"><DapeyKesherPage /></Route>
-            <Route exact path="/dapey-kesher/:id"><DafKesherPage /></Route>
-            <Route exact path="/galleries"><GalleriesPage /></Route>
-            <Route exact path="/galleries/:id"><GalleryPage /></Route>
-            <Route exact path="/contact-us"><ContactUsPage /></Route>
+            <ActiveGardenContext.Provider value={activeGarden}>
+              <TopNavbar onLogout={handleLogout}/>
+              <Route exact path="/"><HomePage onLogin={handleLogin} /></Route>
+              <Route exact path="/my-garden"><MyGardenPage data={gardenData}/></Route>
+              <Route exact path="/dapey-kesher"><DapeyKesherPage data={gardenData}/></Route>
+              <Route exact path="/dapey-kesher/:id"><DafKesherPage data={gardenData}/></Route>
+              <Route exact path="/galleries"><GalleriesPage data={gardenData}/></Route>
+              <Route exact path="/galleries/:id"><GalleryPage data={gardenData}/></Route>
+              <Route exact path="/contact-us"><ContactUsPage /></Route>
+            </ActiveGardenContext.Provider>
           </ActiveUserContext.Provider>
         </Switch>
       </HashRouter>
