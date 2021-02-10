@@ -11,7 +11,7 @@ function DeleteWarningModal(props) {
         closeModal();
         cleanDataToEdit();
     }
-    console.log(data);
+
     function deleteClick () {
         if (objectType === 'דף קשר') {
             deleteDafKesher(data.id).then(() => {
