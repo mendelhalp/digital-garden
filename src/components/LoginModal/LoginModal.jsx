@@ -136,7 +136,7 @@ function LoginModal(props) {
                 <Button variant='link' className='ml-auto' onClick={showSignup}>עדיין לא רשומים?</Button>
                 <Button variant="secondary" onClick={close}>סגירה</Button>
                 <Button variant="warning" onClick={login}>
-                    <span className={showLoginSpinner && !showError && 'sr-only'}>כניסה</span>
+                    <span className={showLoginSpinner && !showError ? 'sr-only' : ''}>כניסה</span>
                     {showLoginSpinner && !showError &&<Spinner
                         as="span"
                         animation="border"
