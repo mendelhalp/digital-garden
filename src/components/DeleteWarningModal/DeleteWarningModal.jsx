@@ -6,28 +6,30 @@ import deleteImage from '../../utils/deleteImage';
 import updateDafKesherContent from '../../utils/updateDafKesherContent';
 
 function DeleteWarningModal(props) {
-    const {fullData, data, dafKesherId, objectType, showModal, closeModal, cleanDataToEdit} = props;
+    const {fullData, data, dafKesherId, objectType, showModal, closeModal, cleanDataToEdit, handleUpdate} = props;
     function handleClose() {
         closeModal();
         cleanDataToEdit();
     }
 
-    function deleteClick () {
+    async function deleteClick () {
         if (objectType === 'דף קשר') {
-            deleteDafKesher(data.id).then(() => {
-                handleClose();
-            })
+            const res = await deleteDafKesher(data.id);
+            handleUpdate('delete', res);
+            handleClose();
+
         } else if (objectType === 'גלריה') {
-            deleteGallery(data.id).then(() => {
-                handleClose();
-            })
+            const res = await deleteGallery(data.id);
+            handleUpdate('delete', res);
+            handleClose();
+
+        } else if (objectType === 'תמונה') {
+            const res = await deleteImage(data.id);
+            handleUpdate('delete', res);
+            handleClose();
         } else if (objectType === 'חומר לימודי' || objectType === 'הודעה') {
             fullData[data.type].splice(data.index, 1);
             updateDafKesherContent(dafKesherId, fullData).then(() => {
-                handleClose();
-            })
-        } else if (objectType === 'תמונה') {
-            deleteImage(data.id).then(() => {
                 handleClose();
             })
         }

@@ -7,7 +7,6 @@ async function getGardenData(parseGarden) {
     const dapeyKesherQuery = new Parse.Query(Parse.Object.extend('DafKesher'));
     galleriesQuery.equalTo("gan", parseGarden);
     dapeyKesherQuery.equalTo("gan", parseGarden);
-    dapeyKesherQuery.descending("date");
 
     const galleriesResults = await galleriesQuery.find();
     const dapeyKesherResults = await dapeyKesherQuery.find();

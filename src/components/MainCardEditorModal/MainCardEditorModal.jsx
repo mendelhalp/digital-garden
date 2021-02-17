@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import isEnterPressed from '../../utils/IsEnterPressed';
 import createNewDafKesher from '../../utils/createNewDafKesher';
 import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 import createNewGallery from '../../utils/createNewGallery';
 import updateGalleryDetails from '../../utils/updateGalleryDetails';
+import ActiveGardenContext from '../../utils/ActiveGardenContext';
+import DafKesherModel from '../../model/DafKesherModel';
+import GalleryModel from '../../model/GalleryModel';
 
 const MainCardEditorModal = (props) => {
-    const {data, cardType, parseGarden, showModal, closeModal, cleanDataToEdit} = props;
+    const {data, cardType, showModal, handleUpdate, closeModal, cleanDataToEdit} = props;
+    const activeGarden = useContext(ActiveGardenContext);
     const [title, setTitle] = useState('');
     const [date, setDate] = useState('');
     const [showError, setShowError] = useState(false);
@@ -41,26 +44,33 @@ const MainCardEditorModal = (props) => {
         if (cardType === 'dafKesher') {                         //detecting the type of Card (dafKesher/gallery)
             if (!(title && date)) {
                 setShowError(true);
-            } else if (!data) {                                 //if adding new content - creating new row in the database
-                let res = await createNewDafKesher(parseGarden, title, date);
-                console.log(res);
-                close()
-            } else {                                            //if updating existing content - updating the data in the database
-                let res = await updateDafKesherDetails(data.id, title, date);
-                console.log(res);
-                
+            } else {
+                let dafKesher;
+                const action = data ? 'update' : 'add';
+                if (!data) {                                 //if adding new content - creating new row in the database
+                    dafKesher = await createNewDafKesher(activeGarden.parseGarden, title, date);
+                } else {                                            //if updating existing content - updating the data in the database
+                    dafKesher = await updateDafKesherDetails(data.id, title, date);
+                }
+                handleUpdate(action, new DafKesherModel(dafKesher));
                 close();
             }
         } else if (cardType === 'gallery') {
             if (!title) {
                 setShowError(true);
-            } else if (!data) {
-                let res = await createNewGallery(parseGarden, title);
-                console.log(res);
-                close();
             } else {
-                let res = await updateGalleryDetails(data.id, title);
-                console.log(res);
+                let gallery;
+                const action = data ? 'update' : 'add';
+                if (!data) {
+                    gallery = await createNewGallery(activeGarden.parseGarden, title);
+                } else {
+                    gallery = await updateGalleryDetails(data.id, title);
+                }
+                const galleryToSend = new GalleryModel(gallery);
+                if (data) {
+                    galleryToSend.images = data.images;             // when only updating gallery details - copy the images data
+                }
+                handleUpdate(action, galleryToSend);
                 close();
             }
         }

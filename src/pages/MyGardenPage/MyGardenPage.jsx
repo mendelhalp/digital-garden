@@ -13,36 +13,31 @@ const MyGardenPage = ({data}) => {
     const activeUser = useContext(ActiveUserContext);
     const activeGarden = useContext(ActiveGardenContext);
     
-    if (!activeUser) {
-        return <Redirect to="/"/>
-    }
-
-    const dapeyKesherView = data ? Object.values(data.dapeyKesher).map((dafKesher, index) => {
-        
-        if (index < 6) {
-            return (
-                <Col className='py-2' md={12} lg={6} key={dafKesher.id}>
-                    <DafKesherCard dafKesher={dafKesher} activeUser={activeUser}/>
-                </Col>
-            )}
-    }) : null;
-
-    const galleriesView = data && data.galleries && Object.values(data.galleries).map((gallery, index) => {
-        const id = gallery.id;
-        
-        if (index < 4) {
-            return (
-                <Col className='py-2' md={12} lg={6} key={id}>
-                    <GalleryCard gallery={gallery} activeUser={activeUser}/>
-                </Col>
-            )}
-    });
-
-    if (!activeGarden) {
+    if (!data) {
         return <div className='images-spinner row justify-content-center mt-3'>
                     <Spinner animation="border" variant="warning" />
                 </div>
     }
+
+    if (!activeUser) {
+        return <Redirect to="/"/>
+    }    
+
+    const dapeyKesherView = Object.values(data.dapeyKesher).sort((a,b) => b.date - a.date).filter((x, index) => index < 6).map(dafKesher => 
+            <Col className='py-2' md={12} lg={6} key={dafKesher.id}>
+                <DafKesherCard dafKesher={dafKesher} activeUser={activeUser}/>
+            </Col>            
+    );
+
+    const galleriesView = Object.values(data.galleries).filter((x, index) => index < 4).map(gallery => {
+        const id = gallery.id;
+        
+        return (
+            <Col className='py-2' md={12} lg={6} key={id}>
+                <GalleryCard gallery={gallery} activeUser={activeUser}/>
+            </Col>        
+        )
+    });    
 
     return (
         <div className="p-my-gan">

@@ -9,7 +9,7 @@ import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarnin
 import AddImageCard from '../../components/ImageCard/AddImageCard';
 import AddImageModal from '../../components/AddImage/AddImageModal';
 
-const GalleryPage = ({data}) => {
+const GalleryPage = ({data, onUpdate}) => {
     const activeUser = useContext(ActiveUserContext);
     const [showImageModal, setShowImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -18,13 +18,18 @@ const GalleryPage = ({data}) => {
     const [imageToEdit, setImageToEdit] = useState('');
 
     const galleryId = useParams().id;
-    const images = data.galleries[galleryId].images;
-    const title = data.galleries[galleryId].title;
 
+    if (!data) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
     
     if (!activeUser) {
         return <Redirect to="/"/>
     }
+
+    const {images, title} = data.galleries[galleryId];
     
     function onImageSelect (index) {
         setShowImageModal(true);
@@ -38,18 +43,25 @@ const GalleryPage = ({data}) => {
     function handleDeleteClick(image) {
         setImageToEdit(image);
         setShowDeleteAlert(true);
-    } 
-    
+    }
+
+    function handleUpdate(action, content){
+        const updatedImages = {...images};
+        if (action === 'delete') {
+            delete updatedImages[content.id];
+        } else if (action === 'add') {
+            updatedImages[content.id] = content;
+        }
+        const galleries = {...data.galleries};
+        galleries[galleryId].images = updatedImages;
+        onUpdate('galleries', galleries);
+    }
+
+
     const addImage = activeUser && activeUser.role === 'manager' && <AddImageCard onClick={() => {setShowAddImage(true)}}/>;
 
     const imagesView = images && Object.values(images).map((image, index) =>
         <ImageCard image={image} key={image.id} activeUser={activeUser} onClick={() => onImageSelect(index)} handleDeleteClick={handleDeleteClick}/>);
-
-    if (!data) {
-        return <div className='images-spinner row justify-content-center mt-3'>
-                    <Spinner animation="border" variant="warning" />
-                </div>
-    }
 
     return (
         <div className='p-gallery'>
@@ -63,7 +75,7 @@ const GalleryPage = ({data}) => {
             {selectedImage !== null && images.length>0 &&
                 <ImageModal images={images} showModal={showImageModal} selectedImage={selectedImage} 
                 close={() => { setShowImageModal(false) }} onImageChange={onImageChange} />}
-            <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert}
+            <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert} handleUpdate={handleUpdate}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setImageToEdit('') }} />
             {images && <AddImageModal galleryTitle={title} galleryId={galleryId} showModal={showAddImage} 
                 closeModal={() => {setShowAddImage(false)}}/>}

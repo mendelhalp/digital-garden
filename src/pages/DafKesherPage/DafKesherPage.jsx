@@ -19,18 +19,24 @@ function DafKesherPage({data}) {
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [showEditorModal, setShowEditorModal] = useState(false);
     const [contentToEdit, setContentToEdit] = useState('');
-    
-    const dafKesherId = useParams().id;
-    const { name, logo } = activeGarden;
-    const { studyTopics, messages } = data.dapeyKesher[dafKesherId].data;
-    const title = data.dapeyKesher[dafKesherId].title;
-    const hebDate = data.dapeyKesher[dafKesherId].hebDate;
-    
 
+    const dafKesherId = useParams().id;
+    
+    if (!data) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
+    
     if (!activeUser) {
         return <Redirect to="/" />
     }
     
+    const { name, logo } = data && activeGarden;
+    const { studyTopics, messages } = data && data.dapeyKesher[dafKesherId].data;
+    const {title, hebDate} = data.dapeyKesher[dafKesherId];
+    
+
     function handleAddClick(contentToEdit) {
         setContentToEdit(contentToEdit);
         setShowEditorModal(true);
@@ -65,12 +71,6 @@ function DafKesherPage({data}) {
     ) : null;
     
     const addMessage = activeUser && activeUser.role === 'manager' && <AddMessageBox onClick={() => { handleAddClick('messages') }}/>;
-
-    if (data.dapeyKesher[dafKesherId].data.length === 0) {
-        return <div className='images-spinner row justify-content-center mt-3'>
-                    <Spinner animation="border" variant="warning" />
-                </div>
-    }
 
     return (
         <div className='p-daf-kesher'>

@@ -53,6 +53,12 @@ function App() {
     Parse.User.logOut();
   }
 
+  const updateGardenData = (type, content) => {
+    const data = {...gardenData};
+    data[type] = content;
+    setGardenData(data);
+  }
+
   return (
     <>
       <HashRouter>
@@ -62,10 +68,10 @@ function App() {
               <TopNavbar onLogout={handleLogout}/>
               <Route exact path="/"><HomePage onLogin={handleLogin} /></Route>
               <Route exact path="/my-garden"><MyGardenPage data={gardenData}/></Route>
-              <Route exact path="/dapey-kesher"><DapeyKesherPage data={gardenData}/></Route>
-              <Route exact path="/dapey-kesher/:id"><DafKesherPage data={gardenData}/></Route>
-              <Route exact path="/galleries"><GalleriesPage data={gardenData}/></Route>
-              <Route exact path="/galleries/:id"><GalleryPage data={gardenData}/></Route>
+              <Route exact path="/dapey-kesher"><DapeyKesherPage data={gardenData} onUpdate={updateGardenData}/></Route>
+              <Route exact path="/dapey-kesher/:id"><DafKesherPage data={gardenData} onUpdate={updateGardenData}/></Route>
+              <Route exact path="/galleries"><GalleriesPage data={gardenData} onUpdate={updateGardenData}/></Route>
+              <Route exact path="/galleries/:id"><GalleryPage data={gardenData} onUpdate={updateGardenData}/></Route>
               <Route exact path="/contact-us"><ContactUsPage /></Route>
             </ActiveGardenContext.Provider>
           </ActiveUserContext.Provider>

@@ -9,7 +9,7 @@ import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarnin
 import AddMainCard from '../../components/AddMainCard/AddMainCard';
 import ActiveGardenContext from '../../utils/ActiveGardenContext';
 
-const GalleriesPage = ({data}) => {
+const GalleriesPage = ({data, onUpdate}) => {
     const activeUser = useContext(ActiveUserContext);
     const activeGarden = useContext(ActiveGardenContext);
     const [showMainCardEditorModal, setShowMainCardEditorModal] = useState(false);
@@ -29,6 +29,16 @@ const GalleriesPage = ({data}) => {
         setGalleryToEdit(gallery);
         setShowDeleteAlert(true);
     }    
+
+    function handleUpdate(action, content){
+        const galleries = {...data.galleries};
+        if (!(action === 'delete')) {
+            galleries[content.id] = content;
+        } else {
+            delete galleries[content.id];
+        }
+        onUpdate('galleries', galleries);
+    }
 
     const addGallery = activeUser && activeUser.role === 'manager' ?
         <Col className='py-2' md={6} lg={3}>
@@ -67,9 +77,9 @@ const GalleriesPage = ({data}) => {
                     {galleriesView}
                 </Row>
             </Container>
-            <MainCardEditorModal data={galleryToEdit} parseGarden={activeGarden.parseGarden} cardType='gallery'
-                showModal={showMainCardEditorModal} closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setGalleryToEdit('') }} />
-            <DeleteWarningModal data={galleryToEdit} objectType='גלריה' showModal={showDeleteAlert}
+            <MainCardEditorModal data={galleryToEdit} cardType='gallery' showModal={showMainCardEditorModal} handleUpdate={handleUpdate} 
+                closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setGalleryToEdit('') }} />
+            <DeleteWarningModal data={galleryToEdit} objectType='גלריה' showModal={showDeleteAlert} handleUpdate={handleUpdate}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setGalleryToEdit('') }} />
         </div>
     )

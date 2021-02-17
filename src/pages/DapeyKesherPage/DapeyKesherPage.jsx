@@ -9,7 +9,7 @@ import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEd
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 import ActiveGardenContext from '../../utils/ActiveGardenContext';
 
-const DapeyKesherPage = ({data}) => {
+const DapeyKesherPage = ({data, onUpdate}) => {
     const activeUser = useContext(ActiveUserContext);
     const activeGarden = useContext(ActiveGardenContext);
     const [showMainCardEditorModal, setShowMainCardEditorModal] = useState(false);
@@ -31,13 +31,23 @@ const DapeyKesherPage = ({data}) => {
         setShowDeleteAlert(true);
     }
 
+    function handleUpdate(action, content){
+        const dapeyKesher = {...data.dapeyKesher};
+        if (!(action === 'delete')) {
+            dapeyKesher[content.id] = content;
+        } else {
+            delete dapeyKesher[content.id];
+        }
+        onUpdate('dapeyKesher', dapeyKesher);
+    }
+
     const addDafKesher = activeUser && activeUser.role === 'manager' ?
         <Col className='py-2' md={6} lg={3}>
             <AddMainCard onClick={() => { setShowMainCardEditorModal(true) }}/>
         </Col>
     : null;
 
-    const dapeyKesherView = data ? Object.values(data.dapeyKesher).map(dafKesher =>
+    const dapeyKesherView = data ? Object.values(data.dapeyKesher).sort((a,b) => b.date - a.date).map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
             <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
         </Col>
@@ -66,9 +76,9 @@ const DapeyKesherPage = ({data}) => {
                     {dapeyKesherView}
                 </Row>
             </Container>
-            <MainCardEditorModal data={dafKesherToEdit} parseGarden={activeGarden.parseGarden} cardType='dafKesher'
-                showModal={showMainCardEditorModal} closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
-            <DeleteWarningModal data={dafKesherToEdit} objectType='דף קשר' showModal={showDeleteAlert}
+            <MainCardEditorModal data={dafKesherToEdit} cardType='dafKesher' showModal={showMainCardEditorModal} handleUpdate={handleUpdate} 
+                closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
+            <DeleteWarningModal data={dafKesherToEdit} objectType='דף קשר' showModal={showDeleteAlert} handleUpdate={handleUpdate}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setDafKesherToEdit('') }} />
         </div>
     )
