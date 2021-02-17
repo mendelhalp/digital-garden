@@ -17,6 +17,7 @@ import TopNavbar from './components/TopNavbar/TopNavbar';
 import{ init } from 'emailjs-com';
 import getGardenDetails from './utils/getGardenDetails';
 import getGardenData from './utils/getGardenData';
+import getGalleriesImages from './utils/getGalleriesImages';
 
 function App() {
   const [activeUser, setActiveUser] = useState(Parse.User.current() ? new UserModel(Parse.User.current()) : null);
@@ -29,10 +30,18 @@ function App() {
       const data = await getGardenData(garden.parseGarden);
       setActiveGarden(garden);
       setGardenData(data);
+      
+      const images = await getGalleriesImages(data.galleries);
+      const newGalleries = {...data.galleries};
+      Object.keys(images).forEach(gallery => {
+        newGalleries[gallery].images = images[gallery].images;
+      });
+      const newData = {...data};
+      newData.galleries = newGalleries;
+      setGardenData(newData);
     }
     activeUser && getGarden();
   },[activeUser]);
-  
   
   init("user_AV4NvFTR6vJnUEHOtXINx");
   const handleLogin = (loggedinUser) => {

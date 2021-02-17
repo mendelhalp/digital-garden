@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import DafKesherCard from '../../components/DafKesherCard/DafKesherCard';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './DapeyKesherPage.css';
-import getGardenDapeyKesher from '../../utils/getGardenDapeyKesher';
-import getGardenDetails from '../../utils/getGardenDetails';
 import AddMainCard from '../../components/AddMainCard/AddMainCard';
 import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEditorModal';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
@@ -39,7 +37,7 @@ const DapeyKesherPage = ({data}) => {
         </Col>
     : null;
 
-    const dapeyKesherView = data ? data.dapeyKesher.map(dafKesher =>
+    const dapeyKesherView = data ? Object.values(data.dapeyKesher).map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
             <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
         </Col>

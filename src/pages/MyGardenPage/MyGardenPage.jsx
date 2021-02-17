@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { Card, Col, Container, Row, Spinner } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../utils/ActiveUserContext'
@@ -12,12 +12,12 @@ import ActiveGardenContext from '../../utils/ActiveGardenContext';
 const MyGardenPage = ({data}) => {
     const activeUser = useContext(ActiveUserContext);
     const activeGarden = useContext(ActiveGardenContext);
-
+    
     if (!activeUser) {
         return <Redirect to="/"/>
     }
 
-    const dapeyKesherView = data ? data.dapeyKesher.map((dafKesher, index) => {
+    const dapeyKesherView = data ? Object.values(data.dapeyKesher).map((dafKesher, index) => {
         
         if (index < 6) {
             return (
@@ -27,15 +27,16 @@ const MyGardenPage = ({data}) => {
             )}
     }) : null;
 
-    const galleriesView = data ? data.galleries.map((gallery, index) => {
+    const galleriesView = data && data.galleries && Object.values(data.galleries).map((gallery, index) => {
+        const id = gallery.id;
         
         if (index < 4) {
             return (
-                <Col className='py-2' md={12} lg={6} key={gallery.id}>
+                <Col className='py-2' md={12} lg={6} key={id}>
                     <GalleryCard gallery={gallery} activeUser={activeUser}/>
                 </Col>
             )}
-    }) : null;
+    });
 
     if (!activeGarden) {
         return <div className='images-spinner row justify-content-center mt-3'>

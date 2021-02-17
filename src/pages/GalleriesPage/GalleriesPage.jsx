@@ -1,33 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import './GalleriesPage.css';
 import GalleryCard from '../../components/GalleryCard/GalleryCard';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
-import getGardenGalleries from '../../utils/getGardenGalleries';
-import getGardenDetails from '../../utils/getGardenDetails';
 import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEditorModal';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 import AddMainCard from '../../components/AddMainCard/AddMainCard';
+import ActiveGardenContext from '../../utils/ActiveGardenContext';
 
-const GalleriesPage = () => {
-    const [galleries, setGalleries] = useState([]);
+const GalleriesPage = ({data}) => {
     const activeUser = useContext(ActiveUserContext);
-    const [garden, setGarden] = useState('');
+    const activeGarden = useContext(ActiveGardenContext);
     const [showMainCardEditorModal, setShowMainCardEditorModal] = useState(false);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [galleryToEdit, setGalleryToEdit] = useState('');
-
-    useEffect(() => {
-        async function getGalleries () {                                            // getting the galleries details Asynchronously from the database
-            const garden = await getGardenDetails(activeUser);
-            const galleries = await getGardenGalleries(garden.id);
-            setGalleries(galleries);
-            setGarden(garden);
-        }
-
-        getGalleries();
-    },[showMainCardEditorModal,showDeleteAlert]);
 
     if (!activeUser) {
         return <Redirect to="/"/>
@@ -49,13 +36,15 @@ const GalleriesPage = () => {
         </Col>
     : null;
     
-    const galleriesView = galleries ? galleries.map(gallery => {
-        return(<Col className='py-2' md={6} lg={3} key={gallery.id}>
+    const galleriesView = data && data.galleries ? Object.values(data.galleries).map(gallery => {
+        const id = gallery.id;
+
+        return(<Col className='py-2' md={6} lg={3} key={id}>
             <GalleryCard gallery={gallery} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
         </Col>)        
     }) : null;
 
-    if (!garden) {
+    if (!activeGarden) {
         return <div className='images-spinner row justify-content-center mt-3'>
                     <Spinner animation="border" variant="warning" />
                 </div>
@@ -66,11 +55,11 @@ const GalleriesPage = () => {
             <Container>
                 <Row className='mx-0 header'>
                     <Col sm={9}>
-                        {garden ? <div className='name'>{garden.name}</div> : null}
+                        <div className='name'>{activeGarden.name}</div>
                         <h2>הגלריות שלנו</h2>
                     </Col>
                     <Col sm={3} className='p-0'>
-                        {garden ? <div className='logo'><img src={garden.logo} alt="logo"/></div> : null}
+                        <div className='logo'><img src={activeGarden.logo} alt="logo"/></div>
                     </Col>
                 </Row>
                 <Row>
@@ -78,7 +67,7 @@ const GalleriesPage = () => {
                     {galleriesView}
                 </Row>
             </Container>
-            <MainCardEditorModal data={galleryToEdit} parseGarden={garden.parseGarden} cardType='gallery'
+            <MainCardEditorModal data={galleryToEdit} parseGarden={activeGarden.parseGarden} cardType='gallery'
                 showModal={showMainCardEditorModal} closeModal={() => { setShowMainCardEditorModal(false) }} cleanDataToEdit={() => { setGalleryToEdit('') }} />
             <DeleteWarningModal data={galleryToEdit} objectType='גלריה' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setGalleryToEdit('') }} />

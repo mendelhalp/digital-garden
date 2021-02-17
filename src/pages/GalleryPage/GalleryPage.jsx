@@ -4,17 +4,13 @@ import './GalleryPage.css'
 import { Redirect, useParams } from 'react-router-dom';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import ImageModal from '../../components/ImageModal/ImageModal';
-import getGalleryImages from '../../utils/getGalleryImages';
-import getGalleryDetails from '../../utils/getGalleryDetails';
 import ActiveUserContext from '../../utils/ActiveUserContext';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 import AddImageCard from '../../components/ImageCard/AddImageCard';
 import AddImageModal from '../../components/AddImage/AddImageModal';
 
-const GalleryPage = () => {
+const GalleryPage = ({data}) => {
     const activeUser = useContext(ActiveUserContext);
-    const [images, setImages] = useState([]);
-    const [galleryTitle, setGalleryTitle] = useState('');
     const [showImageModal, setShowImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -22,18 +18,9 @@ const GalleryPage = () => {
     const [imageToEdit, setImageToEdit] = useState('');
 
     const galleryId = useParams().id;
+    const images = data.galleries[galleryId].images;
+    const title = data.galleries[galleryId].title;
 
-    useEffect(() => {
-        async function getImages (){                                        // getting the gallery images Asynchronously from the database
-            const images = await getGalleryImages(galleryId);
-            const title = (await getGalleryDetails(galleryId)).title;
-            setImages(images);
-            setGalleryTitle(title);
-        }
-        
-        getImages();
-        
-    },[showDeleteAlert, showAddImage, imageToEdit])
     
     if (!activeUser) {
         return <Redirect to="/"/>
@@ -55,10 +42,10 @@ const GalleryPage = () => {
     
     const addImage = activeUser && activeUser.role === 'manager' && <AddImageCard onClick={() => {setShowAddImage(true)}}/>;
 
-    const imagesView = images && images.map((image, index) =>
+    const imagesView = images && Object.values(images).map((image, index) =>
         <ImageCard image={image} key={image.id} activeUser={activeUser} onClick={() => onImageSelect(index)} handleDeleteClick={handleDeleteClick}/>);
 
-    if (!galleryTitle) {
+    if (!data) {
         return <div className='images-spinner row justify-content-center mt-3'>
                     <Spinner animation="border" variant="warning" />
                 </div>
@@ -66,7 +53,7 @@ const GalleryPage = () => {
 
     return (
         <div className='p-gallery'>
-            <h2>{galleryTitle}</h2>
+            <h2>{title}</h2>
             <Container>
                 <CardColumns>
                     {addImage}
@@ -78,7 +65,7 @@ const GalleryPage = () => {
                 close={() => { setShowImageModal(false) }} onImageChange={onImageChange} />}
             <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setImageToEdit('') }} />
-            {images && <AddImageModal galleryTitle={galleryTitle} galleryId={galleryId} showModal={showAddImage} 
+            {images && <AddImageModal galleryTitle={title} galleryId={galleryId} showModal={showAddImage} 
                 closeModal={() => {setShowAddImage(false)}}/>}
         </div>
     )

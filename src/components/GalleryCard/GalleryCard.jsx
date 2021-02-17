@@ -1,29 +1,19 @@
 import './GalleryCard.css'
-import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import getGalleryMainImg from '../../utils/getGalleryMainImg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const GalleryCard = ({gallery, handleEdit, handleDeleteClick, activeUser}) => {
     const {id, title } = gallery;
-    const [mainImg, setMainImg] = useState('');
 
-    useEffect(() => {
-        async function getMainImg() {
-            const mainImg = await getGalleryMainImg(id);
-            setMainImg(mainImg);
-        }
-        getMainImg();
-    },[]);
-
+    const img = gallery.images && Object.values(gallery.images).map(img => img.url)[0];
 
     return (
         <div className='c-gallery-card'>
             <Card>
                 <Link to={'/galleries/'+ id}>
-                    {mainImg ? <Card.Img variant='top' src={mainImg}/> : null}
+                    {img ? <Card.Img variant='top' src={img}/> : null}
                     <Card.Title className='text-center'>{title}</Card.Title>
                 </Link>
                 {activeUser && activeUser.role === 'manager' && handleEdit &&       //showing edit icons only to garden owner

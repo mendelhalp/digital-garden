@@ -1,5 +1,6 @@
 import Parse from 'parse';
-import getHebrewDate from './getHebrewDate';
+import DafKesherModel from '../model/DafKesherModel';
+import GalleryModel from '../model/GalleryModel';
 
 async function getGardenData(parseGarden) {
     const galleriesQuery = new Parse.Query(Parse.Object.extend('Gallery'));
@@ -11,24 +12,21 @@ async function getGardenData(parseGarden) {
     const galleriesResults = await galleriesQuery.find();
     const dapeyKesherResults = await dapeyKesherQuery.find();
 
-    const galleries = galleriesResults.map(gallery => {
-        return(
-            {
-            'id':gallery.id,
-            'title':gallery.get('title')
-            }
-        )
-    });
-    const dapeyKesher = dapeyKesherResults.map(dafKesher => {
-        return(
-            {
-            'id':dafKesher.id,
-            'title': dafKesher.get('title'),
-            'date':dafKesher.get('date'),
-            'hebDate':getHebrewDate(dafKesher.get('date'))
-            }
-        )
-    });
+    const galleriesArr = galleriesResults.map(gallery => new GalleryModel(gallery));
+    const dapeyKesherArr = dapeyKesherResults.map(dafKesher => new DafKesherModel(dafKesher));
+
+    const galleries = galleriesArr.reduce((gallery, item) => {
+        return {
+            ...gallery,
+            [item['id']]: item,
+          };
+    }, {});
+    const dapeyKesher = dapeyKesherArr.reduce((dafKesher, item) => {
+        return {
+            ...dafKesher,
+            [item['id']]: item,
+          };
+    }, {});
     
     return {galleries, dapeyKesher};
 }
