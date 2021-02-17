@@ -15,15 +15,13 @@ const MainCardEditorModal = (props) => {
     
     useEffect(() => { 
         if (typeof data === 'object') {                     //if editing existing content - filling the fields with the original data 
+            setTitle(data.title);
             if (cardType === 'dafKesher') {
-                setTitle(data.title);
 
                 const date = data.date.toLocaleString().split('.');                             //converting dafKesher date to simple format 
                 const viewDate = `${date[2].split(',')[0]}-${date[1].length === 1 ? '0' + 
                     date[1] : date[1]}-${date[0].length === 1 ? '0' + date[0] : date[0]}`;
                 setDate(viewDate);
-            } else if (cardType === 'gallery') {
-                setTitle(data.title);
             }
         } else {
             setTitle('');
@@ -39,25 +37,30 @@ const MainCardEditorModal = (props) => {
         cleanDataToEdit();
     }
 
-    function onSave() {
+    async function onSave() {
         if (cardType === 'dafKesher') {                         //detecting the type of Card (dafKesher/gallery)
             if (!(title && date)) {
                 setShowError(true);
             } else if (!data) {                                 //if adding new content - creating new row in the database
-                createNewDafKesher(parseGarden, title, date);
+                let res = await createNewDafKesher(parseGarden, title, date);
+                console.log(res);
                 close()
             } else {                                            //if updating existing content - updating the data in the database
-                updateDafKesherDetails(data.id, title, date);
+                let res = await updateDafKesherDetails(data.id, title, date);
+                console.log(res);
+                
                 close();
             }
         } else if (cardType === 'gallery') {
             if (!title) {
                 setShowError(true);
             } else if (!data) {
-                createNewGallery(parseGarden, title);
-                close()
+                let res = await createNewGallery(parseGarden, title);
+                console.log(res);
+                close();
             } else {
-                updateGalleryDetails(data.id, title);
+                let res = await updateGalleryDetails(data.id, title);
+                console.log(res);
                 close();
             }
         }

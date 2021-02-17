@@ -10,16 +10,9 @@ async function createNewDafKesher(parseGarden, title, date) {
     myNewDafKesher.set('date', new Date(date));
     myNewDafKesher.set('data', {"studyTopics":[], "messages":[]});
 
-    myNewDafKesher.save().then(
-    (result) => {
-        // console.log('DafKesher created', result);
-    },
-    (error) => {
-        // console.error('Error while creating DafKesher: ', error);
-    }
-    );
+    const res = await myNewDafKesher.save();
     
-    return '';
+    return res;
 }
 
 export default createNewDafKesher;
