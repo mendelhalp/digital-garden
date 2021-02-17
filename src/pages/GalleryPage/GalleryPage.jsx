@@ -50,7 +50,9 @@ const GalleryPage = ({data, onUpdate}) => {
         if (action === 'delete') {
             delete updatedImages[content.id];
         } else if (action === 'add') {
-            updatedImages[content.id] = content;
+            content.forEach(image => {
+                updatedImages[image.id] = image;
+            });
         }
         const galleries = {...data.galleries};
         galleries[galleryId].images = updatedImages;
@@ -78,7 +80,7 @@ const GalleryPage = ({data, onUpdate}) => {
             <DeleteWarningModal data={imageToEdit} objectType='תמונה' showModal={showDeleteAlert} handleUpdate={handleUpdate}
                 closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setImageToEdit('') }} />
             {images && <AddImageModal galleryTitle={title} galleryId={galleryId} showModal={showAddImage} 
-                closeModal={() => {setShowAddImage(false)}}/>}
+                handleUpdate={handleUpdate} closeModal={() => {setShowAddImage(false)}}/>}
         </div>
     )
 }

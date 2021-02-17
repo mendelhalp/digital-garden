@@ -1,16 +1,17 @@
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Card, CardColumns, Form, Modal, Spinner } from 'react-bootstrap';
 import addImage from '../../utils/addImage';
 import deleteImage from '../../utils/deleteImage';
+import ImageModel from '../../model/ImageModel'
 
 function AddImageModal(props) {
-    const {galleryTitle, galleryId, showModal, closeModal} = props;
+    const {galleryTitle, galleryId, showModal, closeModal, handleUpdate} = props;
     const [images, setImages] = useState('');
     const [imagesId, setImagesId] = useState([]);
     const [imagesUrl, setImagesUrl] = useState([]);
 
-    function handleClose(params) {
+    function handleClose() {
         closeModal();
         setImages('');
         setImagesId([]);
@@ -18,16 +19,16 @@ function AddImageModal(props) {
     }
     
     async function onFilesSelect(event) {
-        setImages(event.target.files);
         const imagesArr = Object.values(event.target.files);
         let newImagesId = [];
         let newImagesUrl = [];
-        await Promise.all(imagesArr.map(async image => {
+        const uploadedImages = await Promise.all(imagesArr.map(async image => {
             const res = await addImage(image, galleryId);
             newImagesId.push(res.id);
             newImagesUrl.push(res.get('file')._url);
-            
+            return (new ImageModel(res));
         }));
+        setImages(uploadedImages);
         setImagesId(newImagesId);
         setImagesUrl(newImagesUrl);
     }
@@ -41,6 +42,7 @@ function AddImageModal(props) {
     
     function addClicked() {
         handleClose();
+        handleUpdate('add', images);
     }
     
     const imagesAmount = images ? images.length : 0;
