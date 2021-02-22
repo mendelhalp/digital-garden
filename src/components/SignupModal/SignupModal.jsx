@@ -24,7 +24,6 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
     const [parentsFname, setParentsFname] = useState('');
     const [logo, setLogo] = useState('');
     const [logoUrl, setLogoUrl] = useState('');
-    const [logoId, setLogoId] = useState('');
     const [showEmailError, setShowEmailError] = useState(false);
     const [showPwdError, setShowPwdError] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
@@ -77,8 +76,8 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
     }
 
     function close () {
+        URL.revokeObjectURL(logoUrl);
         handleCloseSignup();
-        logoId && deleteImage(logoId);                                      // deleting the temporary logo file after leaving the signup
         cleanFields();
     }
     
@@ -127,13 +126,11 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
         return <Redirect to="/"/>
     }
     
-    async function onFileSelect(event) {                                    // uploading temporary file to show preview
-        logoId && deleteImage(logoId);                                      // deleting the temporary logo file
-        const logo = event.target.files[0];
-        setLogo(logo);
-        const res = await addImage(logo, 'fe0qzAHNtH');
-        setLogoUrl(res.get('file')._url);
-        setLogoId(res.id);
+    function onFileSelect(event) {                                    // showing logo preview
+        const newLogo = event.target.files[0];
+        const newLogoUrl = URL.createObjectURL(newLogo);
+        setLogo(newLogo);
+        setLogoUrl(newLogoUrl);
     }
 
     const logoView = logoUrl ?
@@ -225,7 +222,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
 
                     <Form.Row>
                         <Form.Group as={Col}>
-                            <Form.File id="formGardenLogo" label='' data-browse="בחירת לוגו" accept="image/*" custom multiple onChange={onFileSelect}/>
+                            <Form.File id="formGardenLogo" label='' data-browse="בחירת לוגו" accept="image/*" custom onChange={onFileSelect}/>
                             <Form.Text className="text-muted">{logo ? 'נבחרה תמונה' : 'מומלץ לבחור לוגו שיופיע בדפי הקשר'}</Form.Text>
                         </Form.Group>
                         {logo &&

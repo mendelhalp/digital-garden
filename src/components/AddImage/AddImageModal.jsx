@@ -8,41 +8,33 @@ import ImageModel from '../../model/ImageModel'
 function AddImageModal(props) {
     const {galleryTitle, galleryId, showModal, closeModal, handleUpdate} = props;
     const [images, setImages] = useState('');
-    const [imagesId, setImagesId] = useState([]);
     const [imagesUrl, setImagesUrl] = useState([]);
 
     function handleClose() {
         closeModal();
         setImages('');
-        setImagesId([]);
         setImagesUrl([]);
     }
     
-    async function onFilesSelect(event) {
-        const imagesArr = Object.values(event.target.files);
-        let newImagesId = [];
-        let newImagesUrl = [];
-        const uploadedImages = await Promise.all(imagesArr.map(async image => {
-            const res = await addImage(image, galleryId);
-            newImagesId.push(res.id);
-            newImagesUrl.push(res.get('file')._url);
-            return (new ImageModel(res));
-        }));
-        setImages(uploadedImages);
-        setImagesId(newImagesId);
+    function onFilesSelect(event) {
+        const newImages = Object.values(event.target.files);
+        let newImagesUrl = newImages.map(image => URL.createObjectURL(image));
+        setImages(newImages);
         setImagesUrl(newImagesUrl);
     }
-    
+
     function closeClicked() {
-        imagesId && imagesId.map(image => {
-            deleteImage(image);
-        });
-        handleClose();
+        imagesUrl.forEach(url => {URL.revokeObjectURL(url)});
+        handleClose()
     }
     
-    function addClicked() {
+    async function addClicked() {
+        const uploadedImages = await Promise.all(images.map(async image => {
+            const res = await addImage(image, galleryId);
+            return (new ImageModel(res));
+        }));
+        handleUpdate('add', uploadedImages);
         handleClose();
-        handleUpdate('add', images);
     }
     
     const imagesAmount = images ? images.length : 0;

@@ -13,7 +13,6 @@ async function signup(email, pwd, role, fname, lname, gardenId) {
     user.set('password', pwd);
     
     const res = await user.signUp();
-    console.log(res);
     return res;
 }
 

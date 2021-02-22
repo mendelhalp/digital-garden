@@ -19,23 +19,14 @@ const ContactUsPage = () => {
     const [showEmailError, setShowEmailError] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-    
-    function sendForm () {                                      // sending the form to site's DevTeam and cleaning the fields
-        emailjs.send("service_5cx738e","template_k3nemuh",{
-            from_name: name,
-            from_email: email,
-            topic: subject,
-            message: request,
-            file_links: filesUrl,
-            });
 
-        setSubject('');
-        setRequest('');
-        setFiles('');
-        setFilesUrl('');
-        setIsFormSubmitted(true);
+    function onFilesSelect(event) {                               // uploading images to show the problem if needed
+        const newFiles = Object.values(event.target.files);
+        let newFilesUrl = newFiles.map(file => URL.createObjectURL(file));
+        setFiles(newFiles);
+        setFilesUrl(newFilesUrl);
     }
-    
+
     useEffect(() => {
         if (name && isEmailValid(email) && subject && request) {        // setting the form as valid - if all required fields filled & email is valid
             setIsFormValid(true);
@@ -53,6 +44,30 @@ const ContactUsPage = () => {
         }
     });
     
+    async function sendForm () {                                      // sending the form to site's DevTeam and cleaning the fields
+        let filesUrl ='';
+
+        await Promise.all(files.map(async file => {
+            const res = await addImage(file, 'fe0qzAHNtH');
+            filesUrl += (`  ${res.get('file')._url}`);
+        }));
+
+        emailjs.send("service_5cx738e","template_k3nemuh",{
+            from_name: name,
+            from_email: email,
+            topic: subject,
+            message: request,
+            file_links: filesUrl.toString(),
+        });
+
+        filesUrl.forEach(url => {URL.revokeObjectURL(url)});
+        setSubject('');
+        setRequest('');
+        setFiles('');
+        setFilesUrl('');
+        setIsFormSubmitted(true);
+    }
+    
     function onSwitchMode() {                                           // giving the users option to automatically fill their details
         if (!useUserInfo) {
             setName(`${activeUser.fname} ${activeUser.lname}`);
@@ -63,18 +78,6 @@ const ContactUsPage = () => {
             setEmail('');
             setUseUserInfo(!useUserInfo);
         }
-    }
-    
-    async function onFilesSelect(event) {                               // uploading images to show the problem if needed
-        setFiles(event.target.files);
-        const filesArr = Object.values(event.target.files);
-        let newFilesUrl = [];
-        await Promise.all(filesArr.map(async file => {
-            const res = await addImage(file, 'fe0qzAHNtH');
-            newFilesUrl.push(res.get('file')._url);
-            debugger
-        }));
-        setFilesUrl(newFilesUrl);
     }
 
     const filesAmount = files ? files.length : 0;
