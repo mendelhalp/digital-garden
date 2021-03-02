@@ -4,7 +4,7 @@ import updateDafKesherContent from '../../utils/updateDafKesherContent';
 
 
 const DafKesherEditorModal = (props) => {
-    const { dafKesherId, fullData, data, showModal, closeModal, cleanDataToEdit } = props;
+    const { dafKesherId, fullData, data, handleUpdate, showModal, closeModal, cleanDataToEdit } = props;
     const [headline, setHeadline] = useState();
     const [content, setContent] = useState();
     const [showError, setShowError] = useState(false);
@@ -31,14 +31,16 @@ const DafKesherEditorModal = (props) => {
             setShowError(true);
         } else if (typeof data !== 'object') {                  //if adding new content - push new content object
             let newData = { ...fullData };
-            newData[data].push({ headline: headline, content: content });
+            newData[data].push({ headline, content });
             updateDafKesherContent(dafKesherId, newData);
+            handleUpdate(data, newData[data]);
             close()
         } else {                                                //if editing existing content - saving the changes
             let newData = { ...fullData };
             newData[data.type][data.index].headline = headline;
             newData[data.type][data.index].content = content;
             updateDafKesherContent(dafKesherId, newData);
+            handleUpdate(data.type, newData[data.type]);
             close();
         }
     }

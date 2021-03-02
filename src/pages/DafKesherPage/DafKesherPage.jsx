@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 import ActiveGardenContext from '../../utils/ActiveGardenContext';
 
-function DafKesherPage({data}) {
+function DafKesherPage({data, onUpdate}) {
     const activeUser = useContext(ActiveUserContext);
     const activeGarden = useContext(ActiveGardenContext);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -32,8 +32,9 @@ function DafKesherPage({data}) {
         return <Redirect to="/" />
     }
     
-    const { name, logo } = data && activeGarden;
-    const { studyTopics, messages } = data && data.dapeyKesher[dafKesherId].data;
+    const { name, logo } = activeGarden;
+    const dafKesherData = data.dapeyKesher[dafKesherId].data;
+    const { studyTopics, messages } = dafKesherData;
     const {title, hebDate} = data.dapeyKesher[dafKesherId];
     
 
@@ -50,6 +51,14 @@ function DafKesherPage({data}) {
     function handleDeleteClick(contentToEdit) {
         setContentToEdit(contentToEdit);
         setShowDeleteAlert(true);
+    }
+
+    function handleUpdate(type, content) {
+        const updatedDafKesherData = {...dafKesherData};
+        updatedDafKesherData[type] = content;
+        const dapeyKesher = {...data.dapeyKesher};
+        dapeyKesher[dafKesherId].data = updatedDafKesherData;
+        onUpdate('dapeyKesher', dapeyKesher)
     }
 
     const topicsView = studyTopics ? Object.values(studyTopics).map( (topic, index) => 
@@ -110,10 +119,10 @@ function DafKesherPage({data}) {
                     </Col>
                 </Row>
             </Container>
-            <DafKesherEditorModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} cardType='dafKesher'
+            <DafKesherEditorModal dafKesherId={dafKesherId} fullData={dafKesherData} data={contentToEdit} cardType='dafKesher' handleUpdate={handleUpdate} 
                 showModal={showEditorModal} closeModal={() => setShowEditorModal(false)} cleanDataToEdit={() => { setContentToEdit('') }}/>
-            <DeleteWarningModal dafKesherId={dafKesherId} fullData={data} data={contentToEdit} objectType={contentToEdit.type === 'studyTopics' ? 'חומר לימודי' : 'הודעה'}
-                showModal={showDeleteAlert} closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setContentToEdit('') }} />
+            <DeleteWarningModal dafKesherId={dafKesherId} fullData={dafKesherData} data={contentToEdit} objectType={contentToEdit.type === 'studyTopics' ? 'חומר לימודי' : 'הודעה'}
+                showModal={showDeleteAlert} closeModal={() => setShowDeleteAlert(false)} cleanDataToEdit={() => { setContentToEdit('') }} handleUpdate={handleUpdate}/>
         </div>
     );
 }

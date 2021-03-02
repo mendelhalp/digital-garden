@@ -28,8 +28,11 @@ function DeleteWarningModal(props) {
             handleUpdate('delete', res);
             handleClose();
         } else if (objectType === 'חומר לימודי' || objectType === 'הודעה') {
-            fullData[data.type].splice(data.index, 1);
-            updateDafKesherContent(dafKesherId, fullData).then(() => {
+            const newData = {...fullData};
+            newData[data.type] = [...fullData[data.type]];
+            newData[data.type].splice(data.index, 1);
+            updateDafKesherContent(dafKesherId, newData).then(() => {
+                handleUpdate(data.type, newData[data.type]);
                 handleClose();
             })
         }
