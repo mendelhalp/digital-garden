@@ -84,6 +84,7 @@ function DafKesherPage({data, onUpdate}) {
     return (
         <div className='p-daf-kesher'>
             <Container>
+                <div className='bh'>ב"ה</div>
                 <Row className='mx-0 header'>
                     <Col sm={9}>
                         <div className='name'>{name}</div>
