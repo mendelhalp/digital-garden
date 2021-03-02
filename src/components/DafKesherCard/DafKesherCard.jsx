@@ -1,5 +1,5 @@
 import './DafKesherCard.css'
-import { Card } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -14,10 +14,14 @@ const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, activeUser}) =
                     <Card.Title className='text-center'>{title}</Card.Title>
                     <Card.Text className='text-center'>{hebDate}</Card.Text>
                 </Link>
-                {activeUser && activeUser.role === 'manager' && handleEdit &&
+                {activeUser && activeUser.role === 'manager' &&
                     <Card.Footer>
-                        <FontAwesomeIcon className='edit-icon' onClick={() => {handleEdit(dafKesher)}} icon={faEdit}/>
-                        <FontAwesomeIcon className='delete-icon' onClick={() => {handleDeleteClick(dafKesher)}} icon={faTrashAlt}/>
+                        <Col onClick={() => {handleEdit(dafKesher)}}>
+                            <FontAwesomeIcon icon={faEdit}/>
+                        </Col>
+                        <Col onClick={() => {handleDeleteClick(dafKesher)}}>
+                            <FontAwesomeIcon icon={faTrashAlt}/>
+                        </Col>
                     </Card.Footer>
                 }
             </Card>

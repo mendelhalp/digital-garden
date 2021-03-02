@@ -22,26 +22,25 @@
 }
 
 .c-gallery-card .card-footer{
-    display: none;
     padding: 3px 0;
-
-}
-.c-gallery-card:hover .card-footer{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+
+}
+.c-gallery-card .card-footer > div{
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+    margin: 0 10px;
 }
 
 .c-gallery-card .card-footer .fa-trash-alt{
-    margin: 2px;
     color: lightcoral;
-    cursor: pointer;
 }
 
 .c-gallery-card .card-footer .fa-edit{
-    margin: 2px;
     color: rgb(128, 240, 133);
-    cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

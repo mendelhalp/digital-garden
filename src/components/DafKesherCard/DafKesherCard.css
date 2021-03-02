@@ -24,14 +24,16 @@
 }
 
 .c-daf-kesher-card .card-footer{
-    display: none;
     padding: 3px 0;
-
-}
-.c-daf-kesher-card:hover .card-footer{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+.c-daf-kesher-card .card-footer > div{
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+    margin: 0 10px;
 }
 
 .c-daf-kesher-card .card-footer .fa-trash-alt{
