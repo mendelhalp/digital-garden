@@ -3,14 +3,17 @@
 }
 
 .c-image-card .card-footer{
-    display: none;
     padding: 3px 0;
-
-}
-.c-image-card:hover .card-footer{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    
+}
+.c-image-card .card-footer > div{
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+    margin: 0 10px;
 }
 
 .c-image-card .card-footer .fa-trash-alt{
