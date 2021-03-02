@@ -30,7 +30,7 @@ const MainCardEditorModal = (props) => {
             setTitle('');
             setDate('');
         }
-    }, [data]);
+    }, [data, cardType]);
     
     function close () {
         setTitle('');

@@ -42,7 +42,7 @@ const ContactUsPage = () => {
                 setIsFormValid(false);
             }
         }
-    });
+    },[name, email, subject, request, isFormValid]);
     
     async function sendForm () {                                      // sending the form to site's DevTeam and cleaning the fields
         let filesUrl ='';

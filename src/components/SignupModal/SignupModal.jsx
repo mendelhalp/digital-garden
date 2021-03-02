@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Spinner, Col, Modal, Alert, Row } from 'react-bootstrap';
 import ActiveUserContext from '../../utils/ActiveUserContext';
-import addImage from '../../utils/addImage';
-import deleteImage from '../../utils/deleteImage';
 import isEmailValid from '../../utils/isEmailValid';
 import { Redirect } from 'react-router-dom';
 import addGarden from '../../utils/addGarden';
@@ -61,7 +59,7 @@ const SignupModal = ({showModal, onLogin, handleCloseSignup}) => {
                 }
             }
         }
-    });
+    },[userFname, userLname, userEmail, userPwd, gardenName, gardenYear, parentsEmail, parentsFname]);
 
     async function login () {
         try {

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Button, Card, CardColumns, Form, Modal, Spinner } from 'react-bootstrap';
 import addImage from '../../utils/addImage';
-import deleteImage from '../../utils/deleteImage';
 import ImageModel from '../../model/ImageModel'
 
 function AddImageModal(props) {
