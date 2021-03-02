@@ -2,9 +2,9 @@ import './DafKesherCard.css'
 import { Card, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, activeUser}) => {
+const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, handleDuplicate, activeUser}) => {
     const { id, title, hebDate} = dafKesher;
 
     return (
@@ -16,6 +16,9 @@ const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, activeUser}) =
                 </Link>
                 {activeUser && activeUser.role === 'manager' &&
                     <Card.Footer>
+                        <Col onClick={() => {handleDuplicate(dafKesher)}}>
+                            <FontAwesomeIcon icon={faCopy}/>
+                        </Col>
                         <Col onClick={() => {handleEdit(dafKesher)}}>
                             <FontAwesomeIcon icon={faEdit}/>
                         </Col>

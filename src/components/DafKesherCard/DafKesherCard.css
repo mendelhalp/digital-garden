@@ -37,15 +37,15 @@
 }
 
 .c-daf-kesher-card .card-footer .fa-trash-alt{
-    margin: 2px;
     color: lightcoral;
-    cursor: pointer;
 }
 
 .c-daf-kesher-card .card-footer .fa-edit{
-    margin: 2px;
     color: rgb(128, 240, 133);
-    cursor: pointer;
+}
+
+.c-daf-kesher-card .card-footer .fa-copy{
+    color: rgb(240, 195, 128);
 }
 
 @media screen and (max-width: 991px) {

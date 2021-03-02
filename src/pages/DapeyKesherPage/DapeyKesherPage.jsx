@@ -8,6 +8,9 @@ import AddMainCard from '../../components/AddMainCard/AddMainCard';
 import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEditorModal';
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 import ActiveGardenContext from '../../utils/ActiveGardenContext';
+import createNewDafKesher from '../../utils/createNewDafKesher';
+import updateDafKesherContent from '../../utils/updateDafKesherContent';
+import DafKesherModel from '../../model/DafKesherModel';
 
 const DapeyKesherPage = ({data, onUpdate}) => {
     const activeUser = useContext(ActiveUserContext);
@@ -31,6 +34,15 @@ const DapeyKesherPage = ({data, onUpdate}) => {
         setShowDeleteAlert(true);
     }
 
+    async function handleDuplicate(dafKesher){
+        const res = await createNewDafKesher(activeGarden.parseGarden, dafKesher.title, dafKesher.date);
+        await updateDafKesherContent(res.id, dafKesher.data);
+
+        res.data = dafKesher.data;
+        const newDafKesher = new DafKesherModel(res);
+        handleUpdate('add', newDafKesher);
+    }
+
     function handleUpdate(action, content){
         const dapeyKesher = {...data.dapeyKesher};
         if (!(action === 'delete')) {
@@ -49,7 +61,8 @@ const DapeyKesherPage = ({data, onUpdate}) => {
 
     const dapeyKesherView = data ? Object.values(data.dapeyKesher).sort((a,b) => b.date - a.date).map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
-            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
+            <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} 
+                activeUser={activeUser} handleDuplicate={handleDuplicate}/>
         </Col>
     ) : null;
 
