@@ -8,6 +8,8 @@ import MainCardEditorModal from '../../components/MainCardEditorModal/MainCardEd
 import DeleteWarningModal from '../../components/DeleteWarningModal/DeleteWarningModal';
 import AddMainCard from '../../components/AddMainCard/AddMainCard';
 import ActiveGardenContext from '../../utils/ActiveGardenContext';
+import updateGalleryDetails from '../../utils/updateGalleryDetails';
+import GalleryModel from '../../model/GalleryModel';
 
 const GalleriesPage = ({data, onUpdate}) => {
     const activeUser = useContext(ActiveUserContext);
@@ -20,6 +22,12 @@ const GalleriesPage = ({data, onUpdate}) => {
         return <Redirect to="/"/>
     }
     
+    if (!activeGarden) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
+    }
+
     function handleEdit(gallery) {
         setGalleryToEdit(gallery);
         setShowMainCardEditorModal(true);
@@ -28,7 +36,15 @@ const GalleriesPage = ({data, onUpdate}) => {
     function handleDeleteClick(gallery) {
         setGalleryToEdit(gallery);
         setShowDeleteAlert(true);
-    }    
+    }
+
+    async function handlePublish(gallery){
+        const {id, title, isReady} = gallery;
+        const res = await updateGalleryDetails(id, title, !isReady);
+        const galleryToSend = new GalleryModel(res);
+        galleryToSend.images = gallery.images;
+        handleUpdate('update', galleryToSend);
+    }
 
     function handleUpdate(action, content){
         const galleries = {...data.galleries};
@@ -50,15 +66,10 @@ const GalleriesPage = ({data, onUpdate}) => {
         const id = gallery.id;
 
         return(<Col className='py-2' md={6} lg={3} key={id}>
-            <GalleryCard gallery={gallery} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} activeUser={activeUser}/>
+            <GalleryCard gallery={gallery} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} 
+                handlePublish={handlePublish} activeUser={activeUser}/>
         </Col>)        
     }) : null;
-
-    if (!activeGarden) {
-        return <div className='images-spinner row justify-content-center mt-3'>
-                    <Spinner animation="border" variant="warning" />
-                </div>
-    }
 
     return (
         <div className="p-galleries">

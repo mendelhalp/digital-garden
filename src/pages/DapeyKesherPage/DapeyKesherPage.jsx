@@ -11,6 +11,7 @@ import ActiveGardenContext from '../../utils/ActiveGardenContext';
 import createNewDafKesher from '../../utils/createNewDafKesher';
 import updateDafKesherContent from '../../utils/updateDafKesherContent';
 import DafKesherModel from '../../model/DafKesherModel';
+import updateDafKesherDetails from '../../utils/updateDafKesherDetails';
 
 const DapeyKesherPage = ({data, onUpdate}) => {
     const activeUser = useContext(ActiveUserContext);
@@ -22,6 +23,12 @@ const DapeyKesherPage = ({data, onUpdate}) => {
 
     if (!activeUser) {
         return <Redirect to="/" />
+    }
+
+    if (!activeGarden) {
+        return <div className='images-spinner row justify-content-center mt-3'>
+                    <Spinner animation="border" variant="warning" />
+                </div>
     }
 
     function handleEdit(dafKesher) {
@@ -43,6 +50,12 @@ const DapeyKesherPage = ({data, onUpdate}) => {
         handleUpdate('add', newDafKesher);
     }
 
+    async function handlePublish(dafKesher){
+        const {id, title, date, isReady} = dafKesher;
+        const res = await updateDafKesherDetails(id, title, date, !isReady);
+        handleUpdate('update', new DafKesherModel(res));
+    }
+
     function handleUpdate(action, content){
         const dapeyKesher = {...data.dapeyKesher};
         if (!(action === 'delete')) {
@@ -62,15 +75,9 @@ const DapeyKesherPage = ({data, onUpdate}) => {
     const dapeyKesherView = data ? Object.values(data.dapeyKesher).sort((a,b) => b.date - a.date).map(dafKesher =>
         <Col className='py-2' md={6} lg={3} key={dafKesher.id}>
             <DafKesherCard dafKesher={dafKesher} handleEdit={handleEdit} handleDeleteClick={handleDeleteClick} 
-                activeUser={activeUser} handleDuplicate={handleDuplicate}/>
+                activeUser={activeUser} handleDuplicate={handleDuplicate} handlePublish={handlePublish}/>
         </Col>
     ) : null;
-
-    if (!activeGarden) {
-        return <div className='images-spinner row justify-content-center mt-3'>
-                    <Spinner animation="border" variant="warning" />
-                </div>
-    }
 
     return (
         <div className="p-dapey-kesher">

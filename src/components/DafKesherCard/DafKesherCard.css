@@ -27,13 +27,23 @@
     padding: 3px 0;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
-.c-daf-kesher-card .card-footer > div{
-    cursor: pointer;
+
+.c-daf-kesher-card .card-footer > .col{
     text-align: center;
     padding: 0;
-    margin: 0 10px;
+    margin: 0 7px;
+}
+
+.c-daf-kesher-card .card-footer > .col:last-of-type{
+    display: flex;
+    flex-wrap: wrap;
+}
+.c-daf-kesher-card .card-footer > .col:last-of-type > div{
+    padding: 0;
+    cursor: pointer;
+    margin: 0 4px;
 }
 
 .c-daf-kesher-card .card-footer .fa-trash-alt{
@@ -48,8 +58,13 @@
     color: rgb(240, 195, 128);
 }
 
+.c-daf-kesher-card .card-footer .custom-switch .custom-control-label{
+    cursor: pointer;
+    text-align: right;
+}
+
 @media screen and (max-width: 991px) {
     .c-daf-kesher-card:hover{
-        transform: unset;
+        transform: scale(1.02);
     }
 }

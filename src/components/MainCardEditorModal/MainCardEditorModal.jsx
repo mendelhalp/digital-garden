@@ -50,7 +50,7 @@ const MainCardEditorModal = (props) => {
                 if (!data) {                                 //if adding new content - creating new row in the database
                     dafKesher = await createNewDafKesher(activeGarden.parseGarden, title, date);
                 } else {                                            //if updating existing content - updating the data in the database
-                    dafKesher = await updateDafKesherDetails(data.id, title, date);
+                    dafKesher = await updateDafKesherDetails(data.id, title, date, data.isReady);
                 }
                 handleUpdate(action, new DafKesherModel(dafKesher));
                 close();

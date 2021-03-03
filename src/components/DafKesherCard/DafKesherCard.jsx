@@ -1,11 +1,11 @@
 import './DafKesherCard.css'
-import { Card, Col } from 'react-bootstrap';
+import { Card, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, handleDuplicate, activeUser}) => {
-    const { id, title, hebDate} = dafKesher;
+const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, handleDuplicate, handlePublish, activeUser}) => {
+    const { id, title, isReady, hebDate} = dafKesher;
 
     return (
         <div className='c-daf-kesher-card'>
@@ -16,14 +16,20 @@ const DafKesherCard = ({dafKesher, handleEdit, handleDeleteClick, handleDuplicat
                 </Link>
                 {activeUser && activeUser.role === 'manager' &&
                     <Card.Footer>
-                        <Col onClick={() => {handleDuplicate(dafKesher)}}>
-                            <FontAwesomeIcon icon={faCopy}/>
+                        <Col>
+                            <Form.Check type='switch' variant='warning' id={`dafKesherStatus${id}`} label={isReady ? 'גלוי' : 'טיוטה'} 
+                                checked={isReady} onChange={() => handlePublish(dafKesher)} />
                         </Col>
-                        <Col onClick={() => {handleEdit(dafKesher)}}>
-                            <FontAwesomeIcon icon={faEdit}/>
-                        </Col>
-                        <Col onClick={() => {handleDeleteClick(dafKesher)}}>
-                            <FontAwesomeIcon icon={faTrashAlt}/>
+                        <Col>
+                            <Col onClick={() => {handleDuplicate(dafKesher)}}>
+                                <FontAwesomeIcon icon={faCopy}/>
+                            </Col>
+                            <Col onClick={() => {handleEdit(dafKesher)}}>
+                                <FontAwesomeIcon icon={faEdit}/>
+                            </Col>
+                            <Col onClick={() => {handleDeleteClick(dafKesher)}}>
+                                <FontAwesomeIcon icon={faTrashAlt}/>
+                            </Col>
                         </Col>
                     </Card.Footer>
                 }

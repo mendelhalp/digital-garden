@@ -68,3 +68,7 @@
     color: #f8902f;
     text-decoration: none;
 }
+
+.p-my-gan .c-daf-kesher-card .card-footer, .p-my-gan .c-gallery-card .card-footer{
+    display: none;
+}

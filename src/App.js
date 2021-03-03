@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     async function getGarden(){
       const garden = await getGardenDetails(activeUser);
-      const data = await getGardenData(garden.parseGarden);
+      const data = await getGardenData(garden.parseGarden, activeUser.role);
       setActiveGarden(garden);
       setGardenData(data);
       
