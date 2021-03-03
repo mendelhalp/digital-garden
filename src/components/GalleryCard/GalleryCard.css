@@ -51,9 +51,11 @@
     color: rgb(128, 240, 133);
 }
 
+.c-gallery-card .card-footer .custom-switch{
+    text-align: right;
+}
 .c-gallery-card .card-footer .custom-switch .custom-control-label{
     cursor: pointer;
-    text-align: right;
 }
 
 @media screen and (max-width: 767px) {
