@@ -60,6 +60,8 @@
 
 .c-daf-kesher-card .card-footer .custom-switch .custom-control-label{
     cursor: pointer;
+}
+.c-daf-kesher-card .card-footer .custom-switch{
     text-align: right;
 }
 
