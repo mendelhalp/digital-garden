@@ -87,8 +87,7 @@
     }
 
     .p-daf-kesher .printbtn{
-        width: 100%;
-        margin-bottom: 15px;
+        display: none;
     }
 }
 
