@@ -32,6 +32,11 @@
     height: auto;
 }
 
+.p-daf-kesher .printbtn{
+    margin-bottom: 10px;
+    font-weight: bold;
+    box-shadow: 1px 1px 9px -5px #000;
+}
 
 .p-daf-kesher div.row:not(.header) .card:not(.c-message-box){
     box-shadow: 1px 1px 9px -5px #000;
@@ -80,4 +85,17 @@
     .p-daf-kesher .bh{
         float: none;
     }
+
+    .p-daf-kesher .printbtn{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media print {
+    
+    .p-daf-kesher .svg-inline--fa.edit-icon, .p-daf-kesher div[class^='c-add'], .p-daf-kesher .printbtn{
+        display: none;
+    }
+
 }

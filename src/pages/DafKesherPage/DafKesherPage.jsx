@@ -1,6 +1,6 @@
 import './DafKesherPage.css'
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Redirect, useParams } from 'react-router-dom';
 import StudyTopicBox from '../../components/StudyTopicBox/StudyTopicBox';
 import ActiveUserContext from '../../utils/ActiveUserContext';
@@ -95,6 +95,7 @@ function DafKesherPage({data, onUpdate}) {
                         <div className='logo'><img src={logo} alt="logo"/></div>
                     </Col>
                 </Row>
+                <Button className='printbtn' variant="warning" onClick={() => window.print()}>הדפסה</Button>
                 <Row>
                     <Col md={8} className='mb-3'>
                         <Card>
