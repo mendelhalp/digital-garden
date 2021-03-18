@@ -5,13 +5,15 @@ async function getGardenDetails(activeUser) {
     const ganName = parseGan.get('name');
     const ganLogo = parseGan.get('logo')._url;
     const ganYear = parseGan.get('year');
+    const ganSignature = parseGan.get('signature');
 
     const gardenDetails = {
         'parseGarden':parseGan,
         'id':parseGan.id,
         'name':ganName,
         'logo':ganLogo,
-        'year':ganYear
+        'year':ganYear,
+        'signature':ganSignature
     }
     return (gardenDetails);
 }

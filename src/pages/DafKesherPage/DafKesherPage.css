@@ -68,7 +68,13 @@
     margin: 0 7px;
 }
 
-
+.p-daf-kesher .signature{
+    margin: 10px 0;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
+    
+}
 
 
 
@@ -89,6 +95,11 @@
     .p-daf-kesher .printbtn{
         display: none;
     }
+
+    .p-daf-kesher .signature{
+        text-align: center;
+    }
+
 }
 
 @media print {

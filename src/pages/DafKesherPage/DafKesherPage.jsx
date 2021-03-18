@@ -32,7 +32,7 @@ function DafKesherPage({data, onUpdate}) {
         return <Redirect to="/" />
     }
     
-    const { name, logo } = activeGarden;
+    const { name, logo, signature } = activeGarden;
     const dafKesherData = data.dapeyKesher[dafKesherId].data;
     const { studyTopics, messages } = dafKesherData;
     const {title, hebDate} = data.dapeyKesher[dafKesherId];
@@ -119,6 +119,9 @@ function DafKesherPage({data, onUpdate}) {
                             {addMessage}
                         </Card>
                     </Col>
+                </Row>
+                <Row>
+                    <Col className='signature'>{signature}</Col>
                 </Row>
             </Container>
             <DafKesherEditorModal dafKesherId={dafKesherId} fullData={dafKesherData} data={contentToEdit} cardType='dafKesher' handleUpdate={handleUpdate} 
