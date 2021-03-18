@@ -36,11 +36,9 @@ function getHebrewYearName(yearNum) {
 }
 
 function getHebrewMonthName(monthNum, yearNum) {
-    // setting array of hebrew months names for normal and leap year
-    const monthNamesOfNormalYear = ['תשרי', 'חשון', 'כסלו', 'טבת', 'שבט', 'אדר', 'ניסן', 'אייר', 'סיון', 'תמוז', 'אב', 'אלול'];
-    const monthNamesOfLeapYear = ['תשרי', 'חשון', 'כסלו', 'טבת', 'שבט', 'אדר א', 'אדר ב', 'ניסן', 'אייר', 'סיון', 'תמוז', 'אב', 'אלול'];
-    const monthName = isLeapYear(yearNum) ? monthNamesOfLeapYear[monthNum -1] : monthNamesOfNormalYear[monthNum -1];
-
+    // setting array of hebrew months names
+    const monthNames = ['תשרי', 'חשון', 'כסלו', 'טבת', 'שבט', "אדר א'", "אדר ב'", 'ניסן', 'אייר', 'סיון', 'תמוז', 'אב', 'אלול'];
+    const monthName = !isLeapYear(yearNum) && monthNum === 6 ? 'אדר' : monthNames[monthNum -1];
     return monthName;
 }
 
